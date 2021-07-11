@@ -1,0 +1,69 @@
+[gd_scene format=2]
+
+[node name="Editor" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main Window" type="VSplitContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+dragger_visibility = 2
+
+[node name="Editor" type="HSplitContainer" parent="PanelContainer/Main Window"]
+margin_right = 1010.0
+margin_bottom = 586.0
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer/Main Window/Editor"]
+margin_right = 230.0
+margin_bottom = 586.0
+rect_min_size = Vector2( 230, 0 )
+tab_align = 0
+drag_to_rearrange_enabled = true
+
+[node name="Nodes" type="VBoxContainer" parent="PanelContainer/Main Window/Editor/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 36.0
+margin_bottom = -514.0
+
+[node name="Variables" type="VBoxContainer" parent="PanelContainer/Main Window/Editor/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 36.0
+margin_bottom = -514.0
+
+[node name="Graph" type="TabContainer" parent="PanelContainer/Main Window/Editor"]
+margin_left = 242.0
+margin_right = 1010.0
+margin_bottom = 586.0
+rect_min_size = Vector2( 600, 0 )
+tab_align = 0
+drag_to_rearrange_enabled = true
+
+[node name="GraphEdit" type="GraphEdit" parent="PanelContainer/Main Window/Editor/Graph"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+right_disconnects = true
+scroll_offset = Vector2( -239, -5 )
