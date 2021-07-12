@@ -1,20 +1,17 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="Editor" type="Control"]
+[sub_resource type="Theme" id=1]
+
+[node name="PanelContainer" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Main Window" type="VSplitContainer" parent="PanelContainer"]
+[node name="Main Window" type="VSplitContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1017.0
@@ -23,34 +20,41 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 dragger_visibility = 2
 
-[node name="Editor" type="HSplitContainer" parent="PanelContainer/Main Window"]
+[node name="Editor" type="HSplitContainer" parent="Main Window"]
 margin_right = 1010.0
 margin_bottom = 586.0
 
-[node name="TabContainer" type="TabContainer" parent="PanelContainer/Main Window/Editor"]
+[node name="TabContainer" type="TabContainer" parent="Main Window/Editor"]
 margin_right = 230.0
 margin_bottom = 586.0
 rect_min_size = Vector2( 230, 0 )
+theme = SubResource( 1 )
 tab_align = 0
 drag_to_rearrange_enabled = true
 
-[node name="Nodes" type="VBoxContainer" parent="PanelContainer/Main Window/Editor/TabContainer"]
+[node name="Conversations" type="VBoxContainer" parent="Main Window/Editor/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
-margin_right = 36.0
-margin_bottom = -514.0
+margin_right = -4.0
+margin_bottom = -4.0
 
-[node name="Variables" type="VBoxContainer" parent="PanelContainer/Main Window/Editor/TabContainer"]
+[node name="Nodes" type="VBoxContainer" parent="Main Window/Editor/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
-margin_right = 36.0
-margin_bottom = -514.0
+margin_right = -4.0
+margin_bottom = -4.0
 
-[node name="Graph" type="TabContainer" parent="PanelContainer/Main Window/Editor"]
+[node name="Label" type="Label" parent="Main Window/Editor/TabContainer/Nodes"]
+margin_right = 222.0
+margin_bottom = 14.0
+text = "Shiiiet"
+
+[node name="Graph" type="TabContainer" parent="Main Window/Editor"]
 margin_left = 242.0
 margin_right = 1010.0
 margin_bottom = 586.0
@@ -58,12 +62,21 @@ rect_min_size = Vector2( 600, 0 )
 tab_align = 0
 drag_to_rearrange_enabled = true
 
-[node name="GraphEdit" type="GraphEdit" parent="PanelContainer/Main Window/Editor/Graph"]
+[node name="GraphEdit" type="GraphEdit" parent="Main Window/Editor/Graph"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 right_disconnects = true
-scroll_offset = Vector2( -239, -5 )
+scroll_offset = Vector2( -760, -550 )
+
+[node name="Variables" type="VBoxContainer" parent="Main Window/Editor/Graph"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -238.0
+margin_top = 32.0
+margin_right = -246.0
+margin_bottom = -4.0
