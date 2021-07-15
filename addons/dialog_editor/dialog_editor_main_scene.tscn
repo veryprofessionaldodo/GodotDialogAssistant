@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/dialog_editor/scripts/test.gd" type="Script" id=1]
 
 [sub_resource type="Theme" id=1]
 
@@ -62,7 +64,36 @@ rect_min_size = Vector2( 600, 0 )
 tab_align = 0
 drag_to_rearrange_enabled = true
 
+[node name="Settings" type="HSplitContainer" parent="Main Window/Editor/Graph"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="SettingsName" type="VBoxContainer" parent="Main Window/Editor/Graph/Settings"]
+margin_right = 134.0
+margin_bottom = 550.0
+
+[node name="Label" type="Label" parent="Main Window/Editor/Graph/Settings/SettingsName"]
+margin_right = 134.0
+margin_bottom = 14.0
+text = "Save Assets Location"
+
+[node name="SettingsValue" type="VBoxContainer" parent="Main Window/Editor/Graph/Settings"]
+margin_left = 146.0
+margin_right = 760.0
+margin_bottom = 550.0
+
+[node name="Button" type="Button" parent="Main Window/Editor/Graph/Settings/SettingsValue"]
+margin_right = 614.0
+margin_bottom = 20.0
+text = "Opah, what am i doing"
+script = ExtResource( 1 )
+
 [node name="GraphEdit" type="GraphEdit" parent="Main Window/Editor/Graph"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -70,13 +101,12 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 right_disconnects = true
-scroll_offset = Vector2( -760, -550 )
 
 [node name="Variables" type="VBoxContainer" parent="Main Window/Editor/Graph"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -238.0
+margin_left = 4.0
 margin_top = 32.0
-margin_right = -246.0
+margin_right = -4.0
 margin_bottom = -4.0
