@@ -11,18 +11,6 @@ func _enter_tree():
 	get_editor_interface().get_editor_viewport().add_child(main_panel_instance)
 	# Hide the main panel. Very much required.
 	make_visible(false)
-	print("fosgasse")
-	ProjectSettings.set("addons/teste", 0)
-
-	var property_info = {
-		"name": "addons/teste",
-		"type": TYPE_INT,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "one,two,three"
-	}
-
-	ProjectSettings.add_property_info(property_info)
-	print(ProjectSettings)
 
 func _exit_tree():
 	if main_panel_instance:
@@ -34,7 +22,6 @@ func has_main_screen():
 func make_visible(visible):
 	if main_panel_instance:
 		main_panel_instance.visible = visible
-
 
 func get_plugin_name():
 	return "Dialog Editor"
