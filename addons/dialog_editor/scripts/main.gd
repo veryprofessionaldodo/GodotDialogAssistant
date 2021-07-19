@@ -9,9 +9,7 @@ func _ready():
 
 # initialize the process to store the setting
 func initial_prompt_for_settings():
-	$"Modals/AcceptDialog".popup_centered()
-
-# 
+	$"Modals/RequestAssetFolderDialog".popup_centered()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

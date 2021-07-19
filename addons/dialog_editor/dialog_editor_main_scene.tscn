@@ -36,7 +36,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AcceptDialog" type="AcceptDialog" parent="Modals"]
+[node name="RequestAssetFolderDialog" type="AcceptDialog" parent="Modals"]
 margin_left = 231.0
 margin_top = 271.0
 margin_right = 793.0
@@ -65,7 +65,7 @@ theme = SubResource( 1 )
 tab_align = 0
 drag_to_rearrange_enabled = true
 
-[node name="Conversations" type="ItemList" parent="Main Window/Editor/TabContainer"]
+[node name="Conversations" type="VBoxContainer" parent="Main Window/Editor/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -74,8 +74,8 @@ margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 1 )
 
-[node name="Button" type="Button" parent="Main Window/Editor/TabContainer/Conversations"]
-margin_right = 12.0
+[node name="Add Conversation" type="Button" parent="Main Window/Editor/TabContainer/Conversations"]
+margin_right = 222.0
 margin_bottom = 20.0
 text = "Add new Conversation"
 __meta__ = {
@@ -135,4 +135,4 @@ margin_bottom = -4.0
 right_disconnects = true
 
 [connection signal="confirmed" from="Modals/ChangeAssetsLocation" to="Modals/ChangeAssetsLocation" method="_on_confirmed"]
-[connection signal="confirmed" from="Modals/AcceptDialog" to="Modals/ChangeAssetsLocation" method="_on_AcceptDialog_confirmed"]
+[connection signal="confirmed" from="Modals/RequestAssetFolderDialog" to="Modals/ChangeAssetsLocation" method="_on_AcceptDialog_confirmed"]
