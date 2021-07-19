@@ -104,7 +104,18 @@ rect_min_size = Vector2( 600, 0 )
 tab_align = 0
 drag_to_rearrange_enabled = true
 
+[node name="Node Graph" type="GraphEdit" parent="Main Window/Editor/Graph"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+right_disconnects = true
+scroll_offset = Vector2( -4, -24 )
+
 [node name="Variables" type="HSplitContainer" parent="Main Window/Editor/Graph"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -113,26 +124,6 @@ margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 4 )
 
-[node name="Button" type="Button" parent="Main Window/Editor/Graph/Variables"]
-margin_right = 45.0
-margin_bottom = 550.0
-text = "Vivas"
-
-[node name="Button2" type="Button" parent="Main Window/Editor/Graph/Variables"]
-margin_left = 57.0
-margin_right = 760.0
-margin_bottom = 550.0
-text = "mequie"
-
-[node name="Node Graph" type="GraphEdit" parent="Main Window/Editor/Graph"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-right_disconnects = true
-
 [connection signal="confirmed" from="Modals/ChangeAssetsLocation" to="Modals/ChangeAssetsLocation" method="_on_confirmed"]
 [connection signal="confirmed" from="Modals/RequestAssetFolderDialog" to="Modals/ChangeAssetsLocation" method="_on_AcceptDialog_confirmed"]
+[connection signal="pressed" from="Main Window/Editor/TabContainer/Conversations/Add Conversation" to="Main Window/Editor/TabContainer/Conversations" method="add_conversation"]
