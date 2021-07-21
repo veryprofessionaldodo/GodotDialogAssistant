@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/dialog_editor/scripts/conversations_tab.gd" type="Script" id=1]
 [ext_resource path="res://addons/dialog_editor/scripts/main.gd" type="Script" id=2]
 [ext_resource path="res://addons/dialog_editor/scripts/assets_location.gd" type="Script" id=3]
 [ext_resource path="res://addons/dialog_editor/scripts/variables.gd" type="Script" id=4]
+[ext_resource path="res://addons/dialog_editor/scripts/nodes_tab.gd" type="Script" id=5]
+[ext_resource path="res://addons/dialog_editor/scripts/node_graph.gd" type="Script" id=6]
 
 [sub_resource type="Theme" id=1]
 
@@ -64,7 +66,7 @@ dragger_visibility = 2
 margin_right = 1010.0
 margin_bottom = 586.0
 
-[node name="TabContainer" type="TabContainer" parent="Main Window/Editor"]
+[node name="Tabs" type="TabContainer" parent="Main Window/Editor"]
 margin_right = 230.0
 margin_bottom = 586.0
 rect_min_size = Vector2( 230, 0 )
@@ -72,7 +74,7 @@ theme = SubResource( 1 )
 tab_align = 0
 drag_to_rearrange_enabled = true
 
-[node name="Conversations" type="VBoxContainer" parent="Main Window/Editor/TabContainer"]
+[node name="Conversations" type="VBoxContainer" parent="Main Window/Editor/Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -81,7 +83,7 @@ margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 1 )
 
-[node name="Add Conversation" type="Button" parent="Main Window/Editor/TabContainer/Conversations"]
+[node name="Add Conversation" type="Button" parent="Main Window/Editor/Tabs/Conversations"]
 margin_right = 222.0
 margin_bottom = 20.0
 text = "Add new Conversation"
@@ -89,7 +91,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Nodes" type="VBoxContainer" parent="Main Window/Editor/TabContainer"]
+[node name="Nodes" type="VBoxContainer" parent="Main Window/Editor/Tabs"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -97,11 +99,18 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+script = ExtResource( 5 )
 
-[node name="Label" type="Label" parent="Main Window/Editor/TabContainer/Nodes"]
+[node name="Label" type="Label" parent="Main Window/Editor/Tabs/Nodes"]
 margin_right = 222.0
 margin_bottom = 14.0
 text = "Dialog Nodes"
+
+[node name="Button" type="Button" parent="Main Window/Editor/Tabs/Nodes"]
+margin_top = 18.0
+margin_right = 222.0
+margin_bottom = 38.0
+text = "this is a test button"
 
 [node name="Graph" type="TabContainer" parent="Main Window/Editor"]
 margin_left = 242.0
@@ -119,6 +128,8 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 right_disconnects = true
+scroll_offset = Vector2( -8, 0 )
+script = ExtResource( 6 )
 
 [node name="Variables" type="HSplitContainer" parent="Main Window/Editor/Graph"]
 visible = false
@@ -132,5 +143,6 @@ script = ExtResource( 4 )
 
 [connection signal="confirmed" from="Modals/ChangeAssetsLocation" to="Modals/ChangeAssetsLocation" method="_on_confirmed"]
 [connection signal="confirmed" from="Modals/RequestAssetFolderDialog" to="Modals/ChangeAssetsLocation" method="_on_AcceptDialog_confirmed"]
-[connection signal="confirmed" from="Modals/DeleteConversation" to="Main Window/Editor/TabContainer/Conversations" method="delete_conversation"]
-[connection signal="pressed" from="Main Window/Editor/TabContainer/Conversations/Add Conversation" to="Main Window/Editor/TabContainer/Conversations" method="add_conversation"]
+[connection signal="confirmed" from="Modals/DeleteConversation" to="Main Window/Editor/Tabs/Conversations" method="delete_conversation"]
+[connection signal="pressed" from="Main Window/Editor/Tabs/Conversations/Add Conversation" to="Main Window/Editor/Tabs/Conversations" method="add_conversation"]
+[connection signal="pressed" from="Main Window/Editor/Tabs/Nodes/Button" to="Main Window/Editor/Tabs/Nodes" method="add_dialogue_node"]

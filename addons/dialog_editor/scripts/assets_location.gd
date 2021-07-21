@@ -38,24 +38,24 @@ func populate_folder():
 	if directory.open(asset_folder) == OK:
 		# create base files to populate folders
 		directory.make_dir(asset_folder + "/conversations")
-		file.open(asset_folder + "/conversations/conversation_1.tres", File.WRITE)
+		file.open(asset_folder + "/conversations/conversation_1.json", File.WRITE)
 		file.store_line("{}")
 		file.close()
 		
 		directory.make_dir(asset_folder + "/variables")
-		file.open(asset_folder + "/variables/lines.tres", File.WRITE)
+		file.open(asset_folder + "/variables/lines.json", File.WRITE)
 		file.store_line("{}")
 		file.close()
-		file.open(asset_folder + "/variables/events.tres", File.WRITE)
+		file.open(asset_folder + "/variables/events.json", File.WRITE)
 		file.store_line("{}")
 		file.close()
-		file.open(asset_folder + "/variables/statistics.tres", File.WRITE)
+		file.open(asset_folder + "/variables/statistics.json", File.WRITE)
 		file.store_line("{}")
 		file.close()
 
 	# create final script json
 	
-	file.open(asset_folder + "/script.tres", File.WRITE)
+	file.open(asset_folder + "/script.json", File.WRITE)
 	file.store_line("{}")
 	file.close()
 	

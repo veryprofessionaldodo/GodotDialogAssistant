@@ -2,22 +2,25 @@ tool
 extends VBoxContainer
 
 var setting_name = "addons/Dialog Assets Folder"
-var delete_modal = null
 var conversations_folder = ""
+var delete_modal = null
+var graph_node = null
 var file_names = []
 
 var button_being_edited = null
 var container_being_edited = null
 var line_edit_being_edited = null
 var conversation_being_deleted = null
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
+	
+func set_delete_modal(node):
+	delete_modal = node;
+	
+func set_graph_node(node):
+	graph_node = node;
 	initial_setup()
 	
 # initial setup of entire tab
-func initial_setup():	
-	delete_modal = get_node("/root/Mount/Modals/DeleteConversation")
+func initial_setup():
 	# get informations	
 	if ProjectSettings.has_setting(setting_name):
 		conversations_folder = ProjectSettings.get_setting(setting_name) + "/conversations/"
@@ -38,7 +41,7 @@ func get_all_files():
 		var file = dir.get_next()
 		if file == "":
 			break
-		elif not file.begins_with(".") and file.ends_with(".tres"):
+		elif not file.begins_with(".") and file.ends_with(".json"):
 			file_names.append(file)
 
 	dir.list_dir_end()
@@ -57,13 +60,14 @@ func insert_button(name):
 	
 	# create the conversation button
 	var conversation_button = Button.new()
-	conversation_button.text = name.replace(".tres", "")
+	conversation_button.text = name.replace(".json", "")
 	conversation_button.flat = true
 	conversation_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	conversation_container.add_child(conversation_button)
 	
 	# link the signal to handle input to here
 	conversation_button.connect("gui_input", self, "handle_button_input", [conversation_button])
+	conversation_button.connect("pressed", graph_node, "load_conversation", [conversation_button])
 	
 	# create the conversation delete button
 	var delete_button = Button.new()
@@ -92,7 +96,7 @@ func delete_conversation():
 
 # deletes file from conversation
 func delete_file(text_id):
-	var path = conversations_folder + text_id + ".tres"
+	var path = conversations_folder + text_id + ".json"
 	var directory = Directory.new()
 	directory.remove(path)
 	
@@ -103,7 +107,7 @@ func handle_button_input(event, button):
 	
 	if event.doubleclick:
 		if button_being_edited != null:
-			button_being_edited.visible = true
+			container_being_edited.visible = true
 			line_edit_being_edited.visible = false
 		
 		line_edit_being_edited = get_respective_node(button.text, LineEdit)
@@ -131,12 +135,11 @@ func get_respective_node(name, type):
 # called when the user clicks on enter when editing the name
 func insert_line_edit(name):
 	var line_edit = LineEdit.new()
-	line_edit.text = name.replace(".tres", "")
+	line_edit.text = name.replace(".json", "")
 	line_edit.visible = false
 	add_child(line_edit)
 	
 	line_edit.connect("text_entered", self, "line_edit_updated")
-	line_edit.connect("text_changed", self, "update_button_text")
 	line_edit.connect("text_change_rejected", self, "rejected_line_edit")
 
 func rejected_line_edit(): 
@@ -147,14 +150,11 @@ func rejected_line_edit():
 	button_being_edited = null
 	container_being_edited = null
 
-func update_button_text(text):
-	if ".tres" in text:
-		line_edit_being_edited.text = text.replace(".tres", "")
-
-func line_edit_updated(text):
+func line_edit_updated(raw_text):
+	var text = raw_text.replace(".json","").replace("/","")
 	# the old path is stored in the name of the button, the first children of the container
-	var old_path = conversations_folder + container_being_edited.get_children()[0].text + ".tres"
-	var new_path = conversations_folder + text + ".tres"
+	var old_path = conversations_folder + container_being_edited.get_children()[0].text + ".json"
+	var new_path = conversations_folder + text + ".json"
 	
 	# check if file already exists with that name 
 	var dir = Directory.new()
@@ -202,6 +202,6 @@ func add_conversation():
 func create_file(name): 
 	var file = File.new()
 
-	file.open(conversations_folder + name + ".tres", File.WRITE)
+	file.open(conversations_folder + name + ".json", File.WRITE)
 	file.store_line("{}")
 	file.close()
