@@ -15,7 +15,7 @@ config_version=4
 [application]
 
 config/name="GodotDialogAssistant"
-config/description="Opah, isto muda sequer?"
+config/description="Plugin to assist with game creation."
 run/main_scene="res://addons/dialog_editor/dialog_editor_main_scene.tscn"
 config/icon="res://icon.png"
 

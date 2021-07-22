@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="RequestAssetFolderDialog" type="AcceptDialog"]
+margin_left = 231.0
+margin_top = 271.0
+margin_right = 793.0
+margin_bottom = 329.0
+popup_exclusive = true
+dialog_text = "No setting detected for the assets folder, please select the folder in the next prompt."

@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/dialog_editor/scripts/dialogue_node_behaviour.gd" type="Script" id=1]
+
+[node name="DialogueNode" type="GraphNode"]
+margin_right = 199.0
+margin_bottom = 96.0
+title = "Dialogue"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lines" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 183.0
+margin_bottom = 24.0
+
+[node name="AddButton" type="Button" parent="."]
+margin_left = 16.0
+margin_top = 25.0
+margin_right = 183.0
+margin_bottom = 45.0
+text = "+"
+flat = true
+
+[connection signal="pressed" from="AddButton" to="." method="new_line_dialogue_node"]

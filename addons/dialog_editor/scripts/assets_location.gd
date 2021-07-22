@@ -24,7 +24,7 @@ func _on_confirmed():
 	populate_folder()
 
 # initial dialog has been accepted, show file dialog
-func _on_AcceptDialog_confirmed():
+func display_dialog():
 	popup_centered()
 
 # populate folder with the correct files 

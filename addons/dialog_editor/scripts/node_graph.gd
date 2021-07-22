@@ -22,3 +22,7 @@ func load_conversation(node):
 	
 func setup_graph():
 	print("setting up ", current_conversation)
+	reset_graph()
+	
+func reset_graph():
+	pass

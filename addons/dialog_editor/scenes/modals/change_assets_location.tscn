@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/dialog_editor/scripts/assets_location.gd" type="Script" id=1]
+
+[node name="ChangeAssetsLocation" type="FileDialog"]
+margin_left = 244.843
+margin_top = 215.77
+margin_right = 858.843
+margin_bottom = 615.77
+rect_min_size = Vector2( 200, 400 )
+popup_exclusive = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]

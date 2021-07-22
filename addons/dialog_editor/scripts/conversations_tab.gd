@@ -3,6 +3,7 @@ extends VBoxContainer
 
 var setting_name = "addons/Dialog Assets Folder"
 var conversations_folder = ""
+var delete_scene = preload("res://addons/dialog_editor/scenes/modals/delete_conversation.tscn")
 var delete_modal = null
 var graph_node = null
 var file_names = []
@@ -11,16 +12,16 @@ var button_being_edited = null
 var container_being_edited = null
 var line_edit_being_edited = null
 var conversation_being_deleted = null
-	
-func set_delete_modal(node):
-	delete_modal = node;
-	
+
 func set_graph_node(node):
 	graph_node = node;
 	initial_setup()
 	
 # initial setup of entire tab
 func initial_setup():
+	delete_modal = delete_scene.instance()
+	delete_modal.connect("confirmed", self, "delete_conversation")
+
 	# get informations	
 	if ProjectSettings.has_setting(setting_name):
 		conversations_folder = ProjectSettings.get_setting(setting_name) + "/conversations/"
@@ -79,6 +80,7 @@ func insert_button(name):
 
 # initialize the process to store the setting
 func prompt_to_delete(conversation_button):
+	get_node("/root").add_child(delete_modal)
 	conversation_being_deleted = conversation_button
 	
 	delete_modal.popup_centered()

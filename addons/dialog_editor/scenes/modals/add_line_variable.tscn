@@ -1,0 +1,16 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WindowDialog" type="WindowDialog" parent="."]
+visible = true
+margin_right = 48.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="WindowDialog"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "This is the prompt to create a new line"

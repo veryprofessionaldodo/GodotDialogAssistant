@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="DeleteConversation" type="ConfirmationDialog"]
+margin_right = 200.0
+margin_bottom = 70.0
+popup_exclusive = true
+window_title = "Do you wish to remove the conversation?"
+dialog_text = "This will delete the file as well, and the operation is non-reversible."

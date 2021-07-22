@@ -10,7 +10,6 @@ func _ready():
 
 # send required information to nodes
 func fill_information():
-	$"Main Window/Editor/Tabs/Conversations".set_delete_modal($"Modals/DeleteConversation")
 	$"Main Window/Editor/Tabs/Conversations".set_graph_node($"Main Window/Editor/Graph/Node Graph")
 	$"Main Window/Editor/Tabs/Nodes".set_graph_node($"Main Window/Editor/Graph/Node Graph")
 
