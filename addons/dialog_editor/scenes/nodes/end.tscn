@@ -1,3 +1,22 @@
 [gd_scene format=2]
 
-[node name="Node2D" type="Node2D"]
+[node name="GraphNode" type="GraphNode"]
+margin_right = 32.0
+margin_bottom = 30.0
+title = "End Node"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 77.0
+margin_bottom = 38.0
+text = "End"

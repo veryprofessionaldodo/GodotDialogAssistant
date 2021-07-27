@@ -19,6 +19,7 @@ func add_dialogue_node():
 	# instance new graph edit node
 	var graph_node = dialogue_node.instance()
 	print("adding ", graph_node, " to ", graph_edit_node)
+	graph_node.offset = Vector2(100,100)
 	
 	# add node to graph
 	graph_edit_node.add_child(graph_node)

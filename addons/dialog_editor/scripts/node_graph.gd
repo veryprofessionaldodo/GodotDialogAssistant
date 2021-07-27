@@ -19,10 +19,19 @@ func load_conversation(node):
 	file.close()
 	
 	setup_graph()
+
 	
 func setup_graph():
 	print("setting up ", current_conversation)
 	reset_graph()
-	
+
 func reset_graph():
 	pass
+
+func delete_node(node):
+	print("here!!!")
+	remove_child(node)
+	save()
+	
+func save():
+	print("saving!")

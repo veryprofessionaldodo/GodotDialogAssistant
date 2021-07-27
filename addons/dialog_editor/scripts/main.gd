@@ -1,10 +1,12 @@
 tool
 extends PanelContainer
 
+var setting_name = "addons/Dialog Assets Folder"
+
 func _ready():
 	fill_information()
 	# check if the settings have been initialized
-	if not ProjectSettings.get_setting("addons/Dialog Assets Folder"):
+	if not ProjectSettings.get_setting(setting_name):
 		# if it's not declared, emit popup to set the assets location
 		initial_prompt_for_settings()
 
