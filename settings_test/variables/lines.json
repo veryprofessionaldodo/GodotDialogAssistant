@@ -1,19 +1,34 @@
 {
-    "lines": [
-        {
-            "id": "hashed_value",
-            "name": "line_test",
-            "type": "line",
-            "text": {
-                "en": "this is a line",
-                "pt": "esta é a fala"
-            },
-            "char": "tim",
-            "audio": {
-                "en": "en/line.ogg",
-                "pt": "pt/line.ogg"
-            },
-            "time": 2
-        }
-    ]
+	"lines": [
+		{
+			"id": "hashed_value",
+			"name": "line_test",
+			"type": "line",
+			"text": {
+				"en": "this is a line",
+				"pt": "esta é a fala"
+			},
+			"char": "tim",
+			"audio": {
+				"en": "en/line.ogg",
+				"pt": "pt/line.ogg"
+			},
+			"time": 2
+		},
+		{
+			"id": "hashed_value2",
+			"name": "vivas",
+			"type": "line",
+			"text": {
+				"en": "wow, what a line",
+				"pt": "carambas, que fala"
+			},
+			"char": "tim",
+			"audio": {
+				"en": "en/line.ogg",
+				"pt": "pt/line.ogg"
+			},
+			"time": 2
+		}
+	]
 }

@@ -1,10 +1,11 @@
 tool
-extends HSplitContainer
+extends VBoxContainer
 
 var setting_name = "addons/Dialog Assets Folder"
 var lines_path = null
 var assets_folder = null
-var lines = {}
+var lines = []
+var languages = ["en", "pt", "fr"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,64 +33,109 @@ func read_lines():
 	display_lines()
 	
 func display_lines():
-	var parent_container = $"LinesInfo"
 	for line in lines:
-		populate_line(line.name, line.text, line.char, line.time, line.audio)
+		populate_line(line.id, line.name, line.text, line.char, line.time, line.audio)
 
-func populate_line(name = "", text = "", character = "", time = -1, audio = ""):
+func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, audios = {}):
 	var parent_container = $"LinesInfo"
-	
-	var container = HSplitContainer.new()
+			
+	var container = VBoxContainer.new()
 	parent_container.add_child(container)
-		
-	var labels = VBoxContainer.new()
-	container.add_child(labels)
 	
+	# Name Field
+	var name_container = HSplitContainer.new()
 	var name_label = Label.new()
 	name_label.text = "Name"
-	
-	var character_label = Label.new()
-	character_label.text = "Character"
-	
-	var time_label = Label.new()
-	time_label.text = "Time"
-	
-	var en_text = Label.new()
-	en_text.text = "EN Text"
-	
-	var en_audio = Label.new()
-	en_audio.text = "EN Audio:"
-	
-	labels.add_child(name_label)
-	labels.add_child(character_label)
-	labels.add_child(time_label)
-	labels.add_child(en_text)
-	labels.add_child(en_audio)
-	
-	var info = VBoxContainer.new()
-	container.add_child(info)
+	name_label.rect_min_size = Vector2(80,0)
 	
 	var name_edit = LineEdit.new()
 	name_edit.text = name
+	name_edit.connect("text_entered", self, "value_changed", [id, "name"])
+	
+	name_container.add_child(name_label)
+	name_container.add_child(name_edit)
+	
+	container.add_child(name_container)
+	
+	# Character Field
+	var character_container = HSplitContainer.new()
+	var character_label = Label.new()
+	character_label.text = "Character"
+	character_label.rect_min_size = Vector2(80,0)
 	
 	var character_edit = LineEdit.new()
 	character_edit.text = character
+	character_edit.connect("text_entered", self, "value_changed", [id, "character"])
+	
+	character_container.add_child(character_label)
+	character_container.add_child(character_edit)
+	
+	container.add_child(character_container)
+	
+	# Time Field
+	var time_container = HSplitContainer.new()
+	var time_label = Label.new()
+	time_label.text = "Time"
+	time_label.rect_min_size = Vector2(80,0)
 	
 	var time_edit = LineEdit.new()
 	time_edit.text = String(time)
+	time_edit.connect("text_entered", self, "value_changed", [id, "time"])
 	
-	var en_text_edit = LineEdit.new()
-	en_text_edit = text
+	time_container.add_child(time_label)
+	time_container.add_child(time_edit)
 	
-	var en_audio_edit = LineEdit.new()
+	container.add_child(time_container)
 	
-	info.add_child(name_edit)
-	info.add_child(character_edit)
-	info.add_child(time_edit)
-	#info.add_child(en_text_edit)
-	#info.add_child(en_audio_edit)
+	var all_lines_container = VBoxContainer.new()
 	
+	for lang in texts:
+		var full_dialogue_container = HBoxContainer.new()
+		var language_options = OptionButton.new()
+		
+		# add options to languages
+		for i in range(0, len(languages)):
+			language_options.add_item(languages[i], i)
+			# select given option
+			if languages[i] == lang:
+				language_options.select(i)
 	
+		var text_value_edit = LineEdit.new()
+		text_value_edit.text = texts[lang]
+		text_value_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		
+		full_dialogue_container.add_child(language_options)
+		full_dialogue_container.add_child(text_value_edit)
+		
+		var audio_label = Label.new()
+		audio_label.text = "Audio File"
+		
+		var audio_text = Label.new()
+		audio_text.text = audios[lang]
+		audio_text.rect_min_size = Vector2(90,0)
+		
+		var change_audio_file = Button.new()
+		change_audio_file.text = "Change File"
+		
+		full_dialogue_container.add_child(audio_label)
+		full_dialogue_container.add_child(audio_text)
+		full_dialogue_container.add_child(change_audio_file)
+		
+		all_lines_container.add_child(full_dialogue_container)
+	
+	container.add_child(all_lines_container)
+	
+	# add separator
+	var separator = HSeparator.new()
+	container.add_child(separator)
+
+func value_changed(text, id, property):
+	for line in lines: 
+		if line.id == id:
+			line[property] = text
+			write_to_file()
+			return
+
 # store all lines to file
 func write_to_file():
 	var dir = Directory.new()
@@ -103,9 +149,7 @@ func write_to_file():
 	
 	# create new file with the same text
 	file.open(lines_path, File.WRITE)
-	var json_string = JSON.print({lines: lines})
-	file.store_string(json_string)
-	file.store_line(content)
+	var json_string = JSON.print({"lines": lines}, "\t")
 	file.close()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
