@@ -50,7 +50,7 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	
 	var name_edit = LineEdit.new()
 	name_edit.text = name
-	name_edit.connect("text_entered", self, "value_changed", [id, "name"])
+	name_edit.connect("text_entered", self, "value_changed", [{"id":id, "type":"name"}])
 	
 	name_container.add_child(name_label)
 	name_container.add_child(name_edit)
@@ -65,7 +65,7 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	
 	var character_edit = LineEdit.new()
 	character_edit.text = character
-	character_edit.connect("text_entered", self, "value_changed", [id, "character"])
+	character_edit.connect("text_entered", self, "value_changed", [{"id":id, "type":"char"}])
 	
 	character_container.add_child(character_label)
 	character_container.add_child(character_edit)
@@ -80,7 +80,7 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	
 	var time_edit = LineEdit.new()
 	time_edit.text = String(time)
-	time_edit.connect("text_entered", self, "value_changed", [id, "time"])
+	time_edit.connect("text_entered", self, "value_changed", [{"id":id, "type":"time"}])
 	
 	time_container.add_child(time_label)
 	time_container.add_child(time_edit)
@@ -103,7 +103,8 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 		var text_value_edit = LineEdit.new()
 		text_value_edit.text = texts[lang]
 		text_value_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		
+		text_value_edit.connect("text_entered", self, "value_changed", [{"id": id, "type": "text", "lang":lang}])
+	
 		full_dialogue_container.add_child(language_options)
 		full_dialogue_container.add_child(text_value_edit)
 		
@@ -129,27 +130,27 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	var separator = HSeparator.new()
 	container.add_child(separator)
 
-func value_changed(text, id, property):
+func value_changed(value, props = {}):
 	for line in lines: 
-		if line.id == id:
-			line[property] = text
+		if line.id == props.id:
+			if props.type == "text" or props.type == "audio":
+				line[props.type][props.lang] = value
+			else:
+				line[props.type] = value
 			write_to_file()
 			return
 
 # store all lines to file
 func write_to_file():
-	var dir = Directory.new()
-	var file = File.new()
-	file.open(lines_path, File.READ)
-	var content = file.get_as_text()
-	file.close()
-	
 	# remove previous file
+	var dir = Directory.new()
 	dir.remove(lines_path)
 	
 	# create new file with the same text
+	var file = File.new()
 	file.open(lines_path, File.WRITE)
 	var json_string = JSON.print({"lines": lines}, "\t")
+	file.store_string(json_string)
 	file.close()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
