@@ -5,6 +5,7 @@ var setting_name = "addons/Dialog Assets Folder"
 var lines_path = null
 var assets_folder = null
 var lines = []
+var ui_lines = []
 var languages = ["en", "pt", "fr"]
 
 # Called when the node enters the scene tree for the first time.
@@ -43,19 +44,26 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	parent_container.add_child(container)
 	
 	# Name Field
-	var name_container = HSplitContainer.new()
+	var name_container = HBoxContainer.new()
 	var name_label = Label.new()
 	name_label.text = "Name"
 	name_label.rect_min_size = Vector2(80,0)
 	
 	var name_edit = LineEdit.new()
 	name_edit.text = name
+	name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	name_edit.connect("text_entered", self, "value_changed", [{"id":id, "type":"name"}])
+	
+	var collapse_toggle_button = Button.new()
+	collapse_toggle_button.text = "Collapse/Expand"
 	
 	name_container.add_child(name_label)
 	name_container.add_child(name_edit)
+	name_container.add_child(collapse_toggle_button)
 	
 	container.add_child(name_container)
+	
+	var info_container = VBoxContainer.new()
 	
 	# Character Field
 	var character_container = HSplitContainer.new()
@@ -70,7 +78,7 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	character_container.add_child(character_label)
 	character_container.add_child(character_edit)
 	
-	container.add_child(character_container)
+	info_container.add_child(character_container)
 	
 	# Time Field
 	var time_container = HSplitContainer.new()
@@ -85,7 +93,7 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	time_container.add_child(time_label)
 	time_container.add_child(time_edit)
 	
-	container.add_child(time_container)
+	info_container.add_child(time_container)
 	
 	var all_lines_container = VBoxContainer.new()
 	
@@ -124,11 +132,41 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 		
 		all_lines_container.add_child(full_dialogue_container)
 	
-	container.add_child(all_lines_container)
+	var delete_button = Button.new()
+	delete_button.text = "Delete Line"
+	delete_button.size_flags_horizontal = Control.SIZE_SHRINK_END
+	delete_button.connect("pressed", self, "delete_line", [container, id])
+	delete_button.margin_top = delete_button.margin_top + 10
+	delete_button.margin_bottom = delete_button.margin_bottom + 10
+	
+	info_container.add_child(all_lines_container)
+	info_container.add_child(delete_button)
+	container.add_child(info_container)
+	ui_lines.append(info_container)
+	collapse_toggle_button.connect("pressed", self, "collapse_toggle", [info_container])
 	
 	# add separator
 	var separator = HSeparator.new()
 	container.add_child(separator)
+
+func collapse_all():
+	for line in ui_lines:
+		line.visible = false
+		
+func expand_all():
+	for line in ui_lines:
+		line.visible = true
+
+func delete_line(container, id):
+	for i in range(0, len(lines)):
+		if lines[i].id == id:
+			lines.remove(i)
+			$"LinesInfo".remove_child(container)
+			save()
+			return
+
+func collapse_toggle(container):
+	container.visible = !container.visible
 
 func value_changed(value, props = {}):
 	for line in lines: 
@@ -137,11 +175,11 @@ func value_changed(value, props = {}):
 				line[props.type][props.lang] = value
 			else:
 				line[props.type] = value
-			write_to_file()
+			save()
 			return
 
 # store all lines to file
-func write_to_file():
+func save():
 	# remove previous file
 	var dir = Directory.new()
 	dir.remove(lines_path)
