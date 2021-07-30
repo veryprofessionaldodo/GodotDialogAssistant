@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/dialog_editor/scripts/lines.gd" type="Script" id=1]
+[ext_resource path="res://addons/dialog_editor/scenes/modals/add_line_variable.tscn" type="PackedScene" id=2]
 
 [node name="Container" type="PanelContainer"]
 margin_right = 1032.0
@@ -48,9 +49,18 @@ text = "Add New Line"
 [node name="LinesInfo" type="VBoxContainer" parent="Base"]
 margin_top = 24.0
 margin_right = 1018.0
-margin_bottom = 595.0
+margin_bottom = 591.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="Modals" type="Control" parent="Base"]
+margin_top = 595.0
+margin_right = 1018.0
+margin_bottom = 595.0
+
+[node name="AddLineDialog" parent="Base/Modals" instance=ExtResource( 2 )]
+visible = false
+
 [connection signal="pressed" from="Base/Buttons/CollapseAll" to="Base" method="collapse_all"]
 [connection signal="pressed" from="Base/Buttons/ExpandAll" to="Base" method="expand_all"]
+[connection signal="pressed" from="Base/Buttons/NewLine" to="Base" method="add_new_line"]

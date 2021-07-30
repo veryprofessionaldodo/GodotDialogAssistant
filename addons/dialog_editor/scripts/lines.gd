@@ -10,11 +10,18 @@ var languages = ["en", "pt", "fr"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.connect("new_line_signal", self, "add_line")
+	self.connect("new_line_signal", self, "add_line2")
 	assets_folder = ProjectSettings.get_setting(setting_name)
 	lines_path = assets_folder + "/variables/lines.json"
 	if assets_folder:
 		read_lines()
-		
+
+func add_line2():
+	print("opah?")
+func add_line(props):
+	print("received ", props)
+
 # read from file
 func read_lines():
 	print(lines_path)
@@ -144,7 +151,7 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	container.add_child(info_container)
 	ui_lines.append(info_container)
 	collapse_toggle_button.connect("pressed", self, "collapse_toggle", [info_container])
-	
+
 	# add separator
 	var separator = HSeparator.new()
 	container.add_child(separator)
@@ -156,6 +163,10 @@ func collapse_all():
 func expand_all():
 	for line in ui_lines:
 		line.visible = true
+		
+func add_new_line():
+	# launch new add line modal
+	$"Modals/AddLineDialog".popup_centered()
 
 func delete_line(container, id):
 	for i in range(0, len(lines)):
