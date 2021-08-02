@@ -5,7 +5,7 @@
 			"name": "cenas",
 			"type": "line",
 			"text": {
-				"en": "this is a line, but changed",
+				"en": "this is a line, but changed it",
 				"pt": "esta é a fala"
 			},
 			"char": "pedro",
@@ -29,6 +29,19 @@
 				"pt": "pt/line.ogg"
 			},
 			"time": 2
+		},
+		{
+			"id": "8ca09a3ecae130c2c5ca8e73be90c9a67ec4ce7af15daf2d282c174ca20e7e44",
+			"name": "ola",
+			"time": 3,
+			"type": "line",
+			"text": {
+				"en": "this was added by a signal"
+			},
+			"audio": {
+
+			},
+			"char": "pedro"
 		}
 	]
 }

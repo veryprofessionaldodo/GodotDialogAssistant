@@ -10,17 +10,10 @@ var languages = ["en", "pt", "fr"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.connect("new_line_signal", self, "add_line")
-	self.connect("new_line_signal", self, "add_line2")
 	assets_folder = ProjectSettings.get_setting(setting_name)
 	lines_path = assets_folder + "/variables/lines.json"
 	if assets_folder:
 		read_lines()
-
-func add_line2():
-	print("opah?")
-func add_line(props):
-	print("received ", props)
 
 # read from file
 func read_lines():
@@ -127,7 +120,10 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 		audio_label.text = "Audio File"
 		
 		var audio_text = Label.new()
-		audio_text.text = audios[lang]
+		if lang in audios:
+			audio_text.text = audios[lang]
+		else: 
+			audio_text.text = "None"
 		audio_text.rect_min_size = Vector2(90,0)
 		
 		var change_audio_file = Button.new()
@@ -205,3 +201,8 @@ func save():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func line_signal_received(line):
+	lines.append(line)
+	populate_line(line.id, line.name, line.text, line.char, line.time, line.audio)
+	save()

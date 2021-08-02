@@ -6,8 +6,8 @@
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 607.0
-margin_bottom = 407.0
-rect_min_size = Vector2( 600, 400 )
+margin_bottom = 307.0
+rect_min_size = Vector2( 600, 300 )
 popup_exclusive = true
 script = ExtResource( 1 )
 __meta__ = {
@@ -15,23 +15,19 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 592.0
+margin_bottom = 264.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 247.0
-margin_bottom = 14.0
-text = "This is the prompt to create a new line"
-
 [node name="Names" type="HSplitContainer" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 247.0
-margin_bottom = 42.0
+margin_right = 584.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/Names"]
@@ -43,10 +39,147 @@ text = "Line Name"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/Names"]
 margin_left = 102.0
-margin_right = 247.0
+margin_right = 584.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
 
+[node name="Character" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 28.0
+margin_right = 584.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Character"]
+margin_top = 5.0
+margin_right = 90.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 90, 0 )
+text = "Character"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Character"]
+margin_left = 102.0
+margin_right = 584.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Time" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 56.0
+margin_right = 584.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Time"]
+margin_top = 5.0
+margin_right = 90.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 90, 0 )
+text = "Time"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Time"]
+margin_left = 102.0
+margin_right = 584.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "-1"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="EnText" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 84.0
+margin_right = 584.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/EnText"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+text = "EN Text"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/EnText"]
+margin_left = 104.0
+margin_right = 427.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="EnAudio" type="Label" parent="VBoxContainer/EnText"]
+margin_left = 431.0
+margin_top = 5.0
+margin_right = 495.0
+margin_bottom = 19.0
+text = "Audio File"
+
+[node name="EnAudioButton" type="Button" parent="VBoxContainer/EnText"]
+margin_left = 499.0
+margin_right = 584.0
+margin_bottom = 24.0
+text = "Change File"
+
+[node name="PtText" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 112.0
+margin_right = 584.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/PtText"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+text = "PT Text"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PtText"]
+margin_left = 104.0
+margin_right = 427.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="EnAudio" type="Label" parent="VBoxContainer/PtText"]
+margin_left = 431.0
+margin_top = 5.0
+margin_right = 495.0
+margin_bottom = 19.0
+text = "Audio File"
+
+[node name="EnAudioButton" type="Button" parent="VBoxContainer/PtText"]
+margin_left = 499.0
+margin_right = 584.0
+margin_bottom = 24.0
+text = "Change File"
+
+[node name="Output" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 140.0
+margin_right = 584.0
+margin_bottom = 256.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Output"]
+margin_right = 584.0
+margin_bottom = 14.0
+text = "Output:"
+
+[node name="OutputResult" type="TextEdit" parent="VBoxContainer/Output"]
+margin_top = 18.0
+margin_right = 584.0
+margin_bottom = 116.0
+size_flags_vertical = 3
+readonly = true
+
 [connection signal="confirmed" from="." to="." method="emit_line_signal"]
+[connection signal="text_changed" from="VBoxContainer/Names/LineEdit" to="." method="name_text_entered"]
+[connection signal="text_changed" from="VBoxContainer/Character/LineEdit" to="." method="character_name_entered"]
+[connection signal="text_changed" from="VBoxContainer/Time/LineEdit" to="." method="time_entered"]
+[connection signal="text_changed" from="VBoxContainer/EnText/LineEdit" to="." method="en_text_entered"]
+[connection signal="pressed" from="VBoxContainer/EnText/EnAudioButton" to="." method="en_audio_button_pressed"]
+[connection signal="text_changed" from="VBoxContainer/PtText/LineEdit" to="." method="pt_text_entered"]
+[connection signal="text_entered" from="VBoxContainer/PtText/LineEdit" to="." method="pt_text_entered"]
+[connection signal="pressed" from="VBoxContainer/PtText/EnAudioButton" to="." method="pt_audio_button_pressed"]

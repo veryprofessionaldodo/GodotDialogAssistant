@@ -7,6 +7,7 @@ var delete_scene = preload("res://addons/dialog_editor/scenes/modals/delete_conv
 var delete_modal = null
 var graph_node = null
 var file_names = []
+var list_container = null
 
 var button_being_edited = null
 var container_being_edited = null
@@ -19,6 +20,7 @@ func set_graph_node(node):
 	
 # initial setup of entire tab
 func initial_setup():
+	list_container = $ConversationsList/ListContainer
 	delete_modal = delete_scene.instance()
 	delete_modal.connect("confirmed", self, "delete_conversation")
 
@@ -57,7 +59,7 @@ func populate_list():
 func insert_button(name):
 	# create the container for the two buttons
 	var conversation_container = HSplitContainer.new()
-	add_child(conversation_container)
+	list_container.add_child(conversation_container)
 	
 	# create the conversation button
 	var conversation_button = Button.new()
@@ -91,8 +93,8 @@ func delete_conversation():
 	var deleted_line_edit = get_respective_node(text_id, LineEdit)
 	var deleted_container = get_respective_node(text_id, HSplitContainer)
 	
-	remove_child(deleted_line_edit)
-	remove_child(deleted_container)
+	list_container.remove_child(deleted_line_edit)
+	list_container.remove_child(deleted_container)
 	
 	delete_file(text_id)
 
@@ -120,7 +122,7 @@ func handle_button_input(event, button):
 		line_edit_being_edited.visible = true
 
 func get_respective_node(name, type):
-	for node in get_children():
+	for node in list_container.get_children():
 		# children are either a split container or a line edit
 		if node is HSplitContainer and type != LineEdit: 
 			for node_child in node.get_children():
@@ -139,7 +141,7 @@ func insert_line_edit(name):
 	var line_edit = LineEdit.new()
 	line_edit.text = name.replace(".json", "")
 	line_edit.visible = false
-	add_child(line_edit)
+	list_container.add_child(line_edit)
 	
 	line_edit.connect("text_entered", self, "line_edit_updated")
 	line_edit.connect("text_change_rejected", self, "rejected_line_edit")

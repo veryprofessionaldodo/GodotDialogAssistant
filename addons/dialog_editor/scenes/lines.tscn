@@ -59,8 +59,8 @@ margin_right = 1018.0
 margin_bottom = 595.0
 
 [node name="AddLineDialog" parent="Base/Modals" instance=ExtResource( 2 )]
-visible = false
 
 [connection signal="pressed" from="Base/Buttons/CollapseAll" to="Base" method="collapse_all"]
 [connection signal="pressed" from="Base/Buttons/ExpandAll" to="Base" method="expand_all"]
 [connection signal="pressed" from="Base/Buttons/NewLine" to="Base" method="add_new_line"]
+[connection signal="new_line_signal" from="Base/Modals/AddLineDialog" to="Base" method="line_signal_received"]
