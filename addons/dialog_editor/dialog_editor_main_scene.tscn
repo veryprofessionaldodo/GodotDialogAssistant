@@ -143,7 +143,7 @@ rect_min_size = Vector2( 0, 220 )
 
 [node name="ListContainer" type="VBoxContainer" parent="Main Window/Editor/Tabs/Conversations/ConversationsList"]
 margin_right = 230.0
-margin_bottom = 140.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 
 [node name="Graph" type="TabContainer" parent="Main Window/Editor"]

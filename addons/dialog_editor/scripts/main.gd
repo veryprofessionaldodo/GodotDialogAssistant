@@ -18,8 +18,3 @@ func fill_information():
 # initialize the process to store the setting
 func initial_prompt_for_settings():
 	$"Modals/RequestAssetFolderDialog".popup_centered()
-	$Modals/AddLine.connect("new_line_signal", $"Main Window/Editor/Graph/Lines/Base", "add_line_test")
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

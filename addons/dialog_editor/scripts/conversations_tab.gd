@@ -9,10 +9,14 @@ var graph_node = null
 var file_names = []
 var list_container = null
 
+var selected_color = "#9dd5ff"
+
 var button_being_edited = null
 var container_being_edited = null
 var line_edit_being_edited = null
 var conversation_being_deleted = null
+
+var current_conversation = null
 
 func set_graph_node(node):
 	graph_node = node;
@@ -55,7 +59,7 @@ func populate_list():
 	for file in file_names:
 		insert_button(file)
 		insert_line_edit(file)
-		
+
 func insert_button(name):
 	# create the container for the two buttons
 	var conversation_container = HSplitContainer.new()
@@ -70,7 +74,8 @@ func insert_button(name):
 	
 	# link the signal to handle input to here
 	conversation_button.connect("gui_input", self, "handle_button_input", [conversation_button])
-	conversation_button.connect("pressed", graph_node, "load_conversation", [conversation_button])
+	conversation_button.connect("pressed", self, "change_conversation", [conversation_button])
+	change_conversation(conversation_button)
 	
 	# create the conversation delete button
 	var delete_button = Button.new()
@@ -79,6 +84,16 @@ func insert_button(name):
 	
 	# link the signal to handle input to here
 	delete_button.connect("pressed", self, "prompt_to_delete", [conversation_button])
+
+func change_conversation(new_button):
+	if not current_conversation == null:
+		current_conversation.add_color_override("font_color", Color(1,1,1,1))
+		current_conversation.add_color_override("font_color_hover", Color(1,1,1,1))
+	
+	current_conversation = new_button
+	new_button.add_color_override("font_color", Color(selected_color))
+	new_button.add_color_override("font_color_hover", Color(selected_color))
+	graph_node.load_conversation(new_button)
 
 # initialize the process to store the setting
 func prompt_to_delete(conversation_button):
@@ -89,6 +104,9 @@ func prompt_to_delete(conversation_button):
 
 # after the user confirms to delete a conversation
 func delete_conversation():
+	if current_conversation == conversation_being_deleted:
+		graph_node.load_conversation(null)
+		
 	var text_id = conversation_being_deleted.text
 	var deleted_line_edit = get_respective_node(text_id, LineEdit)
 	var deleted_container = get_respective_node(text_id, HSplitContainer)

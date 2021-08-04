@@ -40,7 +40,6 @@ func _ready():
 	
 # read from file
 func read_lines():
-	print(lines_path)
 	var file = File.new()
 	file.open(lines_path, File.READ)
 	var content = file.get_as_text()
@@ -54,16 +53,15 @@ func read_lines():
 	if "lines" in json_file:
 		lines = json_file.lines
 
-func calculate_hashed_id():
-	var string = name + String(OS.get_time());
-	id = string.sha256_text()
+func calculate_id():
+	return String(OS.get_time()).sha256_text().substr(0, 8)
 	
 # read lines file to see if there's no collision of names
 func get_existing_line_names():
 	pass
 	
 func emit_line_signal():
-	calculate_hashed_id()
+	calculate_id()
 	var props = {
 		"id": id,
 		"name": line_name,
@@ -86,8 +84,6 @@ func emit_line_signal():
 	if valid_pt_audio:
 		props.audio["pt"] = pt_audio
 
-	print("emitting? ", props)
-		
 	emit_signal("new_line_signal", props)
 
 func name_text_entered(new_text):

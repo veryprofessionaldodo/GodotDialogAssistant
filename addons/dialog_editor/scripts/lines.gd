@@ -17,7 +17,6 @@ func _ready():
 
 # read from file
 func read_lines():
-	print(lines_path)
 	var file = File.new()
 	file.open(lines_path, File.READ)
 	var content = file.get_as_text()
