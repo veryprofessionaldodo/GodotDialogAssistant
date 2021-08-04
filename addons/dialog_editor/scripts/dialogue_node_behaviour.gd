@@ -95,3 +95,6 @@ func create_new_line_variable():
 # this is child of graph edit, so direct parent needs to remove self
 func dialogue_closed():
 	get_parent().delete_node(self)
+
+func get_id():
+	return id

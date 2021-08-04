@@ -43,7 +43,15 @@ func save_current_conversation():
 		if not node is GraphNode:
 			continue
 		
-		conversation_parsed.nodes.append(node.convert_to_json())
+		# save all connections
+		var node_info = node.convert_to_json()
+		node_info.next = []
+		for connection in get_connection_list():
+			if node.name == connection.from:
+				var connecting_node_id = get_node_by_name(connection.to).get_id()
+				node_info.next.append([connection.from_port, connecting_node_id, connection.to_port])
+		
+		conversation_parsed.nodes.append(node_info)
 		
 	# remove previous file
 	var dir = Directory.new()
@@ -71,8 +79,6 @@ func setup_graph():
 	if not "nodes" in current_conversation:
 		return
 	
-	print("setting up ", current_conversation)
-	
 	for node in current_conversation.nodes:
 		if node.type == "dialogue":
 			var new_dialogue_node = dialogue_node.instance()
@@ -80,13 +86,46 @@ func setup_graph():
 			new_dialogue_node.construct_from_json(node)
 	
 	# do connections between nodes
+	for node in current_conversation.nodes:
+		if len(node.next) == 0:
+			continue
+		
+		for next in node.next:
+			# connections are of type [from port, to id, to port]
+			var from_node = get_node_by_id(node.id).name
+			var to_node = get_node_by_id(next[1]).name
+			connect_node(from_node, next[0], to_node, next[2])
 
 func reset_graph():
 	for node in get_children():
 		if node is GraphNode:
 			remove_child(node)
 
+	clear_connections()
+
 func delete_node(node):
 	remove_child(node)
 	save_current_conversation()
 
+func get_node_by_name(name):
+	for node in get_children():
+		if node.name == name:
+			return node
+	
+	return null
+	
+func get_node_by_id(id):
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+			
+		if node.get_id() == id:
+			return node
+	
+	return null
+
+func connecting_nodes(from, from_slot, to, to_slot):
+	connect_node(from, from_slot, to, to_slot)
+
+func disconnect_nodes(from, from_slot, to, to_slot):
+	disconnect_node(from, from_slot, to, to_slot)

@@ -2,14 +2,74 @@
 	"nodes": [
 		{
 			"lines": [
-
+				"1093",
+				"2233",
+				"35121"
 			],
 			"id": "2e02e6e9",
 			"offset": [
 				100,
 				100
 			],
-			"type": "dialogue"
+			"type": "dialogue",
+			"next": [
+				[
+					0,
+					"8b4a1085",
+					0
+				],
+				[
+					0,
+					"c307d87e",
+					0
+				]
+			]
+		},
+		{
+			"lines": [
+
+			],
+			"id": "8b4a1085",
+			"offset": [
+				460,
+				80
+			],
+			"type": "dialogue",
+			"next": [
+				[
+					0,
+					"2d9fe305",
+					0
+				]
+			]
+		},
+		{
+			"lines": [
+
+			],
+			"id": "c307d87e",
+			"offset": [
+				360,
+				260
+			],
+			"type": "dialogue",
+			"next": [
+
+			]
+		},
+		{
+			"lines": [
+
+			],
+			"id": "2d9fe305",
+			"offset": [
+				760,
+				100
+			],
+			"type": "dialogue",
+			"next": [
+
+			]
 		}
 	]
 }
