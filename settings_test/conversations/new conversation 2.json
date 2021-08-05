@@ -1,56 +1,13 @@
 {
 	"nodes": [
 		{
-			"lines": [
-				"1093",
-				"2233",
-				"35121"
-			],
-			"id": "2e02e6e9",
+			"id": "14a5068e73155ddba4746975",
 			"offset": [
-				100,
-				100
+				600,
+				20
 			],
-			"type": "dialogue",
-			"next": [
-				[
-					0,
-					"8b4a1085",
-					0
-				],
-				[
-					0,
-					"c307d87e",
-					0
-				]
-			]
-		},
-		{
 			"lines": [
 
-			],
-			"id": "8b4a1085",
-			"offset": [
-				460,
-				80
-			],
-			"type": "dialogue",
-			"next": [
-				[
-					0,
-					"2d9fe305",
-					0
-				]
-			]
-		},
-		{
-			"lines": [
-
-			],
-			"id": "c307d87e",
-			"offset": [
-				360,
-				260
 			],
 			"type": "dialogue",
 			"next": [
@@ -58,15 +15,40 @@
 			]
 		},
 		{
+			"id": "5e40413694cbf051d18d4253",
+			"offset": [
+				140,
+				220
+			],
 			"lines": [
 
 			],
-			"id": "2d9fe305",
+			"type": "dialogue",
+			"next": [
+
+			]
+		},
+		{
+			"id": "6cc2cea89b208b3f70206071",
 			"offset": [
-				760,
-				100
+				220,
+				-60
+			],
+			"lines": [
+
 			],
 			"type": "dialogue",
+			"next": [
+
+			]
+		},
+		{
+			"id": "9776e4408fca0e02762906ba",
+			"offset": [
+				0,
+				0
+			],
+			"type": "start",
 			"next": [
 
 			]

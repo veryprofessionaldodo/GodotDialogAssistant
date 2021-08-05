@@ -191,5 +191,3 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Main Window/Editor/Tabs/Conversations/Add Conversation" to="Main Window/Editor/Tabs/Conversations" method="add_conversation"]
 [connection signal="connection_request" from="Main Window/Editor/Graph/Node Graph" to="Main Window/Editor/Graph/Node Graph" method="connecting_nodes"]
 [connection signal="disconnection_request" from="Main Window/Editor/Graph/Node Graph" to="Main Window/Editor/Graph/Node Graph" method="disconnect_nodes"]
-[connection signal="close_request" from="Main Window/Editor/Graph/Node Graph/DialogueNode" to="Main Window/Editor/Graph/Node Graph/DialogueNode" method="dialogue_closed"]
-[connection signal="modal_closed" from="Main Window/Editor/Graph/Node Graph/DialogueNode" to="Main Window/Editor/Graph/Node Graph/DialogueNode" method="dialogue_closed"]

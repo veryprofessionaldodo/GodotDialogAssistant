@@ -1,6 +1,8 @@
 tool
 extends VBoxContainer
 
+var start_node = preload("res://addons/dialog_editor/scenes/nodes/start.tscn")
+var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
 var dialogue_node = preload("res://addons/dialog_editor/scenes/nodes/dialogue.tscn")
 
 var graph_edit_node = null
@@ -12,15 +14,21 @@ func _ready():
 func set_graph_node(node):
 	graph_edit_node = node
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 func add_start_node():
-	print("adding here START node")
+	# instance new graph edit node
+	var graph_node = start_node.instance()
+	graph_node.offset = Vector2(100,100)
+	
+	# add node to graph
+	graph_edit_node.add_new_node(graph_node)
 
 func add_end_node():
-	print("adding here END node")
+	# instance new graph edit node
+	var graph_node = end_node.instance()
+	graph_node.offset = Vector2(100,100)
+	
+	# add node to graph
+	graph_edit_node.add_new_node(graph_node)
 
 func add_dialogue_node():
 	# instance new graph edit node

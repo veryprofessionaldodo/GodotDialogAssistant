@@ -1,21 +1,15 @@
 tool
-extends GraphNode
+extends "res://addons/dialog_editor/scripts/base_node.gd"
 
-var setting_name = "addons/Dialog Assets Folder"
 var all_lines = []
 var lines = []
-var id = ""
 var lines_path = ""
 
 func _ready():
-	id = calculate_id();
 	var assets_folder = ProjectSettings.get_setting(setting_name)
 	lines_path = assets_folder + "/variables/lines.json"
 	if assets_folder:
 		get_all_lines()
-
-func calculate_id():
-	return String(OS.get_time()).sha256_text().substr(0, 8)
 
 func get_all_lines():
 	var file = File.new()
@@ -65,7 +59,7 @@ func remove_line(container):
 	rect_size = Vector2(rect_size.x, 0)
 
 func convert_to_json():
-	var dict = {}
+	var dict = .convert_to_json()
 	dict.lines = []
 	for split_container in $Container/Lines.get_children():
 		for node in split_container.get_children():
@@ -74,16 +68,12 @@ func convert_to_json():
 			
 			dict.lines.append(str(node.get_item_id(node.selected)))
 	
-	# setup the id, useful when parsing from the text
-	dict.id = id
-	dict.offset = [offset.x, offset.y]
 	dict.type = "dialogue"
 	return dict
 
 # reconstruct node here
 func construct_from_json(info):
-	offset = Vector2(info.offset[0], info.offset[1])
-	id = info.id
+	.construct_from_json(info)
 	
 	# iterate over lines
 	for line_id in info.lines:
@@ -96,5 +86,3 @@ func create_new_line_variable():
 func dialogue_closed():
 	get_parent().delete_node(self)
 
-func get_id():
-	return id

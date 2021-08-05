@@ -6,6 +6,8 @@ var conversations_folder = ""
 var current_conversation = {"nodes": []}
 var current_conversation_path = null
 
+var start_node = preload("res://addons/dialog_editor/scenes/nodes/start.tscn")
+var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
 var dialogue_node = preload("res://addons/dialog_editor/scenes/nodes/dialogue.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -69,6 +71,7 @@ func add_new_node(node):
 		return
 		
 	add_child(node)
+	save_current_conversation()
 
 func setup_graph():
 	reset_graph()
@@ -80,10 +83,16 @@ func setup_graph():
 		return
 	
 	for node in current_conversation.nodes:
+		var new_node = null
 		if node.type == "dialogue":
-			var new_dialogue_node = dialogue_node.instance()
-			add_new_node(new_dialogue_node)
-			new_dialogue_node.construct_from_json(node)
+			new_node = dialogue_node.instance()
+		if node.type == "start":
+			new_node = start_node.instance()
+		if node.type == "end":
+			new_node = end_node.instance()
+		
+		add_new_node(new_node)
+		new_node.construct_from_json(node)
 	
 	# do connections between nodes
 	for node in current_conversation.nodes:
@@ -103,12 +112,24 @@ func reset_graph():
 
 	clear_connections()
 
+# remove connections associated with node
+func remove_connections(node):
+	for connection in get_connection_list():
+		var from_node = get_node_by_name(connection.from)
+		var to_node = get_node_by_name(connection.to)
+		if from_node.name == node.name or to_node.name == node.name:
+			disconnect_nodes(connection.from, connection.from_port, connection.to, connection.to_port)
+		
 func delete_node(node):
+	remove_connections(node)
 	remove_child(node)
 	save_current_conversation()
 
 func get_node_by_name(name):
 	for node in get_children():
+		if not node is GraphNode:
+			continue
+		
 		if node.name == name:
 			return node
 	
