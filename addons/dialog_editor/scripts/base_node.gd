@@ -10,9 +10,7 @@ func _ready():
 	name = id;
 	
 func calculate_id():
-	var random_seed = rand_seed(int(randi() * randi() * randf()))
-	
-	return String(random_seed).sha256_text().substr(16, 24)
+	return String(randi()).sha256_text().substr(0, 24)
 	
 func convert_to_json():
 	var dict = {}
@@ -28,3 +26,7 @@ func construct_from_json(info):
 
 func get_id():
 	return id
+
+# this is child of graph edit, so direct parent needs to remove self
+func node_closed():
+	get_parent().delete_node(self)

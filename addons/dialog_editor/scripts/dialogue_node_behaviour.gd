@@ -82,7 +82,4 @@ func construct_from_json(info):
 func create_new_line_variable():
 	pass # Replace with function body.
 
-# this is child of graph edit, so direct parent needs to remove self
-func dialogue_closed():
-	get_parent().delete_node(self)
 

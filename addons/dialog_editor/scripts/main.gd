@@ -12,8 +12,8 @@ func _ready():
 
 # send required information to nodes
 func fill_information():
-	$"Main Window/Editor/Tabs/Conversations".set_graph_node($"Main Window/Editor/Graph/Node Graph")
-	$"Main Window/Editor/Tabs/Nodes".set_graph_node($"Main Window/Editor/Graph/Node Graph")
+	$"Main Window/Editor/Tabs/Conversations".set_graph_node($"Main Window/Editor/Node Graph")
+	$"Main Window/Editor/Tabs/Nodes".set_graph_node($"Main Window/Editor/Node Graph")
 
 # initialize the process to store the setting
 func initial_prompt_for_settings():

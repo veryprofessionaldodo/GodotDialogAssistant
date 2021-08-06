@@ -1,0 +1,72 @@
+{
+	"nodes": [
+		{
+			"id": "699bb32b513ebf8befe9c8b3",
+			"offset": [
+				611,
+				-119
+			],
+			"type": "end",
+			"next": [
+
+			]
+		},
+		{
+			"id": "5e07c27c1cd20745c3804bc5",
+			"offset": [
+				-460,
+				-60
+			],
+			"type": "start",
+			"next": [
+				[
+					0,
+					"1dce032dfaf8804a51ddeece",
+					0
+				]
+			]
+		},
+		{
+			"id": "1dce032dfaf8804a51ddeece",
+			"offset": [
+				-200,
+				-160
+			],
+			"lines": [
+				"1093",
+				"2233",
+				"35121"
+			],
+			"type": "dialogue",
+			"next": [
+				[
+					0,
+					"66c29fde88ae6b444599b101",
+					0
+				]
+			]
+		},
+		{
+			"id": "66c29fde88ae6b444599b101",
+			"offset": [
+				220,
+				-160
+			],
+			"lines": [
+
+			],
+			"type": "dialogue",
+			"next": [
+				[
+					0,
+					"699bb32b513ebf8befe9c8b3",
+					0
+				]
+			]
+		}
+	],
+	"scroll_offset": [
+		-647,
+		-394
+	]
+}

@@ -2,10 +2,11 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/start_node_behaviour.gd" type="Script" id=1]
 
-[node name="GraphNode" type="GraphNode"]
+[node name="0e510b893fda3ccab496deaa" type="GraphNode"]
 margin_right = 156.0
 margin_bottom = 63.0
 title = "Start Node"
+show_close = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )
@@ -25,3 +26,5 @@ margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "Conversation Start"
+
+[connection signal="close_request" from="." to="." method="node_closed"]

@@ -31,7 +31,7 @@ func load_conversation(node):
 	current_conversation_path = conversations_folder + node.text + ".json"
 	current_conversation = JSON.parse(file.get_as_text()).result
 	file.close()
-	
+
 	setup_graph()
 	
 # saves the current conversation directly to file
@@ -41,6 +41,7 @@ func save_current_conversation():
 
 	var conversation_parsed = {}
 	conversation_parsed["nodes"] = [] 
+	conversation_parsed["scroll_offset"] = [scroll_offset.x, scroll_offset.y]
 	for node in get_children():
 		if not node is GraphNode:
 			continue
@@ -65,12 +66,40 @@ func save_current_conversation():
 	file.store_string(JSON.print(conversation_parsed, "\t"))
 	file.close()
 
+# adds new node to the graph via drag
+func add_new_drag_node(node):
+	if current_conversation_path == null:
+		return
+
+	var x_pos = node.offset.x 
+	var y_pos = node.offset.y 
+	
+	if x_pos < rect_global_position.x or x_pos > rect_global_position.x + rect_size.x:
+		return
+	
+	if y_pos < rect_global_position.y or y_pos > rect_global_position.y + rect_size.y:
+		return
+
+	# place the item in the place that is specified
+	node.offset.x = x_pos - rect_global_position.x + scroll_offset.x - node.rect_size.x / 2
+	node.offset.y = y_pos - rect_global_position.y + scroll_offset.y - node.rect_size.y / 2
+	node.connect("dragged", self, "node_dragged", [])
+	add_child(node)
+	save_current_conversation()
+
 # add new node to the graph
 func add_new_node(node):
 	if current_conversation_path == null:
 		return
-		
+
+	# adds the conversation starting from the center
+	node.offset.x = node.offset.x
+	node.offset.y = node.offset.y
+	node.connect("dragged", self, "node_dragged", [])
 	add_child(node)
+
+# temp function to connect a drag to save
+func node_dragged(from, to):
 	save_current_conversation()
 
 func setup_graph():
@@ -82,6 +111,10 @@ func setup_graph():
 	if not "nodes" in current_conversation:
 		return
 	
+	# position graph to the last left place
+	if "scroll_offset" in current_conversation:
+		scroll_offset = Vector2(current_conversation["scroll_offset"][0], current_conversation["scroll_offset"][1])
+		
 	for node in current_conversation.nodes:
 		var new_node = null
 		if node.type == "dialogue":
@@ -147,6 +180,8 @@ func get_node_by_id(id):
 
 func connecting_nodes(from, from_slot, to, to_slot):
 	connect_node(from, from_slot, to, to_slot)
+	save_current_conversation()
 
 func disconnect_nodes(from, from_slot, to, to_slot):
 	disconnect_node(from, from_slot, to, to_slot)
+	save_current_conversation()

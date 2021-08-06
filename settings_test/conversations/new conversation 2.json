@@ -1,57 +1,52 @@
 {
 	"nodes": [
 		{
-			"id": "14a5068e73155ddba4746975",
+			"id": "697fbf134d62e7ecbd9b400d",
 			"offset": [
-				600,
-				20
-			],
-			"lines": [
-
-			],
-			"type": "dialogue",
-			"next": [
-
-			]
-		},
-		{
-			"id": "5e40413694cbf051d18d4253",
-			"offset": [
-				140,
-				220
-			],
-			"lines": [
-
-			],
-			"type": "dialogue",
-			"next": [
-
-			]
-		},
-		{
-			"id": "6cc2cea89b208b3f70206071",
-			"offset": [
-				220,
-				-60
-			],
-			"lines": [
-
-			],
-			"type": "dialogue",
-			"next": [
-
-			]
-		},
-		{
-			"id": "9776e4408fca0e02762906ba",
-			"offset": [
-				0,
-				0
+				-1511,
+				-858.5
 			],
 			"type": "start",
 			"next": [
+				[
+					0,
+					"19710cabcd992dc282eb8a95",
+					0
+				]
+			]
+		},
+		{
+			"id": "c4f7799e80ef5dfe85b06c67",
+			"offset": [
+				-1071,
+				-876
+			],
+			"type": "end",
+			"next": [
 
 			]
+		},
+		{
+			"id": "19710cabcd992dc282eb8a95",
+			"offset": [
+				-1364,
+				-692
+			],
+			"lines": [
+
+			],
+			"type": "dialogue",
+			"next": [
+				[
+					0,
+					"c4f7799e80ef5dfe85b06c67",
+					0
+				]
+			]
 		}
+	],
+	"scroll_offset": [
+		-462,
+		-423
 	]
 }
