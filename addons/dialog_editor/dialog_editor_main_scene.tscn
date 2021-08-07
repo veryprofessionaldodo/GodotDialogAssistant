@@ -165,7 +165,7 @@ rect_min_size = Vector2( 0, 220 )
 
 [node name="ListContainer" type="VBoxContainer" parent="Main Window/Editor/Tabs/Conversations/ConversationsList"]
 margin_right = 230.0
-margin_bottom = 44.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 
 [node name="Node Graph" type="GraphEdit" parent="Main Window/Editor"]
@@ -189,11 +189,12 @@ __meta__ = {
 }
 
 [node name="ValidationOutput" type="AcceptDialog" parent="Main Window/Editor/Node Graph"]
+visible = true
 margin_left = 68.9801
 margin_top = 128.01
-margin_right = 468.98
-margin_bottom = 328.01
-rect_min_size = Vector2( 300, 200 )
+margin_right = 668.98
+margin_bottom = 528.01
+rect_min_size = Vector2( 600, 400 )
 popup_exclusive = true
 window_title = "Validation Output"
 __meta__ = {
@@ -203,8 +204,8 @@ __meta__ = {
 [node name="Container" type="VSplitContainer" parent="Main Window/Editor/Node Graph/ValidationOutput"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 392.0
-margin_bottom = 164.0
+margin_right = 592.0
+margin_bottom = 364.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -212,7 +213,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Main Window/Editor/Node Graph/ValidationOutput/Container"]
-margin_right = 272.0
+margin_right = 584.0
 margin_bottom = 14.0
 text = "This was the result of the validation check:"
 __meta__ = {
@@ -221,8 +222,8 @@ __meta__ = {
 
 [node name="OutputText" type="TextEdit" parent="Main Window/Editor/Node Graph/ValidationOutput/Container"]
 margin_top = 26.0
-margin_right = 272.0
-margin_bottom = 40.0
+margin_right = 584.0
+margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 readonly = true
@@ -260,7 +261,6 @@ margin_bottom = -4.0
 [connection signal="connection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="connecting_nodes"]
 [connection signal="disconnection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="disconnect_nodes"]
 [connection signal="pressed" from="Main Window/Editor/Node Graph/Validate" to="Main Window/Editor/Node Graph" method="validate"]
-[connection signal="close_request" from="Main Window/Editor/Node Graph/bc7d88cb11f0400981b08d73" to="Main Window/Editor/Node Graph/bc7d88cb11f0400981b08d73" method="node_closed"]
-[connection signal="close_request" from="Main Window/Editor/Node Graph/0706167c89c721d2e0064086" to="Main Window/Editor/Node Graph/0706167c89c721d2e0064086" method="node_closed"]
-[connection signal="close_request" from="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" to="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" method="node_closed"]
-[connection signal="modal_closed" from="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" to="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" method="dialogue_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/66c29fde88ae6b444599b101" to="Main Window/Editor/Node Graph/66c29fde88ae6b444599b101" method="node_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" to="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" method="node_closed"]
+[connection signal="modal_closed" from="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" to="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" method="dialogue_closed"]

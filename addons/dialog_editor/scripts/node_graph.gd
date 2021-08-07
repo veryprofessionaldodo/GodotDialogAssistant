@@ -197,8 +197,8 @@ func validate():
 	output = output + check_for_start()
 	output = output + check_for_end()
 	
-	# check if dialogues branch out to multiple nodes that are not
-	# requirements
+	# check if dialogue nodes have lines
+	output = output + check_for_lines()
 	
 	# launch popup with output
 	if output == "":
@@ -209,7 +209,7 @@ func validate():
 	
 # VALIDATION RULES
 
-func check_connections_to_node(node):
+func get_connections_to_node(node):
 	var connections = []
 	for connection in get_connection_list():
 		var from_node = get_node_by_name(connection.from)
@@ -218,9 +218,9 @@ func check_connections_to_node(node):
 		if to_node.get_id() == node.get_id():
 			connections.append(from_node.get_type())
 	
-	return not len(connections) == 0
+	return connections
 		
-func check_connections_for_node(node):
+func get_connections_for_node(node):
 	var connections = []
 	for connection in get_connection_list():
 		var from_node = get_node_by_name(connection.from)
@@ -229,46 +229,74 @@ func check_connections_for_node(node):
 		if from_node.get_id() == node.get_id():
 			connections.append(to_node.get_type())
 			
+	return connections
+	
+func check_connections(connections, node_type):
 	if len(connections) == 0:
-		return false
-	elif len(connections) > 1:
+		return "No connections found for " + node_type + " node. \n"
+	elif len(connections) > 1: 
 		for connection in connections:
 			if connection != "requirement":
-				return false
-	return true
+				return "Node of type " + node_type + " has multiple connections that are not all requirements. \n"
+	return ""
 
 func check_for_start():
-	var has_start = false
-	var start_is_valid = true
+	var num_start = 0 
+	var connections = []
 	for node in get_children():
 		if not node is GraphNode:
 			continue
 		
 		if node.get_type() == "start":
-			has_start = true
-			start_is_valid = check_connections_for_node(node)
-		
-	if not has_start:
+			num_start = num_start + 1
+			
+			connections = get_connections_for_node(node)
+
+	# check if there are multiple start nodes
+	if num_start != 1:
+		return "Too many start nodes in conversation (" + str(num_start) + "). \n"	
+	elif num_start == 0:
 		return "No start node in conversation. \n"
-	elif not start_is_valid:
-		return "Start node is incorrectly connected to multiple nodes (not requirements), or not connected at all. \n"
-		
-	return ""
+	return check_connections(connections, "start")
 	
 func check_for_end():
 	var has_end = false
-	var end_is_valid = true
+	var num_end = 0
+	var connections = []
 	for node in get_children():
 		if not node is GraphNode:
 			continue
 		
 		if node.get_type() == "end":
+			num_end = num_end + 1 
+			
 			has_end = true
-			end_is_valid = check_connections_to_node(node)
-		
+			connections = get_connections_to_node(node)
+	
+	if num_end > 1:
+		return "Too many end_nodes in conversation (" + str(num_end) + "). \n"
 	if not has_end:
 		return "No end node in conversation. \n"
-	elif not end_is_valid:
+	elif len(connections) == 0:
 		return "End node has no connected nodes. \n"
 		
 	return ""
+	
+func check_for_lines():
+	var lines_output = ""
+	
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+			
+		if node.get_type() != "dialogue":
+			continue
+			
+		var connections = get_connections_for_node(node)
+		
+		lines_output = lines_output + check_connections(connections, "dialogue")
+		
+		if node.get_num_lines() == 0:
+			lines_output = lines_output + "Dialogue has no lines attached. \n"
+	
+	return lines_output

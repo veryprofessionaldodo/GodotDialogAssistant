@@ -2,7 +2,7 @@ tool
 extends "res://addons/dialog_editor/scripts/base_node.gd"
 
 var all_lines = []
-var lines = []
+var num_lines = 0
 var lines_path = ""
 
 func _ready():
@@ -50,6 +50,8 @@ func new_line_dialogue_node(auto_select_id = -1):
 	$Container/Lines.add_child(container)
 	options.connect("item_focused", self, "update_line")
 	delete.connect("pressed", self, "remove_line", [container])
+	
+	num_lines = num_lines + 1
 
 # remove the line from UI, as well as the text 
 func remove_line(container):
@@ -57,6 +59,8 @@ func remove_line(container):
 	$Container/Lines.remove_child(container)
 	# resize to not have extra padding
 	rect_size = Vector2(rect_size.x, 0)
+	
+	num_lines = num_lines - 1
 
 func convert_to_json():
 	var dict = .convert_to_json()
@@ -81,6 +85,9 @@ func construct_from_json(info):
 
 func get_type():
 	return "dialogue"
+
+func get_num_lines():
+	return num_lines
 
 func create_new_line_variable():
 	pass # Replace with function body.

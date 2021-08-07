@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/dialogue_node_behaviour.gd" type="Script" id=1]
 
-[node name="67552a9e4e59c04dcfeb38e2" type="GraphNode"]
+[node name="d1a654cee36d1b62db6c273c" type="GraphNode"]
 margin_right = 270.0
 margin_bottom = 78.0
 title = "Dialogue"
