@@ -178,6 +178,8 @@ func get_node_by_id(id):
 	
 	return null
 
+# SIGNALS
+
 func connecting_nodes(from, from_slot, to, to_slot):
 	connect_node(from, from_slot, to, to_slot)
 	save_current_conversation()
@@ -185,3 +187,88 @@ func connecting_nodes(from, from_slot, to, to_slot):
 func disconnect_nodes(from, from_slot, to, to_slot):
 	disconnect_node(from, from_slot, to, to_slot)
 	save_current_conversation()
+
+# outputs the validation state for the conversation
+func validate():
+	var output = ""
+	
+	# check if there is a start / end node, and it is connected to only
+	# once 
+	output = output + check_for_start()
+	output = output + check_for_end()
+	
+	# check if dialogues branch out to multiple nodes that are not
+	# requirements
+	
+	# launch popup with output
+	if output == "":
+		output = "Everything appears to be valid!"
+		
+	$ValidationOutput/Container/OutputText.text = output
+	$ValidationOutput.popup_centered()
+	
+# VALIDATION RULES
+
+func check_connections_to_node(node):
+	var connections = []
+	for connection in get_connection_list():
+		var from_node = get_node_by_name(connection.from)
+		var to_node = get_node_by_name(connection.to)
+		
+		if to_node.get_id() == node.get_id():
+			connections.append(from_node.get_type())
+	
+	return not len(connections) == 0
+		
+func check_connections_for_node(node):
+	var connections = []
+	for connection in get_connection_list():
+		var from_node = get_node_by_name(connection.from)
+		var to_node = get_node_by_name(connection.to)
+		
+		if from_node.get_id() == node.get_id():
+			connections.append(to_node.get_type())
+			
+	if len(connections) == 0:
+		return false
+	elif len(connections) > 1:
+		for connection in connections:
+			if connection != "requirement":
+				return false
+	return true
+
+func check_for_start():
+	var has_start = false
+	var start_is_valid = true
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+		
+		if node.get_type() == "start":
+			has_start = true
+			start_is_valid = check_connections_for_node(node)
+		
+	if not has_start:
+		return "No start node in conversation. \n"
+	elif not start_is_valid:
+		return "Start node is incorrectly connected to multiple nodes (not requirements), or not connected at all. \n"
+		
+	return ""
+	
+func check_for_end():
+	var has_end = false
+	var end_is_valid = true
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+		
+		if node.get_type() == "end":
+			has_end = true
+			end_is_valid = check_connections_to_node(node)
+		
+	if not has_end:
+		return "No end node in conversation. \n"
+	elif not end_is_valid:
+		return "End node has no connected nodes. \n"
+		
+	return ""

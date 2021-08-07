@@ -79,6 +79,9 @@ func construct_from_json(info):
 	for line_id in info.lines:
 		new_line_dialogue_node(int(line_id))
 
+func get_type():
+	return "dialogue"
+
 func create_new_line_variable():
 	pass # Replace with function body.
 

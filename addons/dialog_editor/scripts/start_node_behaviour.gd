@@ -6,3 +6,7 @@ func convert_to_json():
 	
 	dict.type = "start"
 	return dict
+
+func get_type():
+	return "start"
+	

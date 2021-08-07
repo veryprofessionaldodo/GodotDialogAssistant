@@ -173,26 +173,82 @@ margin_left = 242.0
 margin_right = 1002.0
 margin_bottom = 550.0
 right_disconnects = true
+scroll_offset = Vector2( -380, -412.5 )
 script = ExtResource( 6 )
+
+[node name="Validate" type="Button" parent="Main Window/Editor/Node Graph"]
+anchor_left = 0.781
+anchor_top = 0.021
+anchor_right = 0.953
+anchor_bottom = 0.031
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Validate Conversation"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ValidationOutput" type="AcceptDialog" parent="Main Window/Editor/Node Graph"]
+margin_left = 68.9801
+margin_top = 128.01
+margin_right = 468.98
+margin_bottom = 328.01
+rect_min_size = Vector2( 300, 200 )
+popup_exclusive = true
+window_title = "Validation Output"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VSplitContainer" parent="Main Window/Editor/Node Graph/ValidationOutput"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 392.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main Window/Editor/Node Graph/ValidationOutput/Container"]
+margin_right = 272.0
+margin_bottom = 14.0
+text = "This was the result of the validation check:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutputText" type="TextEdit" parent="Main Window/Editor/Node Graph/ValidationOutput/Container"]
+margin_top = 26.0
+margin_right = 272.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+readonly = true
+context_menu_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Variables" type="HSplitContainer" parent="Main Window"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 250.0
-margin_top = 64.0
-margin_right = 242.0
-margin_bottom = 28.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 script = ExtResource( 4 )
 
 [node name="Lines" parent="Main Window" instance=ExtResource( 7 )]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 250.0
-margin_top = 64.0
-margin_right = 242.0
-margin_bottom = 28.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [connection signal="confirmed" from="Modals/ChangeAssetsLocation" to="Modals/ChangeAssetsLocation" method="_on_confirmed"]
 [connection signal="confirmed" from="Modals/RequestAssetFolderDialog" to="Modals/ChangeAssetsLocation" method="display_dialog"]
@@ -203,3 +259,8 @@ margin_bottom = 28.0
 [connection signal="pressed" from="Main Window/Editor/Tabs/Conversations/Add Conversation" to="Main Window/Editor/Tabs/Conversations" method="add_conversation"]
 [connection signal="connection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="connecting_nodes"]
 [connection signal="disconnection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="disconnect_nodes"]
+[connection signal="pressed" from="Main Window/Editor/Node Graph/Validate" to="Main Window/Editor/Node Graph" method="validate"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/bc7d88cb11f0400981b08d73" to="Main Window/Editor/Node Graph/bc7d88cb11f0400981b08d73" method="node_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/0706167c89c721d2e0064086" to="Main Window/Editor/Node Graph/0706167c89c721d2e0064086" method="node_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" to="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" method="node_closed"]
+[connection signal="modal_closed" from="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" to="Main Window/Editor/Node Graph/45fccf3e1c2bcda9ed63c938" method="dialogue_closed"]
