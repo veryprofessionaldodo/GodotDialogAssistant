@@ -1,70 +1,56 @@
 {
 	"nodes": [
 		{
-			"id": "0706167c89c721d2e0064086",
+			"id": "697fbf134d62e7ecbd9b400d",
 			"offset": [
-				100,
-				200
+				-287,
+				-277
 			],
 			"type": "start",
 			"next": [
 				[
 					0,
-					"085b36ce4da5cfed0a3ef03e",
+					"c4f7799e80ef5dfe85b06c67",
+					0
+				],
+				[
+					0,
+					"19710cabcd992dc282eb8a95",
 					0
 				]
 			]
 		},
 		{
-			"id": "085b36ce4da5cfed0a3ef03e",
+			"id": "c4f7799e80ef5dfe85b06c67",
 			"offset": [
-				340,
-				260
+				-40,
+				-300
 			],
 			"lines": [
 
 			],
 			"type": "dialogue",
 			"next": [
-				[
-					0,
-					"6ac36d8978fb0efbad66aa05",
-					0
-				]
-			]
-		},
-		{
-			"id": "45fccf3e1c2bcda9ed63c938",
-			"offset": [
-				1120,
-				-100
-			],
-			"type": "end",
-			"next": [
 
 			]
 		},
 		{
-			"id": "6ac36d8978fb0efbad66aa05",
+			"id": "19710cabcd992dc282eb8a95",
 			"offset": [
-				760,
-				240
+				-40,
+				-140
 			],
 			"lines": [
-
+				"1093"
 			],
 			"type": "dialogue",
 			"next": [
-				[
-					0,
-					"45fccf3e1c2bcda9ed63c938",
-					0
-				]
+
 			]
 		}
 	],
 	"scroll_offset": [
-		-89,
-		-160
+		-701,
+		-651.5
 	]
 }

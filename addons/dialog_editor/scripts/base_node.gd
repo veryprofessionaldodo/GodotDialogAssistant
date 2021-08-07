@@ -30,3 +30,6 @@ func get_id():
 # this is child of graph edit, so direct parent needs to remove self
 func node_closed():
 	get_parent().delete_node(self)
+	
+func get_type():
+	return ""

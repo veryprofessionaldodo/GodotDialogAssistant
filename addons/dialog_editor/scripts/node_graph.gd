@@ -178,6 +178,8 @@ func get_node_by_id(id):
 	
 	return null
 
+# SIGNALS
+
 func connecting_nodes(from, from_slot, to, to_slot):
 	connect_node(from, from_slot, to, to_slot)
 	save_current_conversation()
@@ -185,3 +187,116 @@ func connecting_nodes(from, from_slot, to, to_slot):
 func disconnect_nodes(from, from_slot, to, to_slot):
 	disconnect_node(from, from_slot, to, to_slot)
 	save_current_conversation()
+
+# outputs the validation state for the conversation
+func validate():
+	var output = ""
+	
+	# check if there is a start / end node, and it is connected to only
+	# once 
+	output = output + check_for_start()
+	output = output + check_for_end()
+	
+	# check if dialogue nodes have lines
+	output = output + check_for_lines()
+	
+	# launch popup with output
+	if output == "":
+		output = "Everything appears to be valid!"
+		
+	$ValidationOutput/Container/OutputText.text = output
+	$ValidationOutput.popup_centered()
+	
+# VALIDATION RULES
+
+func get_connections_to_node(node):
+	var connections = []
+	for connection in get_connection_list():
+		var from_node = get_node_by_name(connection.from)
+		var to_node = get_node_by_name(connection.to)
+		
+		if to_node.get_id() == node.get_id():
+			connections.append(from_node.get_type())
+	
+	return connections
+		
+func get_connections_for_node(node):
+	var connections = []
+	for connection in get_connection_list():
+		var from_node = get_node_by_name(connection.from)
+		var to_node = get_node_by_name(connection.to)
+		
+		if from_node.get_id() == node.get_id():
+			connections.append(to_node.get_type())
+			
+	return connections
+	
+func check_connections(connections, node_type):
+	if len(connections) == 0:
+		return "No connections found for " + node_type + " node. \n"
+	elif len(connections) > 1: 
+		for connection in connections:
+			if connection != "requirement":
+				return "Node of type " + node_type + " has multiple connections that are not all requirements. \n"
+	return ""
+
+func check_for_start():
+	var num_start = 0 
+	var connections = []
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+		
+		if node.get_type() == "start":
+			num_start = num_start + 1
+			
+			connections = get_connections_for_node(node)
+
+	# check if there are multiple start nodes
+	if num_start != 1:
+		return "Too many start nodes in conversation (" + str(num_start) + "). \n"	
+	elif num_start == 0:
+		return "No start node in conversation. \n"
+	return check_connections(connections, "start")
+	
+func check_for_end():
+	var has_end = false
+	var num_end = 0
+	var connections = []
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+		
+		if node.get_type() == "end":
+			num_end = num_end + 1 
+			
+			has_end = true
+			connections = get_connections_to_node(node)
+	
+	if num_end > 1:
+		return "Too many end_nodes in conversation (" + str(num_end) + "). \n"
+	if not has_end:
+		return "No end node in conversation. \n"
+	elif len(connections) == 0:
+		return "End node has no connected nodes. \n"
+		
+	return ""
+	
+func check_for_lines():
+	var lines_output = ""
+	
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+			
+		if node.get_type() != "dialogue":
+			continue
+			
+		var connections = get_connections_for_node(node)
+		
+		lines_output = lines_output + check_connections(connections, "dialogue")
+		
+		if node.get_num_lines() == 0:
+			lines_output = lines_output + "Dialogue has no lines attached. \n"
+	
+	return lines_output

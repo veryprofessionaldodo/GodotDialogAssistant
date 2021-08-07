@@ -165,7 +165,7 @@ rect_min_size = Vector2( 0, 220 )
 
 [node name="ListContainer" type="VBoxContainer" parent="Main Window/Editor/Tabs/Conversations/ConversationsList"]
 margin_right = 230.0
-margin_bottom = 44.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 
 [node name="Node Graph" type="GraphEdit" parent="Main Window/Editor"]
@@ -173,26 +173,83 @@ margin_left = 242.0
 margin_right = 1002.0
 margin_bottom = 550.0
 right_disconnects = true
+scroll_offset = Vector2( -380, -412.5 )
 script = ExtResource( 6 )
+
+[node name="Validate" type="Button" parent="Main Window/Editor/Node Graph"]
+anchor_left = 0.781
+anchor_top = 0.021
+anchor_right = 0.953
+anchor_bottom = 0.031
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Validate Conversation"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ValidationOutput" type="AcceptDialog" parent="Main Window/Editor/Node Graph"]
+visible = true
+margin_left = 68.9801
+margin_top = 128.01
+margin_right = 668.98
+margin_bottom = 528.01
+rect_min_size = Vector2( 600, 400 )
+popup_exclusive = true
+window_title = "Validation Output"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VSplitContainer" parent="Main Window/Editor/Node Graph/ValidationOutput"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 592.0
+margin_bottom = 364.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main Window/Editor/Node Graph/ValidationOutput/Container"]
+margin_right = 584.0
+margin_bottom = 14.0
+text = "This was the result of the validation check:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutputText" type="TextEdit" parent="Main Window/Editor/Node Graph/ValidationOutput/Container"]
+margin_top = 26.0
+margin_right = 584.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+readonly = true
+context_menu_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Variables" type="HSplitContainer" parent="Main Window"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 250.0
-margin_top = 64.0
-margin_right = 242.0
-margin_bottom = 28.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 script = ExtResource( 4 )
 
 [node name="Lines" parent="Main Window" instance=ExtResource( 7 )]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 250.0
-margin_top = 64.0
-margin_right = 242.0
-margin_bottom = 28.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [connection signal="confirmed" from="Modals/ChangeAssetsLocation" to="Modals/ChangeAssetsLocation" method="_on_confirmed"]
 [connection signal="confirmed" from="Modals/RequestAssetFolderDialog" to="Modals/ChangeAssetsLocation" method="display_dialog"]
@@ -203,3 +260,7 @@ margin_bottom = 28.0
 [connection signal="pressed" from="Main Window/Editor/Tabs/Conversations/Add Conversation" to="Main Window/Editor/Tabs/Conversations" method="add_conversation"]
 [connection signal="connection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="connecting_nodes"]
 [connection signal="disconnection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="disconnect_nodes"]
+[connection signal="pressed" from="Main Window/Editor/Node Graph/Validate" to="Main Window/Editor/Node Graph" method="validate"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/66c29fde88ae6b444599b101" to="Main Window/Editor/Node Graph/66c29fde88ae6b444599b101" method="node_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" to="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" method="node_closed"]
+[connection signal="modal_closed" from="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" to="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" method="dialogue_closed"]
