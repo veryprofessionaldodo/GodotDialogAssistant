@@ -8,6 +8,11 @@
 
 config_version=4
 
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
 [addons]
 
 "Dialog Assets Folder"="res://settings_test"
@@ -15,13 +20,13 @@ config_version=4
 [application]
 
 config/name="GodotDialogAssistant"
-config/description="Plugin to assist with game creation."
+config/description="Opah, isto muda sequer?"
 run/main_scene="res://addons/dialog_editor/dialog_editor_main_scene.tscn"
 config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialog_editor/plugin.cfg" )
+enabled=PoolStringArray( "dialog_editor" )
 
 [global]
 
