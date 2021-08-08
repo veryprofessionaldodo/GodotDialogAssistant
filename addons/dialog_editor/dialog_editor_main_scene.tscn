@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://addons/dialog_editor/scripts/conversations_tab.gd" type="Script" id=1]
 [ext_resource path="res://addons/dialog_editor/scripts/main.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://addons/dialog_editor/scenes/lines.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/dialog_editor/scenes/modals/delete_conversation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://addons/dialog_editor/scenes/modals/add_line_variable.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/dialog_editor/scenes/modals/add_new_variable.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/dialog_editor/scripts/add_variable_modal.gd" type="Script" id=11]
 
 [sub_resource type="Theme" id=1]
 
@@ -61,7 +63,80 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
 
+[node name="Variables" type="HSplitContainer" parent="Main Window"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 4 )
+
+[node name="Variables" type="PanelContainer" parent="Main Window/Variables"]
+margin_right = 1002.0
+margin_bottom = 550.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Base" type="VBoxContainer" parent="Main Window/Variables/Variables"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 995.0
+margin_bottom = 543.0
+script = ExtResource( 4 )
+
+[node name="Buttons" type="HBoxContainer" parent="Main Window/Variables/Variables/Base"]
+margin_right = 988.0
+margin_bottom = 20.0
+
+[node name="CollapseAll" type="Button" parent="Main Window/Variables/Variables/Base/Buttons"]
+margin_right = 87.0
+margin_bottom = 20.0
+text = "Collapse All"
+
+[node name="ExpandAll" type="Button" parent="Main Window/Variables/Variables/Base/Buttons"]
+margin_left = 91.0
+margin_right = 169.0
+margin_bottom = 20.0
+text = "Expand All"
+
+[node name="Control" type="Control" parent="Main Window/Variables/Variables/Base/Buttons"]
+margin_left = 173.0
+margin_right = 860.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="NewVariable" type="Button" parent="Main Window/Variables/Variables/Base/Buttons"]
+margin_left = 864.0
+margin_right = 988.0
+margin_bottom = 20.0
+text = "Add New Variable"
+
+[node name="AllVariables" type="HBoxContainer" parent="Main Window/Variables/Variables/Base"]
+margin_top = 24.0
+margin_right = 988.0
+margin_bottom = 24.0
+
+[node name="Modal" type="Control" parent="Main Window/Variables/Variables/Base"]
+margin_top = 28.0
+margin_right = 988.0
+margin_bottom = 28.0
+
+[node name="AddVariable" type="AcceptDialog" parent="Main Window/Variables/Variables/Base/Modal" instance=ExtResource( 10 )]
+margin_left = 2.0
+margin_right = 376.0
+margin_bottom = 161.0
+size_flags_vertical = 2
+popup_exclusive = true
+window_title = "Add New Variable"
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Editor" type="HSplitContainer" parent="Main Window"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -157,7 +232,7 @@ rect_min_size = Vector2( 0, 220 )
 
 [node name="ListContainer" type="VBoxContainer" parent="Main Window/Editor/Tabs/Conversations/ConversationsList"]
 margin_right = 230.0
-margin_bottom = 68.0
+margin_bottom = 8.0
 size_flags_horizontal = 3
 
 [node name="Node Graph" type="GraphEdit" parent="Main Window/Editor"]
@@ -223,16 +298,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Variables" type="HSplitContainer" parent="Main Window"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 4 )
-
 [node name="Lines" parent="Main Window" instance=ExtResource( 7 )]
 visible = false
 anchor_right = 1.0
@@ -241,9 +306,9 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-
 [connection signal="confirmed" from="Modals/ChangeAssetsLocation" to="Modals/ChangeAssetsLocation" method="_on_confirmed"]
 [connection signal="confirmed" from="Modals/RequestAssetFolderDialog" to="Modals/ChangeAssetsLocation" method="display_dialog"]
+[connection signal="pressed" from="Main Window/Variables/Variables/Base/Buttons/NewVariable" to="Main Window/Variables/Variables/Base" method="create_new_variable"]
 [connection signal="button_down" from="Main Window/Editor/Tabs/Nodes/StartNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "start" ]]
 [connection signal="pressed" from="Main Window/Editor/Tabs/Nodes/StartNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "start" ]]
 [connection signal="button_down" from="Main Window/Editor/Tabs/Nodes/EndNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "end" ]]
