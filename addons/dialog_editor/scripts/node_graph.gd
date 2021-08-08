@@ -9,6 +9,7 @@ var current_conversation_path = null
 var start_node = preload("res://addons/dialog_editor/scenes/nodes/start.tscn")
 var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
 var dialogue_node = preload("res://addons/dialog_editor/scenes/nodes/dialogue.tscn")
+var input_node = preload("res://addons/dialog_editor/scenes/nodes/input.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -123,6 +124,8 @@ func setup_graph():
 			new_node = start_node.instance()
 		if node.type == "end":
 			new_node = end_node.instance()
+		if node.type == "input":
+			new_node = input_node.instance()
 		
 		add_new_node(new_node)
 		new_node.construct_from_json(node)

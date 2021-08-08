@@ -77,7 +77,7 @@ theme = SubResource( 1 )
 
 [node name="Nodes" type="VBoxContainer" parent="Main Window/Editor/Tabs"]
 margin_right = 230.0
-margin_bottom = 107.0
+margin_bottom = 127.0
 script = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="Main Window/Editor/Tabs/Nodes"]
@@ -107,23 +107,15 @@ margin_bottom = 103.0
 text = "Add Dialogue Node"
 flat = true
 
-[node name="ItemList" type="ItemList" parent="Main Window/Editor/Tabs/Nodes"]
+[node name="InputNode" type="Button" parent="Main Window/Editor/Tabs/Nodes"]
 margin_top = 107.0
 margin_right = 230.0
-margin_bottom = 107.0
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="Main Window/Editor/Tabs/Nodes/ItemList"]
-margin_right = 230.0
-margin_bottom = 31.0
-text = "Add Nodes
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 127.0
+text = "Add Input Node"
+flat = true
 
 [node name="Control" type="Control" parent="Main Window/Editor/Tabs"]
-margin_top = 111.0
+margin_top = 131.0
 margin_right = 230.0
 margin_bottom = 259.0
 size_flags_vertical = 3
@@ -173,7 +165,7 @@ margin_left = 242.0
 margin_right = 1002.0
 margin_bottom = 550.0
 right_disconnects = true
-scroll_offset = Vector2( -380, -412.5 )
+scroll_offset = Vector2( -701, -550 )
 script = ExtResource( 6 )
 
 [node name="Validate" type="Button" parent="Main Window/Editor/Node Graph"]
@@ -189,7 +181,6 @@ __meta__ = {
 }
 
 [node name="ValidationOutput" type="AcceptDialog" parent="Main Window/Editor/Node Graph"]
-visible = true
 margin_left = 68.9801
 margin_top = 128.01
 margin_right = 668.98
@@ -257,10 +248,13 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Main Window/Editor/Tabs/Nodes/StartNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "start" ]]
 [connection signal="button_down" from="Main Window/Editor/Tabs/Nodes/EndNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "end" ]]
 [connection signal="button_down" from="Main Window/Editor/Tabs/Nodes/DialogueNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "dialogue" ]]
+[connection signal="button_down" from="Main Window/Editor/Tabs/Nodes/InputNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "input" ]]
 [connection signal="pressed" from="Main Window/Editor/Tabs/Conversations/Add Conversation" to="Main Window/Editor/Tabs/Conversations" method="add_conversation"]
 [connection signal="connection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="connecting_nodes"]
 [connection signal="disconnection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="disconnect_nodes"]
 [connection signal="pressed" from="Main Window/Editor/Node Graph/Validate" to="Main Window/Editor/Node Graph" method="validate"]
-[connection signal="close_request" from="Main Window/Editor/Node Graph/66c29fde88ae6b444599b101" to="Main Window/Editor/Node Graph/66c29fde88ae6b444599b101" method="node_closed"]
 [connection signal="close_request" from="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" to="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" method="node_closed"]
-[connection signal="modal_closed" from="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" to="Main Window/Editor/Node Graph/3b3828dd4e0e125c299a3460" method="dialogue_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/d1a654cee36d1b62db6c273c" to="Main Window/Editor/Node Graph/d1a654cee36d1b62db6c273c" method="node_closed"]
+[connection signal="modal_closed" from="Main Window/Editor/Node Graph/d1a654cee36d1b62db6c273c" to="Main Window/Editor/Node Graph/d1a654cee36d1b62db6c273c" method="dialogue_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/98264730d6ad66a64894f6d9" to="Main Window/Editor/Node Graph/98264730d6ad66a64894f6d9" method="node_closed"]
+[connection signal="modal_closed" from="Main Window/Editor/Node Graph/98264730d6ad66a64894f6d9" to="Main Window/Editor/Node Graph/98264730d6ad66a64894f6d9" method="dialogue_closed"]

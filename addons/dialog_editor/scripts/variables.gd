@@ -1,5 +1,5 @@
 tool
-extends VBoxContainer
+extends HSplitContainer
 
 # Declare member variables here. Examples:
 # var a = 2
