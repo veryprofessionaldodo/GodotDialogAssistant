@@ -2,10 +2,10 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/input_node_behaviour.gd" type="Script" id=1]
 
-[node name="Node2D" type="GraphNode"]
-margin_right = 400.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 400, 0 )
+[node name="Node" type="GraphNode"]
+margin_right = 300.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 300, 0 )
 title = "Input"
 show_close = true
 slot/0/left_enabled = true
@@ -19,24 +19,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="HSplitContainer" parent="."]
+[node name="Inputs" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 384.0
+margin_right = 284.0
 margin_bottom = 44.0
 
-[node name="CreateInput" type="Button" parent="Label2"]
-margin_right = 178.0
+[node name="CreateInput" type="Button" parent="Inputs"]
+margin_right = 268.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Create New Input"
 
-[node name="Useinput" type="Button" parent="Label2"]
-margin_left = 190.0
-margin_right = 368.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-text = "Use Existing Input"
-
 [connection signal="close_request" from="." to="." method="node_closed"]
-[connection signal="pressed" from="Label2/Useinput" to="." method="add_existing_input"]
+[connection signal="pressed" from="Inputs/CreateInput" to="." method="create_input"]

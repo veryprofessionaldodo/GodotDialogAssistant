@@ -1,5 +1,5 @@
 tool
-extends HSplitContainer
+extends PanelContainer
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,8 +14,7 @@ func _ready():
 # adds fetched information to scene tree
 func add_information():
 	pass
-	
 
 func create_new_variable():
 	#Open "Add New Variable" popup
-	$Modal/AddVariable.popup_centered();
+	$Variables/Base/Modal/AddVariable.popup_centered();
