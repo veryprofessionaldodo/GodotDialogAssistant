@@ -61,7 +61,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
 
+[node name="Variables" parent="Main Window" instance=ExtResource( 4 )]
+
 [node name="Editor" type="HSplitContainer" parent="Main Window"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -157,7 +160,7 @@ rect_min_size = Vector2( 0, 220 )
 
 [node name="ListContainer" type="VBoxContainer" parent="Main Window/Editor/Tabs/Conversations/ConversationsList"]
 margin_right = 230.0
-margin_bottom = 68.0
+margin_bottom = 8.0
 size_flags_horizontal = 3
 
 [node name="Node Graph" type="GraphEdit" parent="Main Window/Editor"]
@@ -165,7 +168,7 @@ margin_left = 242.0
 margin_right = 1002.0
 margin_bottom = 550.0
 right_disconnects = true
-scroll_offset = Vector2( -701, -550 )
+scroll_offset = Vector2( -647, -394 )
 script = ExtResource( 6 )
 
 [node name="Validate" type="Button" parent="Main Window/Editor/Node Graph"]
@@ -231,10 +234,6 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-
-[node name="Variables" parent="Main Window" instance=ExtResource( 4 )]
-visible = false
-
 [connection signal="confirmed" from="Modals/ChangeAssetsLocation" to="Modals/ChangeAssetsLocation" method="_on_confirmed"]
 [connection signal="confirmed" from="Modals/RequestAssetFolderDialog" to="Modals/ChangeAssetsLocation" method="display_dialog"]
 [connection signal="button_down" from="Main Window/Editor/Tabs/Nodes/StartNode" to="Main Window/Editor/Tabs/Nodes" method="node_clicked" binds= [ "start" ]]
@@ -246,8 +245,9 @@ visible = false
 [connection signal="connection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="connecting_nodes"]
 [connection signal="disconnection_request" from="Main Window/Editor/Node Graph" to="Main Window/Editor/Node Graph" method="disconnect_nodes"]
 [connection signal="pressed" from="Main Window/Editor/Node Graph/Validate" to="Main Window/Editor/Node Graph" method="validate"]
-[connection signal="close_request" from="Main Window/Editor/Node Graph/97a74676e9b0ab036df5bcb8" to="Main Window/Editor/Node Graph/97a74676e9b0ab036df5bcb8" method="node_closed"]
-[connection signal="close_request" from="Main Window/Editor/Node Graph/4f710361835a8b5460bfdeb1" to="Main Window/Editor/Node Graph/4f710361835a8b5460bfdeb1" method="node_closed"]
-[connection signal="modal_closed" from="Main Window/Editor/Node Graph/4f710361835a8b5460bfdeb1" to="Main Window/Editor/Node Graph/4f710361835a8b5460bfdeb1" method="dialogue_closed"]
-[connection signal="close_request" from="Main Window/Editor/Node Graph/094dd076c9d74617f44924bf" to="Main Window/Editor/Node Graph/094dd076c9d74617f44924bf" method="node_closed"]
-[connection signal="modal_closed" from="Main Window/Editor/Node Graph/094dd076c9d74617f44924bf" to="Main Window/Editor/Node Graph/094dd076c9d74617f44924bf" method="dialogue_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/f922094a7d7e556d922250c1" to="Main Window/Editor/Node Graph/f922094a7d7e556d922250c1" method="node_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/104bd6a4b74904400cca5eca" to="Main Window/Editor/Node Graph/104bd6a4b74904400cca5eca" method="node_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/bf749486cf22e4f42ac870a7" to="Main Window/Editor/Node Graph/bf749486cf22e4f42ac870a7" method="node_closed"]
+[connection signal="modal_closed" from="Main Window/Editor/Node Graph/bf749486cf22e4f42ac870a7" to="Main Window/Editor/Node Graph/bf749486cf22e4f42ac870a7" method="dialogue_closed"]
+[connection signal="close_request" from="Main Window/Editor/Node Graph/5462381a7b3b14c746ece06e" to="Main Window/Editor/Node Graph/5462381a7b3b14c746ece06e" method="node_closed"]
+[connection signal="modal_closed" from="Main Window/Editor/Node Graph/5462381a7b3b14c746ece06e" to="Main Window/Editor/Node Graph/5462381a7b3b14c746ece06e" method="dialogue_closed"]

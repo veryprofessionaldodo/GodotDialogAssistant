@@ -1,29 +1,35 @@
 [gd_scene load_steps=2 format=2]
 
-[sub_resource type="ExternalTexture" id=1]
+[ext_resource path="res://addons/dialog_editor/scripts/add_variable_modal.gd" type="Script" id=1]
 
-[node name="AddVariable" type="AcceptDialog"]
+[node name="AddVariable" type="ConfirmationDialog"]
+visible = true
 margin_left = 1.2063
 margin_right = 375.206
-margin_bottom = 148.0
+margin_bottom = 246.0
 size_flags_vertical = 2
 popup_exclusive = true
 window_title = "Add New Variable"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 1 )
 
 [node name="Container" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
-margin_bottom = 112.0
+margin_bottom = 210.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="HSplitContainer" parent="Container"]
+[node name="MarginContainer" type="MarginContainer" parent="Container"]
+margin_right = 358.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="HSplitContainer" parent="Container/MarginContainer"]
 margin_right = 358.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
@@ -31,82 +37,99 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Container/Name"]
+[node name="Label" type="Label" parent="Container/MarginContainer/Name"]
 margin_top = 5.0
 margin_right = 50.0
 margin_bottom = 19.0
 grow_horizontal = 0
 rect_min_size = Vector2( 50, 0 )
+size_flags_horizontal = 0
 text = "Name"
 
-[node name="LineEdit" type="LineEdit" parent="Container/Name"]
+[node name="LineEdit" type="LineEdit" parent="Container/MarginContainer/Name"]
 margin_left = 62.0
 margin_right = 358.0
 margin_bottom = 24.0
+size_flags_vertical = 0
+caret_blink = true
+caret_blink_speed = 0.5
 
-[node name="Type" type="HBoxContainer" parent="Container"]
+[node name="HSplitContainer" type="HSplitContainer" parent="Container"]
 margin_top = 28.0
 margin_right = 358.0
-margin_bottom = 48.0
-size_flags_horizontal = 3
+margin_bottom = 52.0
+
+[node name="Type" type="HBoxContainer" parent="Container/HSplitContainer"]
+margin_right = 145.0
+margin_bottom = 24.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Container/Type"]
-margin_top = 3.0
+[node name="Label" type="Label" parent="Container/HSplitContainer/Type"]
+margin_top = 5.0
 margin_right = 60.0
-margin_bottom = 17.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 60, 0 )
 text = "Type"
 
-[node name="VariableType" type="OptionButton" parent="Container/Type"]
+[node name="VariableType" type="OptionButton" parent="Container/HSplitContainer/Type"]
 margin_left = 64.0
-margin_right = 111.0
-margin_bottom = 20.0
-text = "---"
-icon = SubResource( 1 )
+margin_right = 145.0
+margin_bottom = 24.0
+text = "Boolean"
+items = [ "Boolean", null, false, 0, null, "Number", null, false, 1, null ]
+selected = 0
 
-[node name="Value" type="HSplitContainer" parent="Container"]
-margin_top = 52.0
+[node name="Value" type="HSplitContainer" parent="Container/HSplitContainer"]
+margin_left = 157.0
 margin_right = 358.0
-margin_bottom = 76.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="Container/Value"]
+[node name="Label2" type="Label" parent="Container/HSplitContainer/Value"]
 margin_top = 5.0
 margin_right = 50.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 50, 0 )
 text = "Value"
 
-[node name="LineEdit" type="LineEdit" parent="Container/Value"]
+[node name="LineEdit" type="LineEdit" parent="Container/HSplitContainer/Value"]
 margin_left = 62.0
-margin_right = 358.0
+margin_right = 201.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
 
-[node name="Description" type="HSplitContainer" parent="Container"]
-margin_top = 80.0
+[node name="Description" type="Label" parent="Container"]
+margin_top = 56.0
 margin_right = 358.0
-margin_bottom = 104.0
-size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Container/Description"]
-margin_top = 5.0
-margin_right = 50.0
-margin_bottom = 19.0
+margin_bottom = 70.0
 rect_min_size = Vector2( 50, 0 )
-text = "Desc:"
+text = "Description:"
 
-[node name="LineEdit" type="LineEdit" parent="Container/Description"]
-margin_left = 62.0
+[node name="DescriptionEdit" type="TextEdit" parent="Container"]
+margin_top = 74.0
 margin_right = 358.0
-margin_bottom = 24.0
+margin_bottom = 127.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Output" type="Label" parent="Container"]
+margin_top = 131.0
+margin_right = 358.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 50, 0 )
+text = "Output:"
+
+[node name="Output Text" type="TextEdit" parent="Container"]
+margin_top = 149.0
+margin_right = 358.0
+margin_bottom = 202.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+readonly = true
