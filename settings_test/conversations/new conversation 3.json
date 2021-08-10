@@ -1,17 +1,6 @@
 {
 	"nodes": [
 		{
-			"id": "699bb32b513ebf8befe9c8b3",
-			"offset": [
-				611,
-				-119
-			],
-			"type": "end",
-			"next": [
-
-			]
-		},
-		{
 			"id": "5e07c27c1cd20745c3804bc5",
 			"offset": [
 				-460,
@@ -49,13 +38,63 @@
 		{
 			"id": "66c29fde88ae6b444599b101",
 			"offset": [
-				220,
+				140,
 				-160
 			],
 			"lines": [
-
+				"1093"
 			],
 			"type": "dialogue",
+			"next": [
+				[
+					0,
+					"d1a654cee36d1b62db6c273c",
+					0
+				]
+			]
+		},
+		{
+			"id": "699bb32b513ebf8befe9c8b3",
+			"offset": [
+				1120,
+				-180
+			],
+			"type": "end",
+			"next": [
+
+			]
+		},
+		{
+			"id": "57aea647b1a779b61889ed9a",
+			"offset": [
+				940,
+				-20
+			],
+			"lines": [
+				"1093"
+			],
+			"type": "dialogue",
+			"next": [
+
+			]
+		},
+		{
+			"id": "d1a654cee36d1b62db6c273c",
+			"offset": [
+				580,
+				-100
+			],
+			"inputs": [
+				{
+					"en": "en",
+					"pt": "pt"
+				},
+				{
+					"en": "en",
+					"pt": "pt"
+				}
+			],
+			"type": "input",
 			"next": [
 				[
 					0,
@@ -66,7 +105,7 @@
 		}
 	],
 	"scroll_offset": [
-		-647,
-		-394
+		0,
+		-268
 	]
 }

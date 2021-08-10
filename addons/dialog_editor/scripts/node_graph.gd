@@ -202,6 +202,7 @@ func validate():
 	
 	# check if dialogue nodes have lines
 	output = output + check_for_lines()
+	output = output + check_for_inputs()
 	
 	# launch popup with output
 	if output == "":
@@ -219,7 +220,7 @@ func get_connections_to_node(node):
 		var to_node = get_node_by_name(connection.to)
 		
 		if to_node.get_id() == node.get_id():
-			connections.append(from_node.get_type())
+			connections.append(str(connection.from_port) + ":" + from_node.get_type())
 	
 	return connections
 		
@@ -230,22 +231,60 @@ func get_connections_for_node(node):
 		var to_node = get_node_by_name(connection.to)
 		
 		if from_node.get_id() == node.get_id():
-			connections.append(to_node.get_type())
+			connections.append(str(connection.from_port) + ":" + to_node.get_type())
 			
 	return connections
 	
-func check_connections(connections, node_type):
+func check_connections(connections, node):
+	var node_type = node.get_type()
+
 	if len(connections) == 0:
 		return "No connections found for " + node_type + " node. \n"
-	elif len(connections) > 1: 
+		
+	# input has specific rules
+	if node_type == "input":
+		# iterate over every input
+		var inputs_connections = {}
+		var inputs_connection_text = ""
+		
 		for connection in connections:
-			if connection != "requirement":
+			var slot = int(connection.split(":")[0])
+			var to_node_type = connection.split(":")[1]
+			if slot in inputs_connections:
+				inputs_connections[slot].append(to_node_type)
+			else:
+				inputs_connections[slot] = [to_node_type]
+				
+		# check all the connections
+		for i in range(0, node.get_num_inputs()):
+			if not i in inputs_connections:
+				inputs_connection_text = inputs_connection_text + "Input does not have connection in slot " + str(i) + ".\n"
+				continue
+			
+			var slot_connections = inputs_connections[i]
+			
+			# has multiple connections from the same slot, they need to be
+			# requirements
+			if len(slot_connections) > 1:
+				for slot_connection in slot_connections:
+					if slot_connection != "requirement":
+						inputs_connection_text = inputs_connection_text + "Input has too many outpus in slot " + str(i) + "and they're not all requirements. \n"
+					
+		
+		return inputs_connection_text
+
+	if len(connections) > 1: 
+		for connection in connections:
+			if "requirement" in connection:
 				return "Node of type " + node_type + " has multiple connections that are not all requirements. \n"
+	
+
 	return ""
 
 func check_for_start():
 	var num_start = 0 
 	var connections = []
+	var start_node = null
 	for node in get_children():
 		if not node is GraphNode:
 			continue
@@ -254,13 +293,14 @@ func check_for_start():
 			num_start = num_start + 1
 			
 			connections = get_connections_for_node(node)
+			start_node = node
 
 	# check if there are multiple start nodes
 	if num_start != 1:
 		return "Too many start nodes in conversation (" + str(num_start) + "). \n"	
 	elif num_start == 0:
 		return "No start node in conversation. \n"
-	return check_connections(connections, "start")
+	return check_connections(connections, start_node)
 	
 func check_for_end():
 	var has_end = false
@@ -294,12 +334,37 @@ func check_for_lines():
 			
 		if node.get_type() != "dialogue":
 			continue
-			
-		var connections = get_connections_for_node(node)
 		
-		lines_output = lines_output + check_connections(connections, "dialogue")
+		var connections_to = get_connections_to_node(node) 
+		if len(connections_to) == 0:
+			lines_output = lines_output + "Dialogue is not connected to any previous node. \n"
+		var connections_for = get_connections_for_node(node)
+		
+		lines_output = lines_output + check_connections(connections_for, node)
 		
 		if node.get_num_lines() == 0:
 			lines_output = lines_output + "Dialogue has no lines attached. \n"
 	
 	return lines_output
+
+func check_for_inputs():
+	var inputs_output = ""
+	
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+			
+		if node.get_type() != "input":
+			continue
+			
+		var connections_to = get_connections_to_node(node) 
+		if len(connections_to) == 0:
+			inputs_output = inputs_output + "Input is not connected to any previous node. \n"
+		var connections_for = get_connections_for_node(node)
+		
+		inputs_output = inputs_output + check_connections(connections_for, node)
+		
+		if node.get_num_inputs() == 0:
+			inputs_output = inputs_output + "Input has no options given. \n"
+	
+	return inputs_output

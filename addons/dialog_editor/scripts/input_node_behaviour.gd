@@ -22,9 +22,10 @@ func populate_new_input(inputs):
 	container.add_child(options)
 	container.add_child(edit)
 	container.add_child(delete)
-	$Inputs.add_child(container)
+	add_child(container)
 	
-	all_inputs.append(inputs)
+	# set right slot active
+	set_slot(len(get_children()) - 1, false, 0, Color(0,0,0), true, 0, Color(1,1,1))
 
 func edit_input(container, inputs):
 	var modal = input_modal.instance()
@@ -46,11 +47,13 @@ func finished_editing_input(modal, container, previous_inputs):
 	container.get_child(0).text = new_inputs["en"]
 
 func remove_input(container, input):
-	$Inputs.remove_child(container)
+	remove_child(container)
 	rect_size.y = 0
 
 func convert_to_json():
 	var dict = .convert_to_json()
+	
+	dict.inputs = all_inputs
 	
 	dict.type = "input"
 	return dict
@@ -58,6 +61,21 @@ func convert_to_json():
 # reconstruct node here
 func construct_from_json(info):
 	.construct_from_json(info)
+	
+	# reset node
+	for child in get_children():
+		if not child is HBoxContainer:
+			continue
+			
+		remove_child(child)
+	
+	if "inputs" in info:
+		all_inputs = info.inputs
+	else:
+		all_inputs = []
+		
+	for inputs in all_inputs: 
+		populate_new_input(inputs)
 	
 func get_type():
 	return "input"
@@ -67,9 +85,9 @@ func get_num_inputs():
 
 func add_new_input(modal):
 	var result = modal.get_values()
-	print(result)
 	
 	populate_new_input(result)
+	all_inputs.append(result)
 
 func create_input():
 	var modal = input_modal.instance()

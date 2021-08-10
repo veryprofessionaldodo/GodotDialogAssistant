@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/input_node_behaviour.gd" type="Script" id=1]
 
-[node name="Node" type="GraphNode"]
+[node name="5f794452d0d41f137e24388b" type="GraphNode"]
 margin_right = 300.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 300, 0 )
@@ -19,17 +19,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Inputs" type="VBoxContainer" parent="."]
+[node name="CreateInput" type="Button" parent="."]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 284.0
 margin_bottom = 44.0
-
-[node name="CreateInput" type="Button" parent="Inputs"]
-margin_right = 268.0
-margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Create New Input"
 
 [connection signal="close_request" from="." to="." method="node_closed"]
-[connection signal="pressed" from="Inputs/CreateInput" to="." method="create_input"]
+[connection signal="pressed" from="CreateInput" to="." method="create_input"]
