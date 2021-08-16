@@ -207,9 +207,10 @@ func validate():
 	# launch popup with output
 	if output == "":
 		output = "Everything appears to be valid!"
-		
-	$ValidationOutput/Container/OutputText.text = output
-	$ValidationOutput.popup_centered()
+	
+	var modal = get_parent().get_node("ValidationOutput")
+	modal.get_node("Container/OutputText").text = output
+	modal.popup_centered()
 	
 # VALIDATION RULES
 

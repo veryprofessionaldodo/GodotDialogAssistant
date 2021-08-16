@@ -1,0 +1,27 @@
+[gd_scene format=2]
+
+[node name="StartNode" type="GraphNode"]
+margin_right = 156.0
+margin_bottom = 63.0
+title = "Start Node"
+show_close = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 140.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Conversation Start"
+
+[connection signal="close_request" from="." to="." method="node_closed"]

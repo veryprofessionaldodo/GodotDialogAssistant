@@ -1,0 +1,169 @@
+[gd_scene format=2]
+
+[node name="Control" type="Control"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraphNode2" type="GraphNode" parent="."]
+margin_left = 600.0
+margin_top = 100.0
+margin_right = 700.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 100, 60 )
+mouse_filter = 1
+title = "End"
+offset = Vector2( 600, 100 )
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Label" parent="GraphNode2"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 84.0
+margin_bottom = 38.0
+text = "Slot"
+
+[node name="GraphNode4" type="GraphNode" parent="."]
+margin_left = 600.0
+margin_top = 400.0
+margin_right = 700.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 100, 60 )
+mouse_filter = 1
+title = "End"
+offset = Vector2( 600, 400 )
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Label" parent="GraphNode4"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 84.0
+margin_bottom = 38.0
+text = "Slot"
+
+[node name="GraphNode" type="GraphNode" parent="."]
+margin_left = 410.0
+margin_top = 100.0
+margin_right = 510.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 100, 60 )
+mouse_filter = 1
+title = "Start"
+offset = Vector2( 410, 100 )
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Label" parent="GraphNode"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 84.0
+margin_bottom = 38.0
+text = "Slot"
+
+[node name="GraphNode5" type="GraphNode" parent="."]
+margin_left = 450.0
+margin_top = 400.0
+margin_right = 550.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 100, 60 )
+mouse_filter = 1
+title = "Start"
+offset = Vector2( 450, 400 )
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Label" parent="GraphNode5"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 84.0
+margin_bottom = 38.0
+text = "Slot"
+
+[node name="GraphNode3" type="GraphNode" parent="."]
+margin_left = 200.0
+margin_top = 100.0
+margin_right = 399.0
+margin_bottom = 161.0
+rect_min_size = Vector2( 100, 60 )
+mouse_filter = 1
+title = "Not Working"
+offset = Vector2( 200, 100 )
+comment = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Label" parent="GraphNode3"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 183.0
+margin_bottom = 55.0
+text = "Only after scrolling up can
+these slots be selected."
+
+[node name="GraphNode6" type="GraphNode" parent="."]
+margin_left = 200.0
+margin_top = 400.0
+margin_right = 399.0
+margin_bottom = 461.0
+rect_min_size = Vector2( 100, 60 )
+mouse_filter = 1
+title = "Working!"
+offset = Vector2( 200, 400 )
+comment = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Label" parent="GraphNode6"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 183.0
+margin_bottom = 55.0
+text = "Since these are lower,
+somehow they work..."
