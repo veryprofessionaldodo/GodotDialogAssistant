@@ -8,10 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[  ]
-_global_script_class_icons={
-}
-
 [addons]
 
 "Dialog Assets Folder"="res://settings_test"
@@ -19,7 +15,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GodotDialogAssistant"
-config/description="Opah, isto muda sequer?"
+config/description="Godot Dialog Creator"
 run/main_scene="res://addons/dialog_editor/dialog_editor_main_scene.tscn"
 config/icon="res://icon.png"
 

@@ -1,47 +1,17 @@
 {
 	"lines": [
 		{
-			"id": "1ca09aa3",
-			"name": "cenas",
-			"type": "line",
-			"text": {
-				"en": "this is a line, but changed it",
-				"pt": "esta é a fala"
-			},
-			"char": "pedro",
-			"audio": {
-				"en": "en/line.ogg",
-				"pt": "pt/line.ogg"
-			},
-			"time": "3"
-		},
-		{
-			"id": "2ca23a3",
-			"name": "vivas",
-			"type": "line",
-			"text": {
-				"en": "wow, what a line",
-				"pt": "carambas, que fala"
-			},
-			"char": "tim",
-			"audio": {
-				"en": "en/line.ogg",
-				"pt": "pt/line.ogg"
-			},
-			"time": 2
-		},
-		{
-			"id": "35a1f21a",
-			"name": "ola",
+			"id": -1,
+			"name": "finally awake",
 			"time": 3,
 			"type": "line",
 			"text": {
-				"en": "this was added by a signal"
+				"en": "hey you, you're finally awake"
 			},
 			"audio": {
 
 			},
-			"char": "pedro"
+			"char": "tim"
 		}
 	]
 }
