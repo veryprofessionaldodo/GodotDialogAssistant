@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://addons/dialog_editor/scripts/variables.gd" type="Script" id=1]
-[ext_resource path="res://addons/dialog_editor/scenes/modals/add_new_variable.tscn" type="PackedScene" id=2]
 
 [node name="Variables" type="PanelContainer"]
 anchor_right = 1.0
@@ -53,11 +52,4 @@ margin_top = 24.0
 margin_right = 1002.0
 margin_bottom = 24.0
 
-[node name="Modal" type="Control" parent="Base"]
-visible = false
-margin_top = 28.0
-margin_right = 1002.0
-margin_bottom = 28.0
-
-[node name="AddVariable" parent="Base/Modal" instance=ExtResource( 2 )]
 [connection signal="pressed" from="Base/Buttons/NewVariable" to="." method="create_new_variable"]

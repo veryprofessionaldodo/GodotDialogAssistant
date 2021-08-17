@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/input_node_behaviour.gd" type="Script" id=1]
 
-[node name="5f794452d0d41f137e24388b" type="GraphNode"]
+[node name="c8ccba50228240a25a8557bc" type="GraphNode"]
 margin_right = 300.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 300, 0 )

@@ -1,6 +1,8 @@
 tool
 extends PanelContainer
 
+var variable_modal = preload("res://addons/dialog_editor/scenes/modals/add_new_variable.tscn")
+
 # Declare member variables here. Examples:
 # var a = 2
 # variable to store information
@@ -21,6 +23,14 @@ func _ready():
 func add_information():
 	pass
 
+func add_new_variable(modal):
+	print(modal)
+
 func create_new_variable():
-	#Open "Add New Variable" popup
-	modal.popup_centered();
+	var modal = variable_modal.instance()
+	add_child(modal)
+	
+	modal.popup_centered()
+	modal.connect("confirmed", self, "add_new_variable", [modal])
+	
+	
