@@ -42,14 +42,10 @@ func populate_folder():
 		file.store_line("{}")
 		file.close()
 		
-		directory.make_dir(asset_folder + "/variables")
-		file.open(asset_folder + "/variables/lines.json", File.WRITE)
+		file.open(asset_folder + "/lines.json", File.WRITE)
 		file.store_line("{}")
 		file.close()
-		file.open(asset_folder + "/variables/events.json", File.WRITE)
-		file.store_line("{}")
-		file.close()
-		file.open(asset_folder + "/variables/statistics.json", File.WRITE)
+		file.open(asset_folder + "/variables.json", File.WRITE)
 		file.store_line("{}")
 		file.close()
 

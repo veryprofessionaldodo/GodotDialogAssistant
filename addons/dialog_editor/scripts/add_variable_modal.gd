@@ -5,13 +5,21 @@ extends AcceptDialog
 # var a = 2
 # var b = "text"
 
+var id = ""
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	id = calculate_id()
 	perform_validation()
+
+func calculate_id():
+	return String(randi()).sha256_text().substr(0, 24)
 	
 func get_info():
 	var dict = {}
 	
+	dict.id = id
+
 	var type = get_type()
 	var value = get_value()
 	dict.type = type
@@ -19,8 +27,10 @@ func get_info():
 		dict.value = bool(value.to_lower())
 	else:
 		dict.value = value.to_float()
-	
 	dict.name = $Container/MarginContainer/Name/LineEdit.text
+	dict.description = $Container/DescriptionEdit.text
+	
+	return dict
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):#	pass

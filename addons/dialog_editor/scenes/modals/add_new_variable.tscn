@@ -3,7 +3,6 @@
 [ext_resource path="res://addons/dialog_editor/scripts/add_variable_modal.gd" type="Script" id=1]
 
 [node name="AddVariable" type="ConfirmationDialog"]
-visible = true
 margin_left = 1.2063
 margin_right = 375.206
 margin_bottom = 350.0
@@ -27,14 +26,14 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="Container"]
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 24.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Name" type="HSplitContainer" parent="Container/MarginContainer"]
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 __meta__ = {
@@ -52,7 +51,7 @@ text = "Name"
 
 [node name="LineEdit" type="LineEdit" parent="Container/MarginContainer/Name"]
 margin_left = 62.0
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 24.0
 size_flags_vertical = 0
 caret_blink = true
@@ -60,7 +59,7 @@ caret_blink_speed = 0.5
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Container"]
 margin_top = 28.0
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 52.0
 
 [node name="Type" type="HBoxContainer" parent="Container/HSplitContainer"]
@@ -87,7 +86,7 @@ selected = 0
 
 [node name="Value" type="HSplitContainer" parent="Container/HSplitContainer"]
 margin_left = 157.0
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 __meta__ = {
@@ -96,14 +95,14 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="Container/HSplitContainer/Value"]
 margin_top = 5.0
-margin_right = 50.0
+margin_right = 80.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 50, 0 )
-text = "Value"
+text = "Initial Value:"
 
 [node name="LineEdit" type="LineEdit" parent="Container/HSplitContainer/Value"]
-margin_left = 62.0
-margin_right = 201.0
+margin_left = 92.0
+margin_right = 200.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 caret_blink = true
@@ -111,32 +110,36 @@ caret_blink_speed = 0.5
 
 [node name="Description" type="Label" parent="Container"]
 margin_top = 56.0
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 50, 0 )
 text = "Description:"
 
 [node name="DescriptionEdit" type="TextEdit" parent="Container"]
 margin_top = 74.0
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 179.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Output" type="Label" parent="Container"]
 margin_top = 183.0
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 197.0
 rect_min_size = Vector2( 50, 0 )
 text = "Output:"
 
 [node name="Output Text" type="TextEdit" parent="Container"]
 margin_top = 201.0
-margin_right = 358.0
+margin_right = 357.0
 margin_bottom = 306.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+text = "Value isn't a valid Boolean. 
+Must have a name. 
+(Warning): No description. 
+"
 readonly = true
 
 [connection signal="text_changed" from="Container/MarginContainer/Name/LineEdit" to="." method="name_changed"]

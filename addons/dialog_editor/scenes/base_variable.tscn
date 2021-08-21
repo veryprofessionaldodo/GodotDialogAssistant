@@ -1,0 +1,117 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/dialog_editor/scripts/base_variable.gd" type="Script" id=1]
+
+[node name="BaseVariable" type="PanelContainer"]
+margin_left = 12.0
+margin_right = 1002.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VSplitContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 983.0
+margin_bottom = 63.0
+
+[node name="Options" type="HBoxContainer" parent="Container"]
+margin_right = 976.0
+margin_bottom = 20.0
+size_flags_horizontal = 9
+
+[node name="Name" type="Label" parent="Container/Options"]
+margin_top = 3.0
+margin_bottom = 17.0
+
+[node name="Control" type="Control" parent="Container/Options"]
+margin_left = 4.0
+margin_right = 802.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="DeleteButton" type="Button" parent="Container/Options"]
+margin_left = 806.0
+margin_right = 861.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Delete"
+
+[node name="CollapseButton" type="Button" parent="Container/Options"]
+margin_left = 865.0
+margin_right = 976.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Toggle Collapse"
+
+[node name="Info" type="VBoxContainer" parent="Container"]
+margin_top = 32.0
+margin_right = 976.0
+margin_bottom = 56.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Info"]
+margin_right = 976.0
+margin_bottom = 24.0
+
+[node name="TypeContainer" type="HSplitContainer" parent="Container/Info/HBoxContainer"]
+margin_right = 112.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Container/Info/HBoxContainer/TypeContainer"]
+margin_top = 5.0
+margin_right = 42.0
+margin_bottom = 19.0
+text = " Type: "
+
+[node name="TypeValue" type="LineEdit" parent="Container/Info/HBoxContainer/TypeContainer"]
+margin_left = 54.0
+margin_right = 112.0
+margin_bottom = 24.0
+editable = false
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="ValueContainer" type="HSplitContainer" parent="Container/Info/HBoxContainer"]
+margin_left = 116.0
+margin_right = 233.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Container/Info/HBoxContainer/ValueContainer"]
+margin_top = 5.0
+margin_right = 47.0
+margin_bottom = 19.0
+text = " Value: "
+
+[node name="Value" type="LineEdit" parent="Container/Info/HBoxContainer/ValueContainer"]
+margin_left = 59.0
+margin_right = 117.0
+margin_bottom = 24.0
+editable = false
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="DescContainer" type="HSplitContainer" parent="Container/Info/HBoxContainer"]
+margin_left = 237.0
+margin_right = 976.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Container/Info/HBoxContainer/DescContainer"]
+margin_top = 5.0
+margin_right = 90.0
+margin_bottom = 19.0
+text = "  Description: "
+
+[node name="DescriptionEdit" type="LineEdit" parent="Container/Info/HBoxContainer/DescContainer"]
+margin_left = 102.0
+margin_right = 739.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+editable = false
+caret_blink = true
+caret_blink_speed = 0.5
+
+[connection signal="pressed" from="Container/Options/CollapseButton" to="." method="toggle_collapse"]

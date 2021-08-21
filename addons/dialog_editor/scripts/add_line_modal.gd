@@ -54,7 +54,7 @@ func read_lines():
 		lines = json_file.lines
 
 func calculate_id():
-	return String(OS.get_time()).sha256_text().substr(0, 8)
+	return String(randi()).sha256_text().substr(0, 24)
 	
 # read lines file to see if there's no collision of names
 func get_existing_line_names():

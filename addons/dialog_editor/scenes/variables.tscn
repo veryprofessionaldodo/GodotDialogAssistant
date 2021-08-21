@@ -47,9 +47,20 @@ margin_right = 1002.0
 margin_bottom = 20.0
 text = "Add New Variable"
 
-[node name="AllVariables" type="HBoxContainer" parent="Base"]
+[node name="VariablesColumns" type="HSplitContainer" parent="Base"]
 margin_top = 24.0
 margin_right = 1002.0
 margin_bottom = 24.0
 
+[node name="Column1" type="VBoxContainer" parent="Base/VariablesColumns"]
+margin_right = 495.0
+size_flags_horizontal = 3
+
+[node name="Column2" type="VBoxContainer" parent="Base/VariablesColumns"]
+margin_left = 507.0
+margin_right = 1002.0
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Base/Buttons/CollapseAll" to="." method="collapse_all"]
+[connection signal="pressed" from="Base/Buttons/ExpandAll" to="." method="expand_all"]
 [connection signal="pressed" from="Base/Buttons/NewVariable" to="." method="create_new_variable"]

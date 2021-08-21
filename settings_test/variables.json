@@ -1,0 +1,25 @@
+{
+	"variables": [
+		{
+			"id": "18fbce12ecd9ad0dec35307e",
+			"type": "Boolean",
+			"value": true,
+			"name": "x",
+			"description": "y"
+		},
+		{
+			"id": "c8ccba50228240a25a8557bc",
+			"type": "Boolean",
+			"value": true,
+			"name": "vivas",
+			"description": "ola\n"
+		},
+		{
+			"id": "ed92076dc226645e92c9d3cd",
+			"type": "Number",
+			"value": 3,
+			"name": "mequie",
+			"description": ""
+		}
+	]
+}
