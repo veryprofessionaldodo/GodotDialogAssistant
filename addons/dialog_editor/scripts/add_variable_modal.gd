@@ -1,26 +1,19 @@
 tool
 extends AcceptDialog
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-var id = ""
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	id = Utils.calculate_id()
 	perform_validation()
 
 func get_info():
 	var dict = {}
 	
-	dict.id = id
+	dict.id = Utils.calculate_id()
 
 	var type = get_type()
 	var value = get_value()
-	dict.type = type
-	if type == "Boolean":
+	dict.type = type.to_lower()
+	if type == "boolean":
 		dict.value = bool(value.to_lower())
 	else:
 		dict.value = value.to_float()
@@ -51,11 +44,10 @@ func perform_validation():
 		output = output + "Value isn't a valid Boolean. \n"
 		valid = false
 	# check if it's a valid number
-	elif type == "Number" and value != str(value.to_float()):
+	elif type == "Number" and (value == "" or value != Utils.parse_to_numeric_string(value)):
 		output = output + "Value isn't a valid Number. \n"
 		valid = false
 		
-	
 	var name = $Container/MarginContainer/Name/LineEdit.text
 	if name.replace(" ", "") == "":
 		output = output + "Must have a name. \n"

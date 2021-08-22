@@ -56,8 +56,9 @@ func delete_variable(node, id, separator):
 	save()
 
 func add_new_variable(modal):
-	add_variable_to_list(modal.get_info())
-	variables.append(modal.get_info())
+	var info = modal.get_info()
+	add_variable_to_list(info)
+	variables.append(info)
 	save()
 	
 # store current information to file

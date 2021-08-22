@@ -3,8 +3,9 @@
 [ext_resource path="res://addons/dialog_editor/scripts/requirement_node_behaviour.gd" type="Script" id=1]
 
 [node name="RequirementNode" type="GraphNode"]
-margin_right = 156.0
-margin_bottom = 63.0
+margin_right = 250.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 250, 0 )
 title = "Requirement Node"
 show_close = true
 slot/0/left_enabled = true
@@ -21,13 +22,13 @@ __meta__ = {
 [node name="Info" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 150.0
+margin_right = 234.0
 margin_bottom = 44.0
 
 [node name="Button" type="Button" parent="Info"]
-margin_right = 134.0
+margin_right = 218.0
 margin_bottom = 20.0
 text = "Add Requirement"
 
 [connection signal="close_request" from="." to="." method="node_closed"]
-[connection signal="pressed" from="Info/Button" to="." method="add_requirement"]
+[connection signal="pressed" from="Info/Button" to="." method="add_empty_requirement"]

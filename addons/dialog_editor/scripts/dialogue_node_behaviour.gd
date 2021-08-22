@@ -115,7 +115,7 @@ func validate_node_info():
 					break
 			
 			if !line_exists:
-				output = output + "Dialogue node references line that no longer exists"
+				output = output + "Dialogue node references line that no longer exists. \n"
 				
 	return output
 

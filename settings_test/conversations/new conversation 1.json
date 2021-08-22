@@ -11,12 +11,39 @@
 			],
 			"type": "dialogue",
 			"next": [
+				[
+					0,
+					"e1c05091de5cb16d45917486",
+					0
+				]
+			]
+		},
+		{
+			"id": "e1c05091de5cb16d45917486",
+			"offset": [
+				380,
+				-360
+			],
+			"type": "requirement",
+			"requirements": [
+				{
+					"variable": "18fbce12ecd9ad0dec35307e",
+					"operation": "<=",
+					"target": 10.2
+				},
+				{
+					"variable": "e1c05091de5cb16d45917486",
+					"operation": "==",
+					"target": true
+				}
+			],
+			"next": [
 
 			]
 		}
 	],
 	"scroll_offset": [
-		0,
+		106,
 		-558
 	]
 }
