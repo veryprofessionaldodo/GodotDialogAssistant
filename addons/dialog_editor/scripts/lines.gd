@@ -1,39 +1,15 @@
 tool
 extends VBoxContainer
 
-var setting_name = "addons/Dialog Assets Folder"
-var lines_path = null
-var assets_folder = null
 var lines = []
 var ui_lines = []
 var languages = ["en", "pt", "fr"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	assets_folder = ProjectSettings.get_setting(setting_name)
-	lines_path = assets_folder + "/lines.json"
-	if assets_folder:
-		read_lines()
-
-# read from file
-func read_lines():
-	var file = File.new()
-	file.open(lines_path, File.READ)
-	var content = file.get_as_text()
-	file.close()
-	
-	# if there's nothing on the file, ignore
-	if not content:
-		return
-		
-	var json_file = JSON.parse(content).result
-	
-	if "lines" in json_file:
-		lines = json_file.lines
-
-	
+	lines = Utils.get_lines_from_file()
 	display_lines()
-	
+
 func display_lines():
 	for line in lines:
 		populate_line(line.id, line.name, line.text, line.char, line.time, line.audio)
@@ -55,11 +31,19 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	name_edit.connect("text_entered", self, "value_changed", [{"id":id, "type":"name"}])
 	
+	var delete_button = Button.new()
+	delete_button.text = "Delete Line"
+	delete_button.size_flags_horizontal = Control.SIZE_SHRINK_END
+	delete_button.connect("pressed", self, "delete_line", [container, id])
+	delete_button.margin_top = delete_button.margin_top + 10
+	delete_button.margin_bottom = delete_button.margin_bottom + 10
+	
 	var collapse_toggle_button = Button.new()
 	collapse_toggle_button.text = "Collapse/Expand"
 	
 	name_container.add_child(name_label)
 	name_container.add_child(name_edit)
+	name_container.add_child(delete_button)
 	name_container.add_child(collapse_toggle_button)
 	
 	container.add_child(name_container)
@@ -136,15 +120,7 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 		
 		all_lines_container.add_child(full_dialogue_container)
 	
-	var delete_button = Button.new()
-	delete_button.text = "Delete Line"
-	delete_button.size_flags_horizontal = Control.SIZE_SHRINK_END
-	delete_button.connect("pressed", self, "delete_line", [container, id])
-	delete_button.margin_top = delete_button.margin_top + 10
-	delete_button.margin_bottom = delete_button.margin_bottom + 10
-	
 	info_container.add_child(all_lines_container)
-	info_container.add_child(delete_button)
 	container.add_child(info_container)
 	ui_lines.append(info_container)
 	collapse_toggle_button.connect("pressed", self, "collapse_toggle", [info_container])
@@ -188,6 +164,7 @@ func value_changed(value, props = {}):
 
 # store all lines to file
 func save():
+	var lines_path = Utils.get_lines_path()
 	# remove previous file
 	var dir = Directory.new()
 	dir.remove(lines_path)

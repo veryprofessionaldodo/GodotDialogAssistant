@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/start_node_behaviour.gd" type="Script" id=1]
 
-[node name="0e510b893fda3ccab496deaa" type="GraphNode"]
+[node name="StartNode" type="GraphNode"]
 margin_right = 156.0
 margin_bottom = 63.0
 title = "Start Node"

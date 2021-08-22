@@ -9,12 +9,9 @@ var id = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	id = calculate_id()
+	id = Utils.calculate_id()
 	perform_validation()
 
-func calculate_id():
-	return String(randi()).sha256_text().substr(0, 24)
-	
 func get_info():
 	var dict = {}
 	

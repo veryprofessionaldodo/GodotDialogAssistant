@@ -94,4 +94,28 @@ func get_num_lines():
 func create_new_line_variable():
 	pass # Replace with function body.
 
+func validate_node_info():
+	var output = ""
+	# update information
+	get_all_lines()
+	
+	for split_container in $Container/Lines.get_children():
+		for node in split_container.get_children():
+			if not node is OptionButton:
+				continue
+			
+			# dict.lines.append(str(node.get_item_id(node.selected)))
+			var line_id = node.get_item_id(node.selected)
+			
+			var line_exists = false
+			for line in all_lines:
+				print("line id is ", line.id)
+				if line.id == line_id:
+					line_exists = true
+					break
+			
+			if !line_exists:
+				output = output + "Dialogue node references line that no longer exists"
+				
+	return output
 

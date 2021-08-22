@@ -6,12 +6,8 @@ var id = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	id = calculate_id();
-	name = id;
-	
-func calculate_id():
-	return String(randi()).sha256_text().substr(0, 24)
-	
+	id = Utils.calculate_id();
+		
 func convert_to_json():
 	var dict = {}
 	dict.id = id
@@ -33,3 +29,8 @@ func node_closed():
 	
 func get_type():
 	return ""
+
+# return a string that tells if there are any problems with internal 
+# info validation (for example, a line that was referenced no longer exists)
+func validate_node_info():
+	return

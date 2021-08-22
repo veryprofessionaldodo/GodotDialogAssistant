@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://addons/dialog_editor/scripts/utils.gd"
+} ]
+_global_script_class_icons={
+"Utils": ""
+}
+
 [addons]
 
 "Dialog Assets Folder"="res://settings_test"

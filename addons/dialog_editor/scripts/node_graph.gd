@@ -10,7 +10,7 @@ var start_node = preload("res://addons/dialog_editor/scenes/nodes/start.tscn")
 var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
 var dialogue_node = preload("res://addons/dialog_editor/scenes/nodes/dialogue.tscn")
 var input_node = preload("res://addons/dialog_editor/scenes/nodes/input.tscn")
-
+var requirement_node = preload("res://addons/dialog_editor/scenes/nodes/requirement.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -125,6 +125,8 @@ func setup_graph():
 			new_node = end_node.instance()
 		if node.type == "input":
 			new_node = input_node.instance()
+		if node.type == "requirement":
+			new_node = requirement_node.instance()
 		
 		add_new_node(new_node)
 		new_node.construct_from_json(node)
@@ -344,6 +346,8 @@ func check_for_lines():
 		
 		if node.get_num_lines() == 0:
 			lines_output = lines_output + "Dialogue has no lines attached. \n"
+			
+		lines_output = lines_output + node.validate_node_info()
 	
 	return lines_output
 

@@ -5,6 +5,7 @@ var start_node = preload("res://addons/dialog_editor/scenes/nodes/start.tscn")
 var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
 var dialogue_node = preload("res://addons/dialog_editor/scenes/nodes/dialogue.tscn")
 var input_node = preload("res://addons/dialog_editor/scenes/nodes/input.tscn")
+var requirement_node = preload("res://addons/dialog_editor/scenes/nodes/requirement.tscn")
 
 var adding_type = ""
 
@@ -32,6 +33,8 @@ func add_node(position):
 		new_node = dialogue_node.instance()
 	elif adding_type == "input":
 		new_node = input_node.instance()
+	elif adding_type == "requirement":
+		new_node = requirement_node.instance()
 	
 	new_node.offset = position
 	

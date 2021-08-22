@@ -1,1 +1,11 @@
-{}
+{
+	"variables": [
+		{
+			"id": "e1c05091de5cb16d45917486",
+			"type": "Boolean",
+			"value": true,
+			"name": "vivas",
+			"description": "Ola"
+		}
+	]
+}

@@ -5,8 +5,6 @@ var variable_ui = preload("res://addons/dialog_editor/scenes/base_variable.tscn"
 var variable_modal = preload("res://addons/dialog_editor/scenes/modals/add_new_variable.tscn")
 var b = "text"
 var variables = []
-var setting_name = "addons/Dialog Assets Folder"
-var variables_path = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,26 +14,7 @@ func _ready():
 	set("custom_constants/margin_bottom", margin_value)
 	set("custom_constants/margin_right", margin_value)
 	
-	var assets_folder = ProjectSettings.get_setting(setting_name)
-	variables_path = assets_folder + "/variables.json"
-	if assets_folder:
-		fetch_variables()
-
-# get all variables from file
-func fetch_variables():
-	var file = File.new()
-	file.open(variables_path, File.READ)
-	var content = file.get_as_text()
-	file.close()
-	# if there's nothing on the file, ignore
-	if not content:
-		return
-		
-	var json_file = JSON.parse(content).result
-	
-	if "variables" in json_file:
-		variables = json_file.variables
-	
+	variables = Utils.get_variables_from_file()
 	display_variables()
 
 # show all variables on screen
@@ -83,6 +62,7 @@ func add_new_variable(modal):
 	
 # store current information to file
 func save():
+	var variables_path = Utils.get_variables_path()
 	# remove previous file
 	var dir = Directory.new()
 	dir.remove(variables_path)

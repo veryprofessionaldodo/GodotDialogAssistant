@@ -55,15 +55,12 @@ func read_lines():
 
 	file.close()
 
-func calculate_id():
-	return String(randi()).sha256_text().substr(0, 24)
-	
 # read lines file to see if there's no collision of names
 func get_existing_line_names():
 	pass
 	
 func emit_line_signal():
-	calculate_id()
+	id = Utils. calculate_id()
 	var props = {
 		"id": id,
 		"name": line_name,
