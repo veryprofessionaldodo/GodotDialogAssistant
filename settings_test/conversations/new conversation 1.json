@@ -1,0 +1,22 @@
+{
+	"nodes": [
+		{
+			"id": "0a1c0bf96d214ba6463a943b",
+			"offset": [
+				-15,
+				-429
+			],
+			"lines": [
+
+			],
+			"type": "dialogue",
+			"next": [
+
+			]
+		}
+	],
+	"scroll_offset": [
+		0,
+		-558
+	]
+}

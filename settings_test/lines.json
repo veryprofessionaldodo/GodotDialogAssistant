@@ -1,17 +1,1 @@
-{
-	"lines": [
-		{
-			"id": -1,
-			"name": "finally awake",
-			"time": 3,
-			"type": "line",
-			"text": {
-				"en": "hey you, you're finally awake"
-			},
-			"audio": {
-
-			},
-			"char": "tim"
-		}
-	]
-}
+{}

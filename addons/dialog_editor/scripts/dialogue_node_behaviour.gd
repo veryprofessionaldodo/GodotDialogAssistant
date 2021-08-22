@@ -7,13 +7,13 @@ var lines_path = ""
 
 func _ready():
 	var assets_folder = ProjectSettings.get_setting(setting_name)
-	lines_path = assets_folder + "/variables/lines.json"
+	lines_path = assets_folder + "/lines.json"
 	if assets_folder:
 		get_all_lines()
 
 func get_all_lines():
 	var file = File.new()
-	file.open(lines_path, File.READ)
+	var error = file.open(lines_path, File.READ)
 	var content = file.get_as_text()
 	
 	# if there's nothing on the file, ignore
@@ -24,6 +24,8 @@ func get_all_lines():
 	
 	if "lines" in json_file:
 		all_lines = json_file.lines
+
+	file.close()
 
 # auto select is used to automatically select the correct option
 func new_line_dialogue_node(auto_select_id = -1):

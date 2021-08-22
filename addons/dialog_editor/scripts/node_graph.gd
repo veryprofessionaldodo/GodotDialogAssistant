@@ -11,6 +11,7 @@ var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
 var dialogue_node = preload("res://addons/dialog_editor/scenes/nodes/dialogue.tscn")
 var input_node = preload("res://addons/dialog_editor/scenes/nodes/input.tscn")
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# get informations	
@@ -28,11 +29,11 @@ func load_conversation(node):
 	
 	var path = conversations_folder + node.text + ".json"
 	var file = File.new()
-	file.open(path, File.READ)
+	var error = file.open(path, File.READ)
 	current_conversation_path = conversations_folder + node.text + ".json"
 	current_conversation = JSON.parse(file.get_as_text()).result
 	file.close()
-
+	
 	setup_graph()
 	
 # saves the current conversation directly to file
@@ -94,11 +95,9 @@ func add_new_node(node):
 		return
 
 	# adds the conversation starting from the center
-	node.offset.x = node.offset.x
-	node.offset.y = node.offset.y
 	node.connect("dragged", self, "node_dragged", [])
 	add_child(node)
-
+	
 # temp function to connect a drag to save
 func node_dragged(from, to):
 	save_current_conversation()
@@ -115,7 +114,7 @@ func setup_graph():
 	# position graph to the last left place
 	if "scroll_offset" in current_conversation:
 		scroll_offset = Vector2(current_conversation["scroll_offset"][0], current_conversation["scroll_offset"][1])
-		
+	
 	for node in current_conversation.nodes:
 		var new_node = null
 		if node.type == "dialogue":
@@ -129,7 +128,7 @@ func setup_graph():
 		
 		add_new_node(new_node)
 		new_node.construct_from_json(node)
-	
+		
 	# do connections between nodes
 	for node in current_conversation.nodes:
 		if len(node.next) == 0:
@@ -140,7 +139,7 @@ func setup_graph():
 			var from_node = get_node_by_id(node.id).name
 			var to_node = get_node_by_id(next[1]).name
 			connect_node(from_node, next[0], to_node, next[2])
-
+	
 func reset_graph():
 	for node in get_children():
 		if node is GraphNode:

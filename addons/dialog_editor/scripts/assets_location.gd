@@ -15,7 +15,7 @@ func _on_confirmed():
 		}
 		
 		ProjectSettings.add_property_info(property_info)
-		
+	
 	# update the setting and save
 	ProjectSettings.set_setting(setting_name, current_dir)
 	ProjectSettings.save()

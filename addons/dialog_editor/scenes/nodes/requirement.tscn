@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/requirement_node_behaviour.gd" type="Script" id=1]
 
-[node name="Node2D" type="GraphNode"]
+[node name="RequirementNode" type="GraphNode"]
 margin_right = 115.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 200, 60 )

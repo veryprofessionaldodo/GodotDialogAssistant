@@ -26,7 +26,7 @@ func fetch_variables():
 	var file = File.new()
 	file.open(variables_path, File.READ)
 	var content = file.get_as_text()
-	
+	file.close()
 	# if there's nothing on the file, ignore
 	if not content:
 		return

@@ -11,7 +11,7 @@ var languages = ["en", "pt", "fr"]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assets_folder = ProjectSettings.get_setting(setting_name)
-	lines_path = assets_folder + "/variables/lines.json"
+	lines_path = assets_folder + "/lines.json"
 	if assets_folder:
 		read_lines()
 
@@ -20,6 +20,7 @@ func read_lines():
 	var file = File.new()
 	file.open(lines_path, File.READ)
 	var content = file.get_as_text()
+	file.close()
 	
 	# if there's nothing on the file, ignore
 	if not content:
@@ -29,6 +30,7 @@ func read_lines():
 	
 	if "lines" in json_file:
 		lines = json_file.lines
+
 	
 	display_lines()
 	

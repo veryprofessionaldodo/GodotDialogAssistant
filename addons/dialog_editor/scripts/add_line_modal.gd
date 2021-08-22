@@ -30,7 +30,7 @@ signal new_line_signal(properties)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assets_folder = ProjectSettings.get_setting(setting_name)
-	lines_path = assets_folder + "/variables/lines.json"
+	lines_path = assets_folder + "/lines.json"
 	if assets_folder:
 		read_lines()
 
@@ -52,6 +52,8 @@ func read_lines():
 	
 	if "lines" in json_file:
 		lines = json_file.lines
+
+	file.close()
 
 func calculate_id():
 	return String(randi()).sha256_text().substr(0, 24)

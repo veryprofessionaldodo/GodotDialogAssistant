@@ -24,7 +24,6 @@ func text_changed(new_text, lang):
 		get_ok().disabled = false
 
 func set_lang_text(lang, text):
-	print("setting lang ", lang, " to ", text)
 	var base_container = $Container
 	for language in base_container.get_children():
 		var key = language.get_child(0).text.replace(":","").to_lower()
