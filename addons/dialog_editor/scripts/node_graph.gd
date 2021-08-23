@@ -277,9 +277,8 @@ func check_connections(connections, node):
 
 	if len(connections) > 1: 
 		for connection in connections:
-			if "requirement" in connection:
+			if not "requirement" in connection:
 				return "Node of type " + node_type + " has multiple connections that are not all requirements. \n"
-	
 
 	return ""
 

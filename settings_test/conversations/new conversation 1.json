@@ -1,49 +1,101 @@
 {
 	"nodes": [
 		{
-			"id": "",
+			"id": "18fbce12ecd9ad0d",
 			"offset": [
-				-15,
-				-429
+				738,
+				-357
 			],
-			"lines": [
-
+			"type": "requirement",
+			"requirements": [
+				{
+					"variable": "18fbce12ecd9ad0d",
+					"operation": "<=",
+					"target": 123
+				}
 			],
-			"type": "dialogue",
 			"next": [
 				[
 					0,
-					"e1c05091de5cb16d45917486",
+					"8b60906879ce3a43",
 					0
 				]
 			]
 		},
 		{
-			"id": "e1c05091de5cb16d45917486",
+			"id": "8b60906879ce3a43",
 			"offset": [
-				380,
-				-360
+				1120,
+				-260
+			],
+			"type": "end",
+			"next": [
+
+			]
+		},
+		{
+			"id": "c8ccba50228240a2",
+			"offset": [
+				750,
+				-203
 			],
 			"type": "requirement",
 			"requirements": [
 				{
-					"variable": "18fbce12ecd9ad0dec35307e",
-					"operation": "<=",
-					"target": 10.2
-				},
-				{
-					"variable": "e1c05091de5cb16d45917486",
+					"variable": "e1c05091de5cb16d",
 					"operation": "==",
-					"target": true
+					"target": false
 				}
 			],
 			"next": [
-
+				[
+					0,
+					"8b60906879ce3a43",
+					0
+				]
+			]
+		},
+		{
+			"id": "91b20b2cb97add3a",
+			"offset": [
+				60,
+				-280
+			],
+			"type": "start",
+			"next": [
+				[
+					0,
+					"0a1c0bf96d214ba6",
+					0
+				]
+			]
+		},
+		{
+			"id": "0a1c0bf96d214ba6",
+			"offset": [
+				320,
+				-300
+			],
+			"lines": [
+				"105091516"
+			],
+			"type": "dialogue",
+			"next": [
+				[
+					0,
+					"18fbce12ecd9ad0d",
+					0
+				],
+				[
+					0,
+					"c8ccba50228240a2",
+					0
+				]
 			]
 		}
 	],
 	"scroll_offset": [
-		106,
-		-558
+		0,
+		-539
 	]
 }

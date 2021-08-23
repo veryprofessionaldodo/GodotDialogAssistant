@@ -1,6 +1,31 @@
 {
 	"nodes": [
+		{
+			"id": "ed92076dc226645e",
+			"offset": [
+				331,
+				-281.5
+			],
+			"type": "start",
+			"next": [
+				[
+					0,
+					"697fbf134d62e7ec",
+					0
+				]
+			]
+		},
+		{
+			"id": "697fbf134d62e7ec",
+			"offset": [
+				782,
+				-281
+			],
+			"type": "end",
+			"next": [
 
+			]
+		}
 	],
 	"scroll_offset": [
 		0,

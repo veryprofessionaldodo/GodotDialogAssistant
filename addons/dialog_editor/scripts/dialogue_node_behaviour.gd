@@ -109,8 +109,7 @@ func validate_node_info():
 			
 			var line_exists = false
 			for line in all_lines:
-				print("line id is ", line.id)
-				if line.id == line_id:
+				if int(line.id) == line_id:
 					line_exists = true
 					break
 			

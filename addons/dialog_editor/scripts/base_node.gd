@@ -4,10 +4,9 @@ extends GraphNode
 var setting_name = "addons/Dialog Assets Folder"
 var id = ""
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	id = Utils.calculate_id();
-		
+	id = Utils.calculate_id()
+
 func convert_to_json():
 	var dict = {}
 	dict.id = id

@@ -1,18 +1,17 @@
 {
-	"variables": [
-		{
-			"id": "e1c05091de5cb16d45917486",
-			"type": "boolean",
-			"value": 0,
-			"name": "ola",
-			"description": "\t\t"
-		},
-		{
-			"id": "18fbce12ecd9ad0dec35307e",
-			"type": "number",
-			"value": 1,
-			"name": "vivas",
-			"description": ""
-		}
-	]
+    "variables": [{
+            "id": "e1c05091de5cb16d",
+            "type": "boolean",
+            "value": 0,
+            "name": "ola",
+            "description": "\t\t"
+        },
+        {
+            "id": "18fbce12ecd9ad0d",
+            "type": "number",
+            "value": 1,
+            "name": "vivas",
+            "description": ""
+        }
+    ]
 }

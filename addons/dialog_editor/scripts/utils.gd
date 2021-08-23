@@ -12,7 +12,7 @@ static func parse_to_numeric_string(text) -> String:
 	return final 
 
 static func calculate_id() -> String: 
-	return String(randi()).sha256_text().substr(0, 24)
+	return String(randi()).sha256_text().substr(0, 16)
 
 static func get_lines_path() -> String: 
 	var setting_name = "addons/Dialog Assets Folder"
