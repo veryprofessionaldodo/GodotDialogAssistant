@@ -172,6 +172,10 @@ margin_top = 18.0
 margin_right = 584.0
 margin_bottom = 116.0
 size_flags_vertical = 3
+text = "Invalid name, empty string.
+Invalid character name, is empty string or a number.
+Invalid English text.
+"
 readonly = true
 
 [connection signal="confirmed" from="." to="." method="emit_line_signal"]

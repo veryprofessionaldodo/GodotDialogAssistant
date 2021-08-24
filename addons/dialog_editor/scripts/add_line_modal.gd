@@ -64,7 +64,7 @@ func emit_line_signal():
 	var props = {
 		"id": id,
 		"name": line_name,
-		"time": 3,
+		"time": time,
 		"type": "line",
 		"text": {},
 		"audio": {},
@@ -84,6 +84,23 @@ func emit_line_signal():
 		props.audio["pt"] = pt_audio
 
 	emit_signal("new_line_signal", props)
+	
+	reset()
+	
+func reset():
+	line_name = ""
+	character = ""
+	time = -1
+	en_text = ""
+	en_audio = ""
+	pt_text = ""
+	pt_audio = ""
+
+	$VBoxContainer/Names/LineEdit.text = ""
+	$VBoxContainer/Character/LineEdit.text = ""
+	$VBoxContainer/Time/LineEdit.text = ""
+	$VBoxContainer/EnText/LineEdit.text = ""
+	$VBoxContainer/PtText/LineEdit.text = ""
 
 func name_text_entered(new_text):
 	line_name = new_text

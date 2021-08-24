@@ -1,16 +1,30 @@
 {
-    "lines": [{
-        "id": "e1c05091de5cb16d",
-        "name": "ola",
-        "time": "-1",
-        "type": "line",
-        "text": {
-            "en": "hello",
-            "pt": "ola"
-        },
-        "audio": {
+	"lines": [
+		{
+			"id": "085b36ce4d",
+			"name": "damn",
+			"time": 3,
+			"type": "line",
+			"text": {
+				"en": "damn"
+			},
+			"audio": {
 
-        },
-        "char": "pedro"
-    }]
+			},
+			"char": "damn"
+		},
+		{
+			"id": "5f794452d0",
+			"name": "mequie",
+			"time": 3,
+			"type": "line",
+			"text": {
+				"en": "mequie"
+			},
+			"audio": {
+
+			},
+			"char": "damn"
+		}
+	]
 }

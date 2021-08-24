@@ -1,18 +1,19 @@
 extends Reference
 class_name Utils
 
+const MAX_CHAR_NUM = 10
+
 static func parse_to_numeric_string(text) -> String:
 	var final = ""
 	var valid = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
 	for character in text: 
 		if character in valid:
 			final = final + character
-			
-	print("got text ", text, " parsed to ", final)
+
 	return final 
 
 static func calculate_id() -> String: 
-	return String(randi()).sha256_text().substr(0, 16)
+	return String(randi()).sha256_text().substr(0, MAX_CHAR_NUM)
 
 static func get_lines_path() -> String: 
 	var setting_name = "addons/Dialog Assets Folder"

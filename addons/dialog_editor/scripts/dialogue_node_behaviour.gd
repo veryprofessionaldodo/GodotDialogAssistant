@@ -38,8 +38,17 @@ func new_line_dialogue_node(auto_select_id = -1):
 	for line in all_lines:
 		options.add_item(line["text"]["en"], int(line["id"]))
 	
+	var found_selected_id = false
 	if not auto_select_id == -1:
-		options.select(options.get_item_index(auto_select_id))
+		for i in range(options.get_item_count()):
+			if options.get_item_id(i) == int(auto_select_id):
+				options.select(i)
+				found_selected_id = true
+				break
+		
+		# line no longer exists, and it will cause an error
+		if not found_selected_id:
+			return
 
 	# can be a button to add a new line
 	var delete = Button.new()
@@ -73,7 +82,7 @@ func convert_to_json():
 				continue
 			
 			dict.lines.append(str(node.get_item_id(node.selected)))
-	
+
 	dict.type = "dialogue"
 	return dict
 

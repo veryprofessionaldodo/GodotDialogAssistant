@@ -1,7 +1,6 @@
 tool
 extends "res://addons/dialog_editor/scripts/base_node.gd"
 
-const MAX_CHAR_NUM = 10
 var variables = []
 var boolean_check_ui = null
 var number_check_ui = null
@@ -42,7 +41,6 @@ func create_base_ui():
 
 func new_requirement_value(new_text, node):
 	var parsed_numeric = Utils.parse_to_numeric_string(new_text)
-	print("here? ", new_text, " node ", node.text, " float ", parsed_numeric)
 	node.text = parsed_numeric
 	node.caret_position = len(parsed_numeric)
 
@@ -65,7 +63,7 @@ func convert_to_json():
 		var variable_id = options.get_item_id(options.selected)
 	
 		for variable in variables:
-			if int(variable.id.substr(0, MAX_CHAR_NUM)) == variable_id:
+			if int(variable.id) == variable_id:
 				requirement.variable = variable.id
 				if variable.type == "boolean":
 					requirement.operation = "=="
@@ -77,27 +75,31 @@ func convert_to_json():
 				break
 
 		if requirement != {}:
-			print("managed a requirement!", requirement)
 			dict.requirements.append(requirement)
-	
-	print("got ", dict)
+
 	return dict
 
 # reconstruct node here
 func construct_from_json(info):
 	.construct_from_json(info)
-	
-	print("got info?", info)
+
 	for requirement in info.requirements:
 		var container = add_empty_requirement()
 		var options = container.get_child(0)
 		var boolean_check = container.get_child(1)
 		var number_check = container.get_child(2)
-	
+		
+		var selected_final = -1
 		# select the correct option
 		for i in range(0, options.get_item_count()):
-			if options.get_item_id(i) == int(requirement.variable.substr(0, MAX_CHAR_NUM)):
+			if options.get_item_id(i) == int(requirement.variable):
 				options.select(i)
+				selected_final = i
+		
+		# variable no longer exists, don't add
+		if selected_final == -1:
+			$Info.remove_child(container)
+			break
 		
 		hide_incorrect_check(container)
 		
@@ -134,20 +136,23 @@ func hide_incorrect_check(container):
 	var variable_id = options.get_item_id(options.selected)
 	
 	for variable in variables:
-		if int(variable["id"].substr(0, MAX_CHAR_NUM)) == variable_id:
+		if int(variable["id"]) == variable_id:
 			if variable.type == "boolean":
 				number_check.visible = false
 				boolean_check.visible = true
 			else:
 				number_check.visible = true
 				boolean_check.visible = false
-
+				
+func create_boolean_check():
+	return 
+	
 func add_empty_requirement():
 	var container = HBoxContainer.new()
 	
 	var options = OptionButton.new()
 	for variable in variables:
-		options.add_item(variable["name"], int(variable["id"].substr(0, MAX_CHAR_NUM)))
+		options.add_item(variable["name"], int(variable["id"]))
 	
 	options.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	options.select(len(variables) - 1)
@@ -174,7 +179,7 @@ func add_empty_requirement():
 	$Info.add_child(container)
 	
 	return container
-	
+
 func options_updated(idx, container):
 	hide_incorrect_check(container)
 	
@@ -185,4 +190,32 @@ func remove_requirement(container):
 	
 func validate_node_info():
 	var output = ""
+	if get_num_requirements() == 0:
+		output = output + "Requirement Node has no requirements. \n"
+		return output
+		
+	for child in $Info.get_children():
+		if not child is HBoxContainer:
+			continue
+			
+		var options = child.get_child(0)
+		var variable_id = options.get_item_id(options.selected)
+		var variable_exists = false
+		for variable in variables:
+			if int(variable.id) == variable_id:
+				variable_exists = true
+				break
+		
+		if not variable_exists: 
+			output = output + "Requirement features variable that no longer exists. \n"
+		
+		var boolean_check = child.get_child(1)
+		var number_check = child.get_child(2)
+		
+		if number_check.visible == true:
+			var value = number_check.get_child(2).text
+			
+			if value == "":
+				output = output + "One number requirement is comparing against an empty string. \n"
+		 
 	return output

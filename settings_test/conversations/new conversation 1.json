@@ -1,96 +1,49 @@
 {
 	"nodes": [
 		{
-			"id": "18fbce12ecd9ad0d",
+			"id": "ed92076dc2",
 			"offset": [
-				738,
-				-357
-			],
-			"type": "requirement",
-			"requirements": [
-				{
-					"variable": "18fbce12ecd9ad0d",
-					"operation": "<=",
-					"target": 123
-				}
-			],
-			"next": [
-				[
-					0,
-					"8b60906879ce3a43",
-					0
-				]
-			]
-		},
-		{
-			"id": "8b60906879ce3a43",
-			"offset": [
-				1120,
-				-260
-			],
-			"type": "end",
-			"next": [
-
-			]
-		},
-		{
-			"id": "c8ccba50228240a2",
-			"offset": [
-				750,
-				-203
-			],
-			"type": "requirement",
-			"requirements": [
-				{
-					"variable": "e1c05091de5cb16d",
-					"operation": "==",
-					"target": false
-				}
-			],
-			"next": [
-				[
-					0,
-					"8b60906879ce3a43",
-					0
-				]
-			]
-		},
-		{
-			"id": "91b20b2cb97add3a",
-			"offset": [
-				60,
-				-280
+				219,
+				-265.5
 			],
 			"type": "start",
 			"next": [
 				[
 					0,
-					"0a1c0bf96d214ba6",
+					"99155a3f51",
 					0
 				]
 			]
 		},
 		{
-			"id": "0a1c0bf96d214ba6",
+			"id": "99155a3f51",
 			"offset": [
-				320,
-				-300
+				648,
+				-274
 			],
 			"lines": [
-				"105091516"
+				"85364",
+				"16543",
+				"85364"
 			],
 			"type": "dialogue",
 			"next": [
 				[
 					0,
-					"18fbce12ecd9ad0d",
-					0
-				],
-				[
-					0,
-					"c8ccba50228240a2",
+					"697fbf134d",
 					0
 				]
+			]
+		},
+		{
+			"id": "697fbf134d",
+			"offset": [
+				1140,
+				-260
+			],
+			"type": "end",
+			"next": [
+
 			]
 		}
 	],

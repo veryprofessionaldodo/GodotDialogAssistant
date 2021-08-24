@@ -27,10 +27,9 @@ func load_conversation(node):
 
 	save_current_conversation()
 	
-	var path = conversations_folder + node.text + ".json"
-	var file = File.new()
-	var error = file.open(path, File.READ)
 	current_conversation_path = conversations_folder + node.text + ".json"
+	var file = File.new()
+	var error = file.open(current_conversation_path, File.READ)
 	current_conversation = JSON.parse(file.get_as_text()).result
 	file.close()
 	
@@ -204,6 +203,7 @@ func validate():
 	# check if dialogue nodes have lines
 	output = output + check_for_lines()
 	output = output + check_for_inputs()
+	output = output + check_for_requirements()
 	
 	# launch popup with output
 	if output == "":
@@ -285,7 +285,7 @@ func check_connections(connections, node):
 func check_for_start():
 	var num_start = 0 
 	var connections = []
-	var start_node = null
+	var start_nodes = []
 	for node in get_children():
 		if not node is GraphNode:
 			continue
@@ -294,19 +294,29 @@ func check_for_start():
 			num_start = num_start + 1
 			
 			connections = get_connections_for_node(node)
-			start_node = node
+			start_nodes.append(node)
 
 	# check if there are multiple start nodes
-	if num_start != 1:
+	if num_start > 1:
+		for node in start_nodes:
+			node.set_overlay(2)
 		return "Too many start nodes in conversation (" + str(num_start) + "). \n"	
 	elif num_start == 0:
 		return "No start node in conversation. \n"
-	return check_connections(connections, start_node)
+		
+	var connections_info = check_connections(connections, start_nodes[0])
+	if connections_info != "":
+		start_nodes[0].set_overlay(2)
+		return connections_info
+	
+	start_nodes[0].set_overlay(0)
+	return ""
 	
 func check_for_end():
 	var has_end = false
 	var num_end = 0
 	var connections = []
+	var end_nodes = []
 	for node in get_children():
 		if not node is GraphNode:
 			continue
@@ -315,17 +325,54 @@ func check_for_end():
 			num_end = num_end + 1 
 			
 			has_end = true
+			end_nodes.append(node)
 			connections = get_connections_to_node(node)
 	
 	if num_end > 1:
+		for node in end_nodes:
+			node.set_overlay(2)
 		return "Too many end_nodes in conversation (" + str(num_end) + "). \n"
 	if not has_end:
 		return "No end node in conversation. \n"
 	elif len(connections) == 0:
+		end_nodes[0].set_overlay(2)
 		return "End node has no connected nodes. \n"
-		
-	return ""
 	
+	# there is only one end node, and it is a-ok
+	end_nodes[0].set_overlay(0)
+	return ""
+
+func check_for_requirements():
+	var requirements_output = ""
+	
+	for node in get_children():
+		if not node is GraphNode:
+			continue
+			
+		if node.get_type() != "requirement":
+			continue
+		
+		node.set_overlay(0)
+		
+		var connections_to = get_connections_to_node(node) 
+		if len(connections_to) == 0:
+			node.set_overlay(2)
+			requirements_output = requirements_output + "Requirement is not connected to any previous node. \n"
+		
+		var connections_for = get_connections_for_node(node)
+		var connections_info = check_connections(connections_for, node)
+		if connections_info != "":
+			node.set_overlay(2)
+			requirements_output = requirements_output + connections_info
+		
+		var node_info = node.validate_node_info()
+		if node_info != "": 
+			node.set_overlay(2)
+			
+		requirements_output = requirements_output + node_info
+	
+	return requirements_output
+
 func check_for_lines():
 	var lines_output = ""
 	
@@ -336,17 +383,27 @@ func check_for_lines():
 		if node.get_type() != "dialogue":
 			continue
 		
+		node.set_overlay(0)
+		
 		var connections_to = get_connections_to_node(node) 
 		if len(connections_to) == 0:
+			node.set_overlay(2)
 			lines_output = lines_output + "Dialogue is not connected to any previous node. \n"
-		var connections_for = get_connections_for_node(node)
 		
-		lines_output = lines_output + check_connections(connections_for, node)
+		var connections_for = get_connections_for_node(node)
+		var connections_info = check_connections(connections_for, node)
+		if connections_info != "":
+			node.set_overlay(2)
+			lines_output = lines_output + connections_info
 		
 		if node.get_num_lines() == 0:
 			lines_output = lines_output + "Dialogue has no lines attached. \n"
-			
-		lines_output = lines_output + node.validate_node_info()
+			node.set_overlay(2)
+		
+		var node_validation_info = node.validate_node_info()
+		if node_validation_info != "":
+			node.set_overlay(2)
+			lines_output = lines_output + node_validation_info
 	
 	return lines_output
 
@@ -365,9 +422,24 @@ func check_for_inputs():
 			inputs_output = inputs_output + "Input is not connected to any previous node. \n"
 		var connections_for = get_connections_for_node(node)
 		
-		inputs_output = inputs_output + check_connections(connections_for, node)
+		node.set_overlay(0)
 		
+		var connections_info = check_connections(connections_for, node)
+		if connections_info != "":
+			node.set_overlay(2)
+			inputs_output = inputs_output + connections_info
+			
 		if node.get_num_inputs() == 0:
+			node.set_overlay(2)
 			inputs_output = inputs_output + "Input has no options given. \n"
-	
+		
 	return inputs_output
+
+# refresh information for entire conversation
+func refresh():
+	save_current_conversation()
+	var file = File.new()
+	var error = file.open(current_conversation_path, File.READ)
+	current_conversation = JSON.parse(file.get_as_text()).result
+	file.close()
+	setup_graph()
