@@ -2,11 +2,11 @@
 
 [ext_resource path="res://addons/dialog_editor/scripts/base_req_effect_node.gd" type="Script" id=1]
 
-[node name="RequirementNode" type="GraphNode"]
-margin_right = 250.0
+[node name="EffectNode" type="GraphNode"]
+margin_right = 200.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 250, 0 )
-title = "Requirement"
+title = "Effect"
 show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -18,7 +18,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-type = "requirement"
+type = "effect"
 
 [node name="Info" type="VBoxContainer" parent="."]
 margin_left = 16.0
@@ -26,10 +26,9 @@ margin_top = 24.0
 margin_right = 234.0
 margin_bottom = 44.0
 
-[node name="Button" type="Button" parent="Info"]
+[node name="AddEffect" type="Button" parent="Info"]
 margin_right = 218.0
 margin_bottom = 20.0
-text = "Add Requirement"
+text = "Add New Effect"
 
-[connection signal="close_request" from="." to="." method="node_closed"]
-[connection signal="pressed" from="Info/Button" to="." method="add_empty"]
+[connection signal="pressed" from="Info/AddEffect" to="." method="add_empty"]

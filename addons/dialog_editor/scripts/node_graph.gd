@@ -11,6 +11,7 @@ var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
 var dialogue_node = preload("res://addons/dialog_editor/scenes/nodes/dialogue.tscn")
 var input_node = preload("res://addons/dialog_editor/scenes/nodes/input.tscn")
 var requirement_node = preload("res://addons/dialog_editor/scenes/nodes/requirement.tscn")
+var effect_node = preload("res://addons/dialog_editor/scenes/nodes/effect.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,12 +67,32 @@ func save_current_conversation():
 	file.open(current_conversation_path, File.WRITE)
 	file.store_string(JSON.print(conversation_parsed, "\t"))
 	file.close()
+	
+func get_new_node_by_type(type):
+	var new_node = null
+	if type == "dialogue":
+		new_node = dialogue_node.instance()
+	if type == "start":
+		new_node = start_node.instance()
+	if type == "end":
+		new_node = end_node.instance()
+	if type == "input":
+		new_node = input_node.instance()
+	if type == "requirement":
+		new_node = requirement_node.instance()
+	if type == "effect":
+		new_node = effect_node.instance()
+		
+	return new_node
 
 # adds new node to the graph via drag
-func add_new_drag_node(node):
+func add_new_drag_node(type, position):
 	if current_conversation_path == null:
 		return
-
+	
+	var node = get_new_node_by_type(type)
+	node.offset = position
+	
 	var x_pos = node.offset.x 
 	var y_pos = node.offset.y 
 	
@@ -115,18 +136,7 @@ func setup_graph():
 		scroll_offset = Vector2(current_conversation["scroll_offset"][0], current_conversation["scroll_offset"][1])
 	
 	for node in current_conversation.nodes:
-		var new_node = null
-		if node.type == "dialogue":
-			new_node = dialogue_node.instance()
-		if node.type == "start":
-			new_node = start_node.instance()
-		if node.type == "end":
-			new_node = end_node.instance()
-		if node.type == "input":
-			new_node = input_node.instance()
-		if node.type == "requirement":
-			new_node = requirement_node.instance()
-		
+		var new_node = get_new_node_by_type(node.type)
 		add_new_node(new_node)
 		new_node.construct_from_json(node)
 		
@@ -203,7 +213,7 @@ func validate():
 	# check if dialogue nodes have lines
 	output = output + check_for_lines()
 	output = output + check_for_inputs()
-	output = output + check_for_requirements()
+	output = output + check_for_requirements_and_effects()
 	
 	# launch popup with output
 	if output == "":
@@ -243,7 +253,7 @@ func check_connections(connections, node):
 	if len(connections) == 0:
 		return "No connections found for " + node_type + " node. \n"
 		
-	# input has specific rules
+	# input has specific rules, as it has multiple outputs
 	if node_type == "input":
 		# iterate over every input
 		var inputs_connections = {}
@@ -268,18 +278,30 @@ func check_connections(connections, node):
 			# has multiple connections from the same slot, they need to be
 			# requirements
 			if len(slot_connections) > 1:
+				var num_not_requirements = 0
 				for slot_connection in slot_connections:
 					if slot_connection != "requirement":
-						inputs_connection_text = inputs_connection_text + "Input has too many outpus in slot " + str(i) + "and they're not all requirements. \n"
+						num_not_requirements = num_not_requirements + 1
+						
+						# there can be only one not requirement node as a fallback
+						# in case no requirement node passes
+						if num_not_requirements > 2:
+							inputs_connection_text = inputs_connection_text + "Input has too many outpus in slot " + str(i) + "and they're not all requirements. \n"
 					
 		
 		return inputs_connection_text
 
-	if len(connections) > 1: 
-		for connection in connections:
-			if not "requirement" in connection:
-				return "Node of type " + node_type + " has multiple connections that are not all requirements. \n"
-
+	if len(connections) > 1:
+		var num_not_requirements = 0
+		for slot_connection in connections:
+			if slot_connection != "requirement":
+				num_not_requirements = num_not_requirements + 1
+						
+				# there can be only one not requirement node as a fallback
+				# in case no requirement node passes
+				if num_not_requirements > 2:
+					return "Node of type " + node_type + " has multiple connections that are not all requirements. \n"
+			
 	return ""
 
 func check_for_start():
@@ -342,36 +364,41 @@ func check_for_end():
 	end_nodes[0].set_overlay(0)
 	return ""
 
-func check_for_requirements():
-	var requirements_output = ""
+func check_for_requirements_and_effects():
+	var output = ""
 	
 	for node in get_children():
 		if not node is GraphNode:
 			continue
 			
-		if node.get_type() != "requirement":
+		var type = node.get_type()
+		
+		if type != "requirement" and type != "effect":
 			continue
+		
+		var pretty_type = node.get_type().capitalize()
 		
 		node.set_overlay(0)
 		
 		var connections_to = get_connections_to_node(node) 
 		if len(connections_to) == 0:
 			node.set_overlay(2)
-			requirements_output = requirements_output + "Requirement is not connected to any previous node. \n"
+			output = output + pretty_type + " is not connected to any previous node. \n"
 		
 		var connections_for = get_connections_for_node(node)
 		var connections_info = check_connections(connections_for, node)
+		
 		if connections_info != "":
 			node.set_overlay(2)
-			requirements_output = requirements_output + connections_info
+			output = output + connections_info
 		
 		var node_info = node.validate_node_info()
 		if node_info != "": 
 			node.set_overlay(2)
 			
-		requirements_output = requirements_output + node_info
+		output = output + node_info
 	
-	return requirements_output
+	return output
 
 func check_for_lines():
 	var lines_output = ""

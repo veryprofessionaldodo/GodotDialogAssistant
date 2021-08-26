@@ -3,34 +3,14 @@ extends "res://addons/dialog_editor/scripts/base_node.gd"
 
 var all_lines = []
 var num_lines = 0
-var lines_path = ""
 
 func _ready():
-	var assets_folder = ProjectSettings.get_setting(setting_name)
-	lines_path = assets_folder + "/lines.json"
-	if assets_folder:
-		get_all_lines()
-
-func get_all_lines():
-	var file = File.new()
-	var error = file.open(lines_path, File.READ)
-	var content = file.get_as_text()
-	
-	# if there's nothing on the file, ignore
-	if not content:
-		return
-		
-	var json_file = JSON.parse(content).result
-	
-	if "lines" in json_file:
-		all_lines = json_file.lines
-
-	file.close()
+	all_lines = Utils.get_lines_from_file()
 
 # auto select is used to automatically select the correct option
 func new_line_dialogue_node(auto_select_id = -1):
 	# this is run to always fetch the most up to date information
-	get_all_lines()
+	all_lines = Utils.get_lines_from_file()
 	var container = HSplitContainer.new()
 	var options = OptionButton.new()
 	options.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -106,7 +86,7 @@ func create_new_line_variable():
 func validate_node_info():
 	var output = ""
 	# update information
-	get_all_lines()
+	all_lines = Utils.get_lines_from_file()
 	
 	for split_container in $Container/Lines.get_children():
 		for node in split_container.get_children():

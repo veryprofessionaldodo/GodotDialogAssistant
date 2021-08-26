@@ -5,7 +5,7 @@
 [node name="EndNode" type="GraphNode"]
 margin_right = 102.0
 margin_bottom = 58.0
-title = "End Node"
+title = "End"
 show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
