@@ -5,6 +5,7 @@ var setting_name = "addons/Dialog Assets Folder"
 var conversations_folder = ""
 var current_conversation = {"nodes": []}
 var current_conversation_path = null
+var id = ""
 
 var start_node = preload("res://addons/dialog_editor/scenes/nodes/start.tscn")
 var end_node = preload("res://addons/dialog_editor/scenes/nodes/end.tscn")
@@ -34,6 +35,7 @@ func load_conversation(node):
 	current_conversation = JSON.parse(file.get_as_text()).result
 	file.close()
 	
+	id = current_conversation.id 
 	setup_graph()
 	
 # saves the current conversation directly to file
@@ -42,6 +44,7 @@ func save_current_conversation():
 		return
 
 	var conversation_parsed = {}
+	conversation_parsed.id = id
 	conversation_parsed["nodes"] = [] 
 	conversation_parsed["scroll_offset"] = [scroll_offset.x, scroll_offset.y]
 	for node in get_children():
@@ -50,6 +53,13 @@ func save_current_conversation():
 		
 		# save all connections
 		var node_info = node.convert_to_json()
+		
+		# if it is an end node, already has next, 
+		# continue to the next node
+		if "next" in node_info:
+			conversation_parsed.nodes.append(node_info)
+			continue
+			
 		node_info.next = []
 		for connection in get_connection_list():
 			if node.name == connection.from:
@@ -146,6 +156,12 @@ func setup_graph():
 			continue
 		
 		for next in node.next:
+			# if it is the end node, don't try to 
+			# connect to next, it's a string for the 
+			# next conversation
+			if not node.next is Array:
+				break
+				
 			# connections are of type [from port, to id, to port]
 			var from_node = get_node_by_id(node.id).name
 			var to_node = get_node_by_id(next[1]).name
@@ -356,9 +372,16 @@ func check_for_end():
 		return "Too many end_nodes in conversation (" + str(num_end) + "). \n"
 	if not has_end:
 		return "No end node in conversation. \n"
-	elif len(connections) == 0:
+		
+	if len(connections) == 0:
 		end_nodes[0].set_overlay(2)
 		return "End node has no connected nodes. \n"
+		
+	var internal_info = end_nodes[0].validate_node_info()
+	if internal_info != "":
+		end_nodes[0].set_overlay(2)
+		return internal_info
+	
 	
 	# there is only one end node, and it is a-ok
 	end_nodes[0].set_overlay(0)

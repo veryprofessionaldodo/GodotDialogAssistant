@@ -1,7 +1,8 @@
 {
+	"id": "ffffa76dc2",
 	"nodes": [
 		{
-			"id": "ed92a76dc2",
+			"id": "aaafa76dc2",
 			"offset": [
 				219,
 				-265.5
@@ -35,17 +36,6 @@
 			]
 		},
 		{
-			"id": "697fbf134d",
-			"offset": [
-				1140,
-				-260
-			],
-			"type": "end",
-			"next": [
-
-			]
-		},
-		{
 			"id": "ed92076dc2",
 			"offset": [
 				480,
@@ -60,7 +50,7 @@
 				},
 				{
 					"variable": "18fbce12ecd9ad0d",
-					"operation": "==",
+					"operation": "<=",
 					"target": 10
 				}
 			],
@@ -90,10 +80,19 @@
 			"next": [
 
 			]
+		},
+		{
+			"id": "697fbf134d",
+			"offset": [
+				1140,
+				-260
+			],
+			"next": "e39eed9b110",
+			"type": "end"
 		}
 	],
 	"scroll_offset": [
-		0,
-		-539
+		-221.5,
+		-747
 	]
 }

@@ -6,7 +6,7 @@ var conversations_folder = ""
 var delete_scene = preload("res://addons/dialog_editor/scenes/modals/delete_conversation.tscn")
 var delete_modal = null
 var graph_node = null
-var file_names = []
+var files_struct = []
 var list_container = null
 
 var selected_color = "#9dd5ff"
@@ -33,32 +33,16 @@ func initial_setup():
 		conversations_folder = ProjectSettings.get_setting(setting_name) + "/conversations/"
 
 		# get all the necessary information
-		get_all_files()
+		files_struct = Utils.get_conversations_struct()
 		
 		populate_list()
-
-# get files from assets directory
-func get_all_files():
-	# find every json in conversations folder
-	var dir = Directory.new()
-	dir.open(conversations_folder)
-	dir.list_dir_begin()
-
-	while true:
-		var file = dir.get_next()
-		if file == "":
-			break
-		elif not file.begins_with(".") and file.ends_with(".json"):
-			file_names.append(file)
-
-	dir.list_dir_end()
 
 # add all the buttons and line edits
 func populate_list():
 	# insert each file name into list
-	for file in file_names:
-		insert_button(file)
-		insert_line_edit(file)
+	for file in files_struct:
+		insert_button(file.name)
+		insert_line_edit(file.name)
 
 func insert_button(name):
 	# create the container for the two buttons
@@ -217,13 +201,18 @@ func add_conversation():
 		index += 1
 
 	var new_name = "new conversation " + String(index)
+	create_file(new_name)
 	insert_button(new_name)
 	insert_line_edit(new_name)
-	create_file(new_name)
-
+	
 func create_file(name): 
 	var file = File.new()
-
+	var dict = {}
+	dict.id = Utils.calculate_id()
+	
+	print(conversations_folder + name + ".json")
 	file.open(conversations_folder + name + ".json", File.WRITE)
-	file.store_line("{}")
+	var json_string = JSON.print(dict, "\t")
+	
+	file.store_line(json_string)
 	file.close()
