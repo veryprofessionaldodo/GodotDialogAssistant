@@ -10,6 +10,7 @@ var files_struct = []
 var list_container = null
 
 var selected_color = "#9dd5ff"
+var error_color = "#f66d6d"
 
 var button_being_edited = null
 var container_being_edited = null
@@ -210,9 +211,75 @@ func create_file(name):
 	var dict = {}
 	dict.id = Utils.calculate_id()
 	
-	print(conversations_folder + name + ".json")
 	file.open(conversations_folder + name + ".json", File.WRITE)
 	var json_string = JSON.print(dict, "\t")
 	
 	file.store_line(json_string)
 	file.close()
+
+func validate_conversations():
+	var previous_conversation = current_conversation
+	var has_error = false
+	# iterate through all conversations
+	for conversation in list_container.get_children():
+		if not conversation is HSplitContainer:
+			continue 
+	 
+		var button = conversation.get_child(0)
+
+		# make node graph load conversation 
+		graph_node.load_conversation(button)
+		
+		button.add_color_override("font_color", Color(1,1,1,1))
+		button.add_color_override("font_color_hover", Color(1,1,1,1))
+		
+		# validate conversation, if output is returned,
+		# there's an error
+		var output = graph_node.validate(false)
+		
+		if output != "":
+			has_error = true
+			button.add_color_override("font_color", Color(error_color))
+			button.add_color_override("font_color_hover", Color(error_color))
+			
+	current_conversation = previous_conversation
+	graph_node.load_conversation(current_conversation)
+	
+	return has_error
+
+func export_final():
+	var has_errors = validate_conversations()
+	
+	var modal = ConfirmationDialog.new()
+	modal.window_title = "Export Status"
+	
+	var final_dict = {}
+	
+	var variables = Utils.get_variables_from_file()
+	var lines = Utils.get_lines_from_file()
+	var conversations_struct = Utils.get_conversations_struct()
+	
+	final_dict.variables = variables
+	final_dict.lines = lines
+	final_dict.conversations = conversations_struct
+	var json_string = JSON.print(final_dict, "\t")
+	
+	var script_path = ProjectSettings.get_setting(setting_name) + "/script.json"
+	var dir = Directory.new()
+	dir.remove(script_path)
+	
+	# create new file with the same text
+	var file = File.new()
+	file.open(script_path, File.WRITE)
+	file.store_line(json_string)
+	file.close()
+	
+	if has_errors: 
+		modal.dialog_text = "There were conversations with errors. Exporting anyways, but might lead to runtime crashes."
+	else:
+		modal.dialog_text = "Successfully exported to 'script.json'!"
+
+	modal.popup_exclusive = true
+	add_child(modal)
+	modal.popup_centered()
+

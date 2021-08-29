@@ -75,6 +75,7 @@ static func get_conversations_struct() -> Array:
 		
 			var parsed_json = JSON.parse(content).result
 			new_struct.id = parsed_json.id
+			new_struct.nodes = parsed_json.nodes
 			
 			files_struct.append(new_struct)
 			

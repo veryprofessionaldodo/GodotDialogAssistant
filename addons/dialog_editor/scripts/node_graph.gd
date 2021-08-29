@@ -218,7 +218,7 @@ func disconnect_nodes(from, from_slot, to, to_slot):
 	save_current_conversation()
 
 # outputs the validation state for the conversation
-func validate():
+func validate(shows_modal = true):
 	var output = ""
 	
 	# check if there is a start / end node, and it is connected to only
@@ -231,13 +231,16 @@ func validate():
 	output = output + check_for_inputs()
 	output = output + check_for_requirements_and_effects()
 	
-	# launch popup with output
-	if output == "":
-		output = "Everything appears to be valid!"
+	if shows_modal:
+		# launch popup with output
+		if output == "":
+			output = "Everything appears to be valid!"
 	
-	var modal = get_parent().get_node("ValidationOutput")
-	modal.get_node("Container/OutputText").text = output
-	modal.popup_centered()
+		var modal = get_parent().get_node("ValidationOutput")
+		modal.get_node("Container/OutputText").text = output
+		modal.popup_centered()
+	
+	return output
 	
 # VALIDATION RULES
 

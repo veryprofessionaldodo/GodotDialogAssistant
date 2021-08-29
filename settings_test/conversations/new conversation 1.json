@@ -36,63 +36,17 @@
 			]
 		},
 		{
-			"id": "ed92076dc2",
-			"offset": [
-				480,
-				-40
-			],
-			"type": "effect",
-			"effects": [
-				{
-					"variable": "697fbf134d",
-					"operation": "==",
-					"target": false
-				},
-				{
-					"variable": "18fbce12ecd9ad0d",
-					"operation": "<=",
-					"target": 10
-				}
-			],
-			"next": [
-
-			]
-		},
-		{
-			"id": "c8ccba5022",
-			"offset": [
-				120,
-				-20
-			],
-			"type": "requirement",
-			"requirements": [
-				{
-					"variable": "697fbf134d",
-					"operation": "==",
-					"target": true
-				},
-				{
-					"variable": "18fbce12ecd9ad0d",
-					"operation": "<=",
-					"target": 10
-				}
-			],
-			"next": [
-
-			]
-		},
-		{
 			"id": "697fbf134d",
 			"offset": [
 				1140,
 				-260
 			],
-			"next": "e39eed9b110",
+			"next": "ffffa76dc2",
 			"type": "end"
 		}
 	],
 	"scroll_offset": [
-		-221.5,
-		-747
+		0,
+		-418.5
 	]
 }
