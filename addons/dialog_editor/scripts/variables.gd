@@ -82,7 +82,6 @@ func create_new_variable():
 	modal.popup_centered()
 	modal.connect("confirmed", self, "add_new_variable", [modal])
 	
-	
 func collapse_all():
 	var col1 = $Base/VariablesColumns/Column1
 	var col2 = $Base/VariablesColumns/Column2

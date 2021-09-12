@@ -1,30 +1,28 @@
 {
 	"lines": [
 		{
-			"id": "085b36ce4d",
-			"name": "damn",
-			"time": 3,
+			"id": "9a1ec34bc887cc3b4e6",
+			"time": -1,
 			"type": "line",
 			"text": {
-				"en": "damn"
+				"en": "a"
 			},
 			"audio": {
 
 			},
-			"char": "damn"
+			"char": "a"
 		},
 		{
-			"id": "5f794452d0",
-			"name": "mequie",
-			"time": 3,
+			"id": "9a1ec34baa231c3b4e6",
+			"time": -1,
 			"type": "line",
 			"text": {
-				"en": "mequie"
+				"en": "f"
 			},
 			"audio": {
 
 			},
-			"char": "damn"
+			"char": "f"
 		}
 	]
 }

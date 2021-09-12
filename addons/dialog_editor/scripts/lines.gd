@@ -12,24 +12,15 @@ func _ready():
 
 func display_lines():
 	for line in lines:
-		populate_line(line.id, line.name, line.text, line.char, line.time, line.audio)
+		populate_line(line.id, line.text, line.char, line.time, line.audio)
 
-func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, audios = {}):
+func populate_line(id = -1, texts = {}, character = "", time = -1, audios = {}):
 	var parent_container = $"LinesInfo"
 			
 	var container = VBoxContainer.new()
 	parent_container.add_child(container)
 	
-	# Name Field
-	var name_container = HBoxContainer.new()
-	var name_label = Label.new()
-	name_label.text = "Name"
-	name_label.rect_min_size = Vector2(80,0)
-	
-	var name_edit = LineEdit.new()
-	name_edit.text = name
-	name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	name_edit.connect("text_entered", self, "value_changed", [{"id":id, "type":"name"}])
+	var buttons_container = HBoxContainer.new()
 	
 	var delete_button = Button.new()
 	delete_button.text = "Delete Line"
@@ -41,12 +32,10 @@ func populate_line(id = -1, name = "", texts = {}, character = "", time = -1, au
 	var collapse_toggle_button = Button.new()
 	collapse_toggle_button.text = "Collapse/Expand"
 	
-	name_container.add_child(name_label)
-	name_container.add_child(name_edit)
-	name_container.add_child(delete_button)
-	name_container.add_child(collapse_toggle_button)
+	buttons_container.add_child(delete_button)
+	buttons_container.add_child(collapse_toggle_button)
 	
-	container.add_child(name_container)
+	container.add_child(buttons_container)
 	
 	var info_container = VBoxContainer.new()
 	
@@ -175,12 +164,9 @@ func save():
 	var json_string = JSON.print({"lines": lines}, "\t")
 	file.store_string(json_string)
 	file.close()
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func line_signal_received(line):
 	lines.append(line)
-	populate_line(line.id, line.name, line.text, line.char, line.time, line.audio)
+	populate_line(line.id, line.text, line.char, line.time, line.audio)
 	save()
+	print("finished saving")

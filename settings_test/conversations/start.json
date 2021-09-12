@@ -1,0 +1,34 @@
+{
+	"id": "472e1a0952ffa0",
+	"nodes": [
+		{
+			"id": "2621614518",
+			"offset": [
+				40,
+				-140
+			],
+			"type": "start",
+			"next": [
+
+			]
+		},
+		{
+			"id": "e0e462b1e32a",
+			"offset": [
+				250,
+				-264.5
+			],
+			"lines": [
+
+			],
+			"type": "dialogue",
+			"next": [
+
+			]
+		}
+	],
+	"scroll_offset": [
+		0,
+		-418.5
+	]
+}

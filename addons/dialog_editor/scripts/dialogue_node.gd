@@ -5,12 +5,15 @@ var all_lines = []
 var num_lines = 0
 
 func _ready():
+	update_lines()
+	
+func update_lines():
 	all_lines = Utils.get_lines_from_file()
 
 # auto select is used to automatically select the correct option
 func new_line_dialogue_node(auto_select_id = -1):
 	# this is run to always fetch the most up to date information
-	all_lines = Utils.get_lines_from_file()
+	update_lines()
 	var container = HSplitContainer.new()
 	var options = OptionButton.new()
 	options.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -21,6 +24,7 @@ func new_line_dialogue_node(auto_select_id = -1):
 	var found_selected_id = false
 	if not auto_select_id == -1:
 		for i in range(options.get_item_count()):
+			print("i am going through ", options.get_item_id(i), " comparing to ", int(auto_select_id))
 			if options.get_item_id(i) == int(auto_select_id):
 				options.select(i)
 				found_selected_id = true
@@ -81,12 +85,21 @@ func get_num_lines():
 	return num_lines
 
 func create_new_line_variable():
-	pass # Replace with function body.
+	$AddLine.reset()
+	$AddLine.popup_centered()
+	$AddLine.connect("new_line_signal", self, "select_last_added")
+	
+func select_last_added(properties):
+	print("vivas")
+	update_lines()
+	var new_line = all_lines[len(all_lines) - 1]
+	print(new_line)
+	new_line_dialogue_node(int(new_line.id))
 
 func validate_node_info():
 	var output = ""
 	# update information
-	all_lines = Utils.get_lines_from_file()
+	update_lines()
 	
 	for split_container in $Container/Lines.get_children():
 		for node in split_container.get_children():
