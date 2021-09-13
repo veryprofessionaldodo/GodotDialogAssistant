@@ -15,7 +15,7 @@ static func parse_to_numeric_string(text) -> String:
 static func calculate_id() -> String:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize() 
-	var my_random_number = rng.randi_range(0.0, 100000.0)
+	var my_random_number = rng.randi_range(0.0, 1000000.0)
 	return my_random_number
 
 static func get_conversations_path() -> String: 
