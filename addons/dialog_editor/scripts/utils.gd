@@ -12,9 +12,11 @@ static func parse_to_numeric_string(text) -> String:
 
 	return final 
 
-static func calculate_id() -> String: 
-	var pos_start = randi() % 10
-	return String(randi() * randf() * randi() * randf()).sha256_text().substr(pos_start, pos_start + MAX_CHAR_NUM)
+static func calculate_id() -> String:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize() 
+	var my_random_number = rng.randi_range(0.0, 100000.0)
+	return my_random_number
 
 static func get_conversations_path() -> String: 
 	var setting_name = "addons/Dialog Assets Folder"

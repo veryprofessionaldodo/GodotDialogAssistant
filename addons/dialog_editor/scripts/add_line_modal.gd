@@ -25,10 +25,7 @@ func _ready():
 	confirmation_button = get_ok()
 	confirmation_button.connect("pressed", self, "finish_new_line")
 	is_valid()
-	
-func test(function):
-	print(function)
-	
+
 # checks to see if the user can quickly add a line
 func _input(event):
 	if event is InputEventKey and event.is_action_released("add_line") and not confirmation_button.disabled:
@@ -63,8 +60,9 @@ func finish_new_line():
 	
 	var lines_tab = get_tree().get_root().find_node("BaseLinesContainer", true, false)
 	lines_tab.line_signal_received(props)
-	reset()
 	
+	reset()
+
 	emit_signal("new_line_signal", props)
 	
 func reset():

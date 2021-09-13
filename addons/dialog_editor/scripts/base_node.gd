@@ -4,7 +4,7 @@ extends GraphNode
 var setting_name = "addons/Dialog Assets Folder"
 var id = ""
 
-func _ready():
+func _enter_tree():
 	id = Utils.calculate_id()
 
 func convert_to_json():

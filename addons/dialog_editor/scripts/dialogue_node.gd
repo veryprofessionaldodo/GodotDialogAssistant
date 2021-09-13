@@ -4,7 +4,7 @@ extends "res://addons/dialog_editor/scripts/base_node.gd"
 var all_lines = []
 var num_lines = 0
 
-func _ready():
+func _enter_tree():
 	update_lines()
 	
 func update_lines():
@@ -19,13 +19,12 @@ func new_line_dialogue_node(auto_select_id = -1):
 	options.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
 	for line in all_lines:
-		options.add_item(line["text"]["en"], int(line["id"]))
+		options.add_item(line.text.en, line.id)
 	
 	var found_selected_id = false
 	if not auto_select_id == -1:
 		for i in range(options.get_item_count()):
-			print("i am going through ", options.get_item_id(i), " comparing to ", int(auto_select_id))
-			if options.get_item_id(i) == int(auto_select_id):
+			if options.get_item_id(i) == auto_select_id:
 				options.select(i)
 				found_selected_id = true
 				break
@@ -90,10 +89,8 @@ func create_new_line_variable():
 	$AddLine.connect("new_line_signal", self, "select_last_added")
 	
 func select_last_added(properties):
-	print("vivas")
 	update_lines()
 	var new_line = all_lines[len(all_lines) - 1]
-	print(new_line)
 	new_line_dialogue_node(int(new_line.id))
 
 func validate_node_info():
@@ -111,7 +108,7 @@ func validate_node_info():
 			
 			var line_exists = false
 			for line in all_lines:
-				if int(line.id) == line_id:
+				if line.id == line_id:
 					line_exists = true
 					break
 			

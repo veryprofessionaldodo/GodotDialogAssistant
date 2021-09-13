@@ -11,8 +11,7 @@ func _ready():
 func populate_options():
 	var options = $VBoxContainer/NextContainer/NextOptions 
 	for file_struct in files_struct:
-		var int_id = int(file_struct.id.substr(0, Utils.MAX_CHAR_NUM))
-		options.add_item(file_struct.name, int_id)
+		options.add_item(file_struct.name, file_struct.id)
 		
 	options.select(len(files_struct) - 1)
 	next_conversation = set_conversation_from_index(len(files_struct) - 1)
@@ -45,8 +44,7 @@ func set_conversation_from_index(index):
 	var new_id = options.get_item_id(index) 
 	
 	for file_struct in files_struct: 
-		var int_id = int(file_struct.id.substr(0, Utils.MAX_CHAR_NUM))
-		if int_id == new_id:
+		if file_struct.id == new_id:
 			next_conversation = file_struct.id
 			return
 	

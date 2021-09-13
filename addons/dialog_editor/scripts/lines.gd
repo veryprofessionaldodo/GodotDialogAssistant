@@ -132,7 +132,7 @@ func add_new_line():
 
 func delete_line(container, id):
 	for i in range(0, len(lines)):
-		if lines[i].id == id:
+		if str(lines[i].id) == str(id):
 			lines.remove(i)
 			$"LinesInfo".remove_child(container)
 			save()
@@ -166,7 +166,6 @@ func save():
 	file.close()
 
 func line_signal_received(line):
-	lines.append(line)
+	lines.append(line)	
 	populate_line(line.id, line.text, line.char, line.time, line.audio)
 	save()
-	print("finished saving")

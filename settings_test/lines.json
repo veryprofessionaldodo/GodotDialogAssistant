@@ -1,7 +1,7 @@
 {
 	"lines": [
 		{
-			"id": "9a1ec34bc887cc3b4e6",
+			"id": 5289866,
 			"time": -1,
 			"type": "line",
 			"text": {
@@ -13,16 +13,76 @@
 			"char": "a"
 		},
 		{
-			"id": "9a1ec34baa231c3b4e6",
+			"id": 77888,
 			"time": -1,
 			"type": "line",
 			"text": {
-				"en": "f"
+				"en": "C"
 			},
 			"audio": {
 
 			},
-			"char": "f"
+			"char": "c"
+		},
+		{
+			"id": 44815616,
+			"time": -1,
+			"type": "line",
+			"text": {
+				"en": "c"
+			},
+			"audio": {
+
+			},
+			"char": "c"
+		},
+		{
+			"id": 20832,
+			"time": -1,
+			"type": "line",
+			"text": {
+				"en": "c"
+			},
+			"audio": {
+
+			},
+			"char": "c"
+		},
+		{
+			"id": 23034,
+			"time": -1,
+			"type": "line",
+			"text": {
+				"en": "l"
+			},
+			"audio": {
+
+			},
+			"char": "l"
+		},
+		{
+			"id": 18753,
+			"time": -1,
+			"type": "line",
+			"text": {
+				"en": "r"
+			},
+			"audio": {
+
+			},
+			"char": "r"
+		},
+		{
+			"id": 71840,
+			"time": -1,
+			"type": "line",
+			"text": {
+				"en": "m"
+			},
+			"audio": {
+
+			},
+			"char": "m"
 		}
 	]
 }
