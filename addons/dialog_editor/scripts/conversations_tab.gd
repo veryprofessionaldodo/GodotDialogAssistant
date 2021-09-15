@@ -210,7 +210,7 @@ func create_file(name):
 	var file = File.new()
 	var dict = {}
 	dict.id = Utils.calculate_id()
-	
+		
 	file.open(conversations_folder + name + ".json", File.WRITE)
 	var json_string = JSON.print(dict, "\t")
 	

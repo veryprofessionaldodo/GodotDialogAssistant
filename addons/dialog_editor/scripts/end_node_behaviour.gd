@@ -11,40 +11,40 @@ func _ready():
 func populate_options():
 	var options = $VBoxContainer/NextContainer/NextOptions 
 	for file_struct in files_struct:
-		options.add_item(file_struct.name, file_struct.id)
+		options.add_item(file_struct.name, int(file_struct.id))
 		
 	options.select(len(files_struct) - 1)
 	next_conversation = set_conversation_from_index(len(files_struct) - 1)
 
 func convert_to_json():
 	var dict = .convert_to_json()
-	
-	dict.next = next_conversation
+	var options = $VBoxContainer/NextContainer/NextOptions 
+	dict.next = options.get_selected_id()
 	dict.type = "end"
 	return dict
 
 func construct_from_json(info):
 	.construct_from_json(info)
 
-	next_conversation = info.next	
+	next_conversation = info.next
 	set_selected_from_id(next_conversation)
 	
 func get_type():
 		return "end"
 
-func set_selected_from_id(id):
+func set_selected_from_id(new_id = -1):
 	var options = $VBoxContainer/NextContainer/NextOptions 
 	
 	for i in range(len(files_struct)):
-		if id == files_struct[i].id:
+		if int(new_id) == int(files_struct[i].id):
 			options.select(i)
 		
 func set_conversation_from_index(index):
 	var options = $VBoxContainer/NextContainer/NextOptions 
 	var new_id = options.get_item_id(index) 
 	
-	for file_struct in files_struct: 
-		if file_struct.id == new_id:
+	for file_struct in files_struct:
+		if int(file_struct.id) == int(new_id):
 			next_conversation = file_struct.id
 			return
 	

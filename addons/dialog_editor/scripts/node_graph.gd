@@ -149,9 +149,14 @@ func setup_graph():
 		var new_node = get_new_node_by_type(node.type)
 		add_new_node(new_node)
 		new_node.construct_from_json(node)
-		
+	
 	# do connections between nodes
 	for node in current_conversation.nodes:
+		# it's an end node, continue
+		if not node.next is Array:
+			continue 
+		
+		# node has no end connections
 		if len(node.next) == 0:
 			continue
 		

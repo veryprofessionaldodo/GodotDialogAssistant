@@ -28,7 +28,7 @@ func _ready():
 
 # checks to see if the user can quickly add a line
 func _input(event):
-	if event is InputEventKey and event.is_action_released("add_line") and not confirmation_button.disabled:
+	if event is InputEventKey and event.is_action_released("ui_accept") and not confirmation_button.disabled:
 		confirmation_button.emit_signal("pressed")
 	
 func finish_new_line():
