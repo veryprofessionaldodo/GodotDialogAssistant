@@ -27,6 +27,10 @@ static func get_lines_path() -> String:
 	var setting_name = "addons/Dialog Assets Folder"
 	var assets_folder = ProjectSettings.get_setting(setting_name)
 	return assets_folder + "/lines.json"
+
+static func get_variables_folder() -> String:
+	var setting_name = "addons/Dialog Assets Folder"
+	return ProjectSettings.get_setting(setting_name)
 	
 static func get_variables_path() -> String:
 	var setting_name = "addons/Dialog Assets Folder"
@@ -60,7 +64,7 @@ static func get_conversations_struct() -> Array:
 	var dir = Directory.new()
 	dir.open(conversations_folder)
 	dir.list_dir_begin()
-
+	
 	while true:
 		var file = dir.get_next()
 		if file == "":

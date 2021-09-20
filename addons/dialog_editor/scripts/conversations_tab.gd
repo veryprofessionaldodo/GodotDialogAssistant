@@ -31,7 +31,7 @@ func initial_setup():
 
 	# get informations	
 	if ProjectSettings.has_setting(setting_name):
-		conversations_folder = ProjectSettings.get_setting(setting_name) + "/conversations/"
+		conversations_folder = Utils.get_conversations_path()
 
 		# get all the necessary information
 		files_struct = Utils.get_conversations_struct()
@@ -158,6 +158,7 @@ func rejected_line_edit():
 	container_being_edited = null
 
 func line_edit_updated(raw_text):
+	print("editing", raw_text)
 	var text = raw_text.replace(".json","").replace("/","")
 	# the old path is stored in the name of the button, the first children of the container
 	var old_path = conversations_folder + container_being_edited.get_children()[0].text + ".json"
@@ -165,7 +166,8 @@ func line_edit_updated(raw_text):
 	
 	# check if file already exists with that name 
 	var dir = Directory.new()
-	
+	dir.open(conversations_folder)
+
 	if dir.file_exists(new_path): 
 		print("File already exists, rejecting.")
 		rejected_line_edit()
@@ -178,19 +180,20 @@ func line_edit_updated(raw_text):
 	file.close()
 	
 	# remove previous file
-	dir.remove(old_path)
-	
+	dir.remove(container_being_edited.get_children()[0].text + ".json")
+
 	# create new file with the same text
 	file.open(new_path, File.WRITE)
 	file.store_line(content)
 	file.close()
-
+	
 	button_being_edited.text = text
 	container_being_edited.visible = true
 	line_edit_being_edited.visible = false
 	line_edit_being_edited = null
 	button_being_edited = null
 	container_being_edited = null
+	graph_node.load_conversation(current_conversation, false)
 
 func add_conversation():
 	var found_new = false
@@ -266,7 +269,8 @@ func export_final():
 	
 	var script_path = ProjectSettings.get_setting(setting_name) + "/script.json"
 	var dir = Directory.new()
-	dir.remove(script_path)
+	dir.open(ProjectSettings.get_setting(setting_name))
+	dir.remove("script.json")
 	
 	# create new file with the same text
 	var file = File.new()

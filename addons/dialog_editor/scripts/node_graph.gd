@@ -20,14 +20,16 @@ func _ready():
 	if ProjectSettings.has_setting(setting_name):
 		conversations_folder = ProjectSettings.get_setting(setting_name) + "/conversations/"
 
-func load_conversation(node):
+# autosave is used when changing conversation
+func load_conversation(node, auto_save = true):
 	# conversation was deleted, reset graph and do nothing else
 	if node == null:
 		current_conversation_path = null
 		reset_graph()
 		return
 
-	save_current_conversation()
+	if auto_save:
+		save_current_conversation()
 	
 	current_conversation_path = conversations_folder + node.text + ".json"
 	var file = File.new()
@@ -42,6 +44,8 @@ func load_conversation(node):
 func save_current_conversation():
 	if current_conversation_path == null: 
 		return
+		
+	print("saving to ", current_conversation_path)
 
 	var conversation_parsed = {}
 	conversation_parsed.id = id
@@ -70,8 +74,10 @@ func save_current_conversation():
 		
 	# remove previous file
 	var dir = Directory.new()
+	dir.open(conversations_folder)
+	print("current path ", current_conversation_path)
 	dir.remove(current_conversation_path)
-	
+
 	# create new file with the same text
 	var file = File.new()
 	file.open(current_conversation_path, File.WRITE)

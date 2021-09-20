@@ -1,18 +1,1 @@
-{
-	"variables": [
-		{
-			"id": "18fbce12ecd9ad0d",
-			"type": "number",
-			"value": 1,
-			"name": "vivas",
-			"description": ""
-		},
-		{
-			"id": "697fbf134d",
-			"type": "boolean",
-			"value": 0,
-			"name": "mequie",
-			"description": ""
-		}
-	]
-}
+{}
